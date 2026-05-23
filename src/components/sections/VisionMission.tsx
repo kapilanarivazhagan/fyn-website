@@ -22,27 +22,18 @@ export const VisionMission = () => {
           >
             <GlowCard className="h-full flex flex-col justify-between p-8 md:p-10" glowColor="rgba(232, 25, 122, 0.15)">
               <div>
-                <div className="flex items-center justify-between mb-8 border-b border-fyn-border/40 pb-4">
-                  <span className="text-xs font-mono uppercase tracking-widest text-fyn-pink bg-fyn-pink/10 px-2 py-0.5 rounded">
-                    Global Direction
-                  </span>
+                <div className="flex items-center gap-3 mb-8">
                   <div className="p-3 rounded-full bg-fyn-pink/10 border border-fyn-pink/20 text-fyn-pink">
                     <Eye className="w-6 h-6" />
                   </div>
+                  <h3 className="text-3xl font-black text-fyn-text uppercase tracking-tight">
+                    Our Vision
+                  </h3>
                 </div>
-
-                <h3 className="text-3xl font-black text-fyn-text uppercase tracking-tight mb-6">
-                  Our Vision
-                </h3>
                 
-                <p className="text-xl text-fyn-text-muted leading-relaxed font-medium">
-                  “Powering 100% green last-mile logistics and building India's largest, most resilient EV Supply Ecosystem, setting the benchmark for net-zero operational scale globally.”
+                <p className="text-lg text-fyn-text-muted leading-relaxed font-medium">
+                  Enabling dignity, income, and ownership for marginalized communities through tech-enabled, sustainable mobility.
                 </p>
-              </div>
-
-              <div className="mt-12 text-[10px] font-mono text-fyn-text-muted/40 uppercase tracking-widest flex justify-between">
-                <span>Ref: FYN_SYS_V1.0</span>
-                <span>Target: 2030 Net-Zero</span>
               </div>
             </GlowCard>
           </motion.div>
@@ -56,27 +47,18 @@ export const VisionMission = () => {
           >
             <GlowCard className="h-full flex flex-col justify-between p-8 md:p-10" glowColor="rgba(232, 25, 122, 0.15)">
               <div>
-                <div className="flex items-center justify-between mb-8 border-b border-fyn-border/40 pb-4">
-                  <span className="text-xs font-mono uppercase tracking-widest text-fyn-pink bg-fyn-pink/10 px-2 py-0.5 rounded">
-                    Action Plan
-                  </span>
+                <div className="flex items-center gap-3 mb-8">
                   <div className="p-3 rounded-full bg-fyn-pink/10 border border-fyn-pink/20 text-fyn-pink">
                     <Target className="w-6 h-6" />
                   </div>
+                  <h3 className="text-3xl font-black text-fyn-text uppercase tracking-tight">
+                    Our Mission
+                  </h3>
                 </div>
-
-                <h3 className="text-3xl font-black text-fyn-text uppercase tracking-tight mb-6">
-                  Our Mission
-                </h3>
                 
-                <p className="text-xl text-fyn-text-muted leading-relaxed font-medium">
-                  “Connecting enterprises, smart electric vehicles, charging infrastructures, and empowered driver partners through an asset-light, full-stack predictive software suite.”
+                <p className="text-lg text-fyn-text-muted leading-relaxed font-medium">
+                  To create a scalable tech mobility platform enabling marginalized communities to earn sustainably, access financial services, and progress from daily income to long-term ownership.
                 </p>
-              </div>
-
-              <div className="mt-12 text-[10px] font-mono text-fyn-text-muted/40 uppercase tracking-widest flex justify-between">
-                <span>Ref: FYN_OPS_M1.0</span>
-                <span>Method: Tech Integration</span>
               </div>
             </GlowCard>
           </motion.div>

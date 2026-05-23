@@ -24,24 +24,28 @@ export const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { label: "About Us", href: "#about" },
+    { label: "About Us", href: "#about-us" },
     { label: "Vision & Mission", href: "#vision-mission" },
     { label: "What We Do", href: "#what-we-do" },
     { label: "Refynd", href: "#refynd" },
     { label: "INFYNITY", href: "#infynity" },
     { label: "Clients & Partners", href: "#clients-partners" },
     { label: "Media", href: "#media" },
-    { label: "Get Involved", href: "#get-involved" },
-    { label: "Careers", href: "#careers" },
+    { label: "Our Culture & Careers", href: "#careers" },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
     const targetId = href.substring(1);
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Dispatch a global event requesting the page to mount/scroll to section
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("fyn:open-section", { detail: { id: targetId } }));
+      // Attempt to scroll after a short delay in case the section is already mounted
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 220);
     }
   };
 
@@ -57,9 +61,9 @@ export const Navbar = () => {
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Logo Brand */}
           <Link href="/" className="relative z-50 flex items-center group">
-            <div className="relative w-24 h-8 md:w-28 md:h-9 transition-transform duration-300 group-hover:scale-[1.02]">
+            <div className="relative w-28 h-9 md:w-32 md:h-10 transition-transform duration-300 group-hover:scale-[1.02]">
               <Image
-                src="/logos/fyn-logo-negative.png"
+                src="/logos/fyn-logo-negative-2.png"
                 alt="Fyn Mobility Logo"
                 fill
                 className="object-contain"
@@ -85,13 +89,13 @@ export const Navbar = () => {
 
           {/* Desktop Call to Action */}
           <div className="hidden xl:flex items-center ml-4">
-            <Link href="#get-involved">
+            <Link href="#get-involved" onClick={(e)=>handleLinkClick(e,'#get-involved')}>
               <Button
                 variant="primary"
                 size="sm"
                 className="font-bold cursor-pointer"
               >
-                Connect Now <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                Connect With Us <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
               </Button>
             </Link>
           </div>
@@ -157,15 +161,7 @@ export const Navbar = () => {
                 </span>
               </div>
 
-              <Link href="#get-involved" onClick={() => setMobileMenuOpen(false)}>
-                <Button
-                  variant="primary"
-                  size="lg"
-                  className="w-full font-bold cursor-pointer"
-                >
-                  Get Started <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
+                {/* Mobile CTA removed — primary CTA retained in top-right only to avoid duplication */}
             </motion.div>
           </motion.div>
         )}

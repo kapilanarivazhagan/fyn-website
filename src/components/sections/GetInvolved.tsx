@@ -160,7 +160,11 @@ export const GetInvolved = () => {
         />
 
         {/* Tab Selection */}
-        <div className="flex overflow-x-auto no-scrollbar border-b border-fyn-border/40 pb-4 mb-8 space-x-2 scroll-smooth">
+        <div
+          role="tablist"
+          aria-label="Get involved categories"
+          className="flex overflow-x-auto border-b border-fyn-border/40 pb-4 mb-8 space-x-2 scroll-smooth"
+        >
           {tabList.map((tab) => (
             <button
               key={tab.id}

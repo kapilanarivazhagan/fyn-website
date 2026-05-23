@@ -122,6 +122,50 @@ export const About = () => {
             </motion.div>
           </div>
         </div>
+
+        {/* Key Metrics Grid */}
+        <div className="mt-20 pt-16 border-t border-fyn-border/30">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
+          >
+            <div className="text-center">
+              <div className="text-3xl md:text-5xl font-black text-fyn-pink mb-3 tracking-tight">1,500+</div>
+              <p className="text-xs md:text-sm uppercase tracking-widest text-fyn-text-muted font-semibold">EVs on Road</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-5xl font-black text-fyn-pink mb-3 tracking-tight">5,000+</div>
+              <p className="text-xs md:text-sm uppercase tracking-widest text-fyn-text-muted font-semibold">Drivers Onboarded</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-5xl font-black text-fyn-pink mb-3 tracking-tight">10M+</div>
+              <p className="text-xs md:text-sm uppercase tracking-widest text-fyn-text-muted font-semibold">Orders Delivered</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-5xl font-black text-fyn-pink mb-3 tracking-tight">20M+</div>
+              <p className="text-xs md:text-sm uppercase tracking-widest text-fyn-text-muted font-semibold">Green KMs Run</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-5xl font-black text-fyn-pink mb-3 tracking-tight">51K</div>
+              <p className="text-xs md:text-sm uppercase tracking-widest text-fyn-text-muted font-semibold">Trees Equivalent</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-5xl font-black text-fyn-pink mb-3 tracking-tight">3</div>
+              <p className="text-xs md:text-sm uppercase tracking-widest text-fyn-text-muted font-semibold">Major Cities</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-5xl font-black text-fyn-pink mb-3 tracking-tight">2X</div>
+              <p className="text-xs md:text-sm uppercase tracking-widest text-fyn-text-muted font-semibold">YoY Growth</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl md:text-5xl font-black text-fyn-pink mb-3 tracking-tight">125+</div>
+              <p className="text-xs md:text-sm uppercase tracking-widest text-fyn-text-muted font-semibold">Team Members</p>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

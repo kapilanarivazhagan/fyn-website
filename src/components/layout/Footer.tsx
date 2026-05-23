@@ -5,9 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Linkedin,
-  Twitter,
   Instagram,
-  Youtube,
   Mail,
   MapPin,
   Phone,
@@ -21,9 +19,12 @@ export const Footer = () => {
     if (href.startsWith("#")) {
       e.preventDefault();
       const targetId = href.substring(1);
-      const element = document.getElementById(targetId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("fyn:open-section", { detail: { id: targetId } }));
+        setTimeout(() => {
+          const el = document.getElementById(targetId);
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 280);
       }
     }
   };
@@ -35,7 +36,7 @@ export const Footer = () => {
       { label: "INFYNITY Driver App", href: "#infynity" },
     ],
     company: [
-      { label: "About Us", href: "#about" },
+      { label: "About Us", href: "#about-us" },
       { label: "Vision & Mission", href: "#vision-mission" },
       { label: "What We Do", href: "#what-we-do" },
       { label: "Clients & Partners", href: "#clients-partners" },
@@ -51,13 +52,6 @@ export const Footer = () => {
     ],
   };
 
-  const socialLinks = [
-    { icon: <Linkedin className="w-4 h-4" />, url: "https://linkedin.com", label: "LinkedIn" },
-    { icon: <Twitter className="w-4 h-4" />, url: "https://twitter.com", label: "X" },
-    { icon: <Instagram className="w-4 h-4" />, url: "https://instagram.com", label: "Instagram" },
-    { icon: <Youtube className="w-4 h-4" />, url: "https://youtube.com", label: "YouTube" },
-  ];
-
   return (
     <footer className="bg-[#080808] border-t border-fyn-border/40 font-barlow relative overflow-hidden">
       {/* Subtle bottom accent glow */}
@@ -69,7 +63,7 @@ export const Footer = () => {
           <div className="lg:col-span-2 space-y-6">
             <Link href="/" className="inline-block relative w-32 h-10">
               <Image
-                src="/logos/fyn-logo-negative.png"
+                src="/logos/fyn-logo-negative-2.png"
                 alt="Fyn Mobility Logo"
                 fill
                 className="object-contain"
@@ -79,18 +73,33 @@ export const Footer = () => {
               A tech-enabled, asset-light platform building India&apos;s largest EV supply ecosystem — connecting enterprise demand with trained drivers, smart electric vehicles, and a full-stack tech suite.
             </p>
             <div className="flex items-center space-x-3.5">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-xl bg-fyn-surface/60 border border-fyn-border/40 flex items-center justify-center text-fyn-text-muted hover:text-fyn-pink hover:border-fyn-pink/60 transition-all duration-300 shadow-sm"
-                  aria-label={social.label}
-                >
-                  {social.icon}
-                </a>
-              ))}
+              <a
+                href="https://www.facebook.com/fynmobility/#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-fyn-surface/60 border border-fyn-border/40 flex items-center justify-center text-fyn-text-muted hover:text-fyn-pink hover:border-fyn-pink/60 transition-all duration-300 shadow-sm"
+                aria-label="Facebook"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor"><path d="M22 12a10 10 0 10-11.5 9.9v-7h-2.2v-2.9h2.2V9.1c0-2.2 1.3-3.5 3.3-3.5.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2v1.6h2.3l-.4 2.9h-1.9v7A10 10 0 0022 12z"/></svg>
+              </a>
+              <a
+                href="https://www.instagram.com/fyn_mobility/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-fyn-surface/60 border border-fyn-border/40 flex items-center justify-center text-fyn-text-muted hover:text-fyn-pink hover:border-fyn-pink/60 transition-all duration-300 shadow-sm"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/pibeam/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-fyn-surface/60 border border-fyn-border/40 flex items-center justify-center text-fyn-text-muted hover:text-fyn-pink hover:border-fyn-pink/60 transition-all duration-300 shadow-sm"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
             </div>
           </div>
 

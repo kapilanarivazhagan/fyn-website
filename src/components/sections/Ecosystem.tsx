@@ -80,7 +80,7 @@ export const Ecosystem = () => {
               Select an Ecosystem Node to Inspect Connections:
             </h4>
             
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {nodes.map((node) => {
                 const Icon = node.icon;
                 const isSelected = node.id === activeNode;
