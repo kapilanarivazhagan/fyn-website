@@ -13,16 +13,13 @@ export default function IntroLoader({
 
   useEffect(() => {
     const totalMs = 3500;
-    const unmountExitMs = 800; // must match exit.duration
 
     const timer = window.setTimeout(() => {
       // Trigger exit animation/unmount via AnimatePresence
       setHide(true);
 
       // Notify parent when overlay is gone (homepage can reveal safely)
-      window.setTimeout(() => {
-        onFinish?.();
-      }, unmountExitMs);
+      onFinish?.();
     }, totalMs);
 
     return () => {

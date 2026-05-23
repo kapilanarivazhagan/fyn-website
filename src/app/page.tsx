@@ -24,9 +24,7 @@ export default function Home() {
 
   return (
     <>
-      {showIntro && <IntroLoader onFinish={() => setShowIntro(false)} />}
-      {!showIntro && (
-        <div className="relative min-h-screen bg-[#080808]">
+      <div className="relative min-h-screen bg-[#080808]">
           <Navbar />
           <main className="relative z-10">
             <Hero />
@@ -46,7 +44,9 @@ export default function Home() {
             <Careers />
           </main>
           <Footer />
-        </div>
+      </div>
+      {showIntro && (
+        <IntroLoader onFinish={() => setShowIntro(false)} />
       )}
     </>
   );

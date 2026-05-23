@@ -24,13 +24,13 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-[#080808]/80" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/90 via-[#080808]/60 to-[#080808]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/70 via-transparent to-[#080808]/50" />
-        <div className="absolute inset-0 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-[#080808]/80 md:backdrop-blur-[2px]" />
       </div>
 
       {/* Soft glowing ambient circles */}
       <div className="absolute inset-0 z-[1] pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-fyn-pink/10 blur-[100px] animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[450px] h-[450px] rounded-full bg-fyn-pink/[0.04] blur-[130px] animate-pulse-slow" />
+        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-fyn-pink/10 blur-[80px] md:blur-[100px] md:animate-pulse-slow" />
+        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[350px] h-[350px] md:w-[450px] md:h-[450px] rounded-full bg-fyn-pink/[0.04] blur-[90px] md:blur-[130px] md:animate-pulse-slow" />
       </div>
 
       <div className="relative z-10 max-w-5xl text-center mx-auto">
