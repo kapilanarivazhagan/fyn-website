@@ -37,8 +37,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${barlow.variable} font-sans bg-[#080808] text-[#F4F4EF] antialiased select-none no-scrollbar`}>
+      <body
+        className={`${barlow.variable} font-sans text-[#F4F4EF] antialiased select-none no-scrollbar`}
+      >
         {children}
+
         {/* Floating Chatbot Engine */}
         <Chatbot />
       </body>

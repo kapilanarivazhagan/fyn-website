@@ -12,14 +12,15 @@ export default function IntroLoader({
   const [hide, setHide] = useState(false);
 
   useEffect(() => {
-    const totalMs = 3500;
+    const totalMs = 2600;
 
     const timer = window.setTimeout(() => {
-      // Trigger exit animation/unmount via AnimatePresence
       setHide(true);
 
-      // Notify parent when overlay is gone (homepage can reveal safely)
-      onFinish?.();
+      // Wait for dissolve animation to complete
+      setTimeout(() => {
+        onFinish?.();
+      }, 1200);
     }, totalMs);
 
     return () => {
@@ -38,9 +39,10 @@ export default function IntroLoader({
           "
           exit={{
             opacity: 0,
-            y: 12,
+            scale: 1.02,
+            filter: "blur(6px)",
             transition: {
-              duration: 0.8,
+              duration: 1.2,
               ease: [0.22, 1, 0.36, 1],
             },
           }}

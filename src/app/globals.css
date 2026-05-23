@@ -17,18 +17,20 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--dark-bg);
+    background-color: #080808;
     color: var(--text-primary);
   }
 
   body {
-    background-color: var(--dark-bg);
     color: var(--text-primary);
     overflow-x: hidden;
+    min-height: 100vh;
+    background-color: #080808;
   }
 }
 
-/* Custom Premium Dark Scrollbars */
+/* PREMIUM SCROLLBAR */
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -48,18 +50,21 @@
   background: #E8197A;
 }
 
-/* Utility to hide scrollbars for interactive horizontal carousels */
+/* HIDE SCROLLBAR */
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
 }
 
-/* Glow spotlight utilities */
+/* GLOW EFFECT */
+
 .glow-card-spotlight {
   transition: opacity 0.5s ease;
 }
