@@ -29,8 +29,6 @@ import { Investors } from "../components/sections/Investors";
 import { Media } from "../components/sections/Media";
 import { Careers } from "../components/sections/Careers";
 
-import { ConnectWithUs } from "../components/sections/ConnectWithUs";
-
 type ViewType =
   | "home"
   | "about"
@@ -61,28 +59,34 @@ export default function Home() {
         "
       >
         {/* NAVBAR */}
+
         <Navbar
           activeView={activeView}
           setActiveView={setActiveView}
         />
 
         {/* MAIN CONTENT */}
+
         <main className="relative z-10">
-          
           {/* =========================================
-              HOME VIEW
+              HOME / HERO
           ========================================= */}
+
           {activeView === "home" && (
             <>
               <Hero
                 introComplete={!showIntro}
+                setActiveView={
+                  setActiveView
+                }
               />
             </>
           )}
 
           {/* =========================================
-              ABOUT VIEW
+              ABOUT US
           ========================================= */}
+
           {activeView === "about" && (
             <>
               <About />
@@ -100,8 +104,9 @@ export default function Home() {
           )}
 
           {/* =========================================
-              VISION VIEW
+              VISION & MISSION
           ========================================= */}
+
           {activeView === "vision" && (
             <>
               <VisionMission />
@@ -115,11 +120,15 @@ export default function Home() {
           )}
 
           {/* =========================================
-              WHAT WE DO VIEW
+              WHAT WE DO
           ========================================= */}
-          {activeView === "what-we-do" && (
+
+          {activeView ===
+            "what-we-do" && (
             <>
               <WhatWeDo />
+
+              <Ecosystem />
 
               <Platforms />
 
@@ -130,8 +139,9 @@ export default function Home() {
           )}
 
           {/* =========================================
-              REFYND VIEW
+              REFYND
           ========================================= */}
+
           {activeView === "refynd" && (
             <>
               <Refynd />
@@ -141,9 +151,11 @@ export default function Home() {
           )}
 
           {/* =========================================
-              INFYNITY VIEW
+              INFYNITY
           ========================================= */}
-          {activeView === "infynity" && (
+
+          {activeView ===
+            "infynity" && (
             <>
               <Infynity />
 
@@ -152,8 +164,9 @@ export default function Home() {
           )}
 
           {/* =========================================
-              CLIENTS VIEW
+              CLIENTS & PARTNERS
           ========================================= */}
+
           {activeView === "clients" && (
             <>
               <ClientsPartners />
@@ -165,8 +178,9 @@ export default function Home() {
           )}
 
           {/* =========================================
-              MEDIA VIEW
+              MEDIA
           ========================================= */}
+
           {activeView === "media" && (
             <>
               <Media />
@@ -175,22 +189,29 @@ export default function Home() {
             </>
           )}
 
-          {activeView === "get-involved" && (
+          {/* =========================================
+              OUR CULTURE & CAREERS
+          ========================================= */}
+
+          {activeView === "careers" && (
             <>
-               <GetInvolved />
+              <Careers />
+
+              <GetInvolved />
 
               <Footer />
             </>
           )}
 
           {/* =========================================
-              CAREERS VIEW
+              GET INVOLVED ONLY
           ========================================= */}
-          {activeView === "careers" && (
+
+          {activeView ===
+            "get-involved" && (
             <>
-             
-              <Careers />
               <GetInvolved />
+
               <Footer />
             </>
           )}
@@ -198,6 +219,7 @@ export default function Home() {
       </div>
 
       {/* INTRO LOADER */}
+
       {showIntro && (
         <IntroLoader
           onFinish={() =>

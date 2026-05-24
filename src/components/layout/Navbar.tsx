@@ -1,6 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+} from "react";
+
 import Image from "next/image";
 
 import {
@@ -30,6 +34,7 @@ type ViewType =
 
 interface NavbarProps {
   activeView: ViewType;
+
   setActiveView: React.Dispatch<
     React.SetStateAction<ViewType>
   >;
@@ -93,18 +98,6 @@ export const Navbar = ({
   }, [mobileMenuOpen]);
 
   /* =========================================
-     DEBUG MARKER
-  ========================================= */
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      console.log(
-        "Navbar mounted (cinematic grouped-view)"
-      );
-    }
-  }, []);
-
-  /* =========================================
      NAVIGATION LINKS
   ========================================= */
 
@@ -121,7 +114,8 @@ export const Navbar = ({
       view: "about",
     },
     {
-      label: "Vision & Mission",
+      label:
+        "Vision & Mission",
       view: "vision",
     },
     {
@@ -137,7 +131,8 @@ export const Navbar = ({
       view: "infynity",
     },
     {
-      label: "Clients & Partners",
+      label:
+        "Clients & Partners",
       view: "clients",
     },
     {
@@ -145,7 +140,8 @@ export const Navbar = ({
       view: "media",
     },
     {
-      label: "Our Culture & Careers",
+      label:
+        "Our Culture & Careers",
       view: "careers",
     },
   ];
@@ -173,9 +169,17 @@ export const Navbar = ({
         id="fyn-navbar-cinematic"
         data-nav-canonical="true"
         className={`
-          fixed top-0 left-0 right-0 z-50
-          transition-all duration-500
+          fixed
+          top-0
+          left-0
+          right-0
+          z-50
+
+          transition-all
+          duration-500
+
           font-barlow
+
           ${
             scrolled
               ? "backdrop-blur-md bg-[#080808]/85 border-b border-fyn-pink/15 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
@@ -185,27 +189,45 @@ export const Navbar = ({
       >
         <div
           className="
-            max-w-7xl mx-auto
-            px-4 sm:px-6 md:px-12
-            flex items-center justify-between
+            max-w-7xl
+            mx-auto
+
+            px-4
+            sm:px-6
+            md:px-12
+
+            flex
+            items-center
+            justify-between
           "
         >
           {/* LOGO */}
+
           <button
             onClick={() =>
-              handleViewChange("home")
+              handleViewChange(
+                "home"
+              )
             }
             className="
-              relative z-50
-              flex items-center group
+              relative
+              z-50
+
+              flex
+              items-center
+              group
             "
           >
             <div
               className="
                 relative
+
                 w-28 h-9
                 md:w-32 md:h-10
-                transition-transform duration-300
+
+                transition-transform
+                duration-300
+
                 group-hover:scale-[1.02]
               "
             >
@@ -220,11 +242,14 @@ export const Navbar = ({
           </button>
 
           {/* DESKTOP NAV */}
+
           <nav
             className="
-              hidden xl:flex
+              hidden
+              xl:flex
+
               items-center
-              space-x-2.5 2xl:space-x-4
+              space-x-6
             "
           >
             {navLinks.map((link) => (
@@ -236,14 +261,20 @@ export const Navbar = ({
                   )
                 }
                 className={`
-                  relative group whitespace-nowrap
+                  relative
+                  group
+                  whitespace-nowrap
+
                   py-1.5
-                  text-[10px]
-                  2xl:text-[11px]
+
+                  text-xs
                   font-bold
                   uppercase
                   tracking-wider
-                  transition-colors duration-300
+
+                  transition-colors
+                  duration-300
+
                   ${
                     activeView ===
                     link.view
@@ -256,10 +287,17 @@ export const Navbar = ({
 
                 <span
                   className={`
-                    absolute bottom-0 left-0
+                    absolute
+                    bottom-0
+                    left-0
+
                     h-0.5
+
                     bg-fyn-pink
-                    transition-all duration-300
+
+                    transition-all
+                    duration-300
+
                     ${
                       activeView ===
                       link.view
@@ -273,10 +311,14 @@ export const Navbar = ({
           </nav>
 
           {/* DESKTOP CTA */}
+
           <div
             className="
-              hidden xl:flex
-              items-center ml-2
+              hidden
+              xl:flex
+
+              items-center
+              ml-2
             "
           >
             <Button
@@ -290,8 +332,11 @@ export const Navbar = ({
               className="
                 font-bold
                 cursor-pointer
+
                 text-[10px]
+
                 px-3 py-1.5
+
                 2xl:text-xs
                 2xl:px-4
                 2xl:py-1.5
@@ -302,7 +347,8 @@ export const Navbar = ({
               <ArrowRight
                 className="
                   w-3 h-3
-                  2xl:w-3.5 2xl:h-3.5
+                  2xl:w-3.5
+                  2xl:h-3.5
                   ml-1.5
                 "
               />
@@ -310,6 +356,7 @@ export const Navbar = ({
           </div>
 
           {/* MOBILE MENU BUTTON */}
+
           <button
             onClick={() =>
               setMobileMenuOpen(
@@ -318,11 +365,17 @@ export const Navbar = ({
             }
             className="
               xl:hidden
-              relative z-50
+
+              relative
+              z-50
+
               p-2
+
               text-fyn-text
               hover:text-fyn-pink
+
               transition-colors
+
               cursor-pointer
             "
             aria-label="Toggle Menu"
@@ -337,6 +390,7 @@ export const Navbar = ({
       </header>
 
       {/* MOBILE MENU */}
+
       <AnimatePresence initial={false}>
         {mobileMenuOpen && (
           <motion.div
@@ -353,31 +407,50 @@ export const Navbar = ({
               duration: 0.25,
             }}
             className="
-              fixed inset-0 z-40
+              fixed
+              inset-0
+              z-40
+
               bg-[#080808]
-              pt-24 px-8 pb-12
-              flex flex-col justify-between
+
+              pt-24
+              px-8
+              pb-12
+
+              flex
+              flex-col
+              justify-between
+
               overflow-y-auto
               overflow-x-hidden
+
               font-barlow
               xl:hidden
             "
           >
             {/* GRID BG */}
+
             <div
               className="
-                absolute inset-0
+                absolute
+                inset-0
+
                 bg-grid-dots
                 opacity-20
+
                 pointer-events-none
               "
             />
 
             {/* MOBILE LINKS */}
+
             <div
               className="
-                relative z-10
-                flex flex-col
+                relative
+                z-10
+
+                flex
+                flex-col
                 space-y-6
               "
             >
@@ -404,12 +477,17 @@ export const Navbar = ({
                       }
                       className={`
                         block
+
                         text-left
                         text-xl
+
                         font-black
                         uppercase
                         tracking-tight
-                        transition-colors duration-300
+
+                        transition-colors
+                        duration-300
+
                         ${
                           activeView ===
                           link.view
@@ -426,6 +504,7 @@ export const Navbar = ({
             </div>
 
             {/* MOBILE FOOTER */}
+
             <motion.div
               initial={{
                 opacity: 0,
@@ -437,15 +516,21 @@ export const Navbar = ({
                 delay: 0.3,
               }}
               className="
-                relative z-10
+                relative
+                z-10
+
                 space-y-6
+
                 pt-6
-                border-t border-fyn-border/40
+
+                border-t
+                border-fyn-border/40
               "
             >
               <div
                 className="
-                  flex flex-col
+                  flex
+                  flex-col
                   space-y-3
                 "
               >
@@ -455,6 +540,7 @@ export const Navbar = ({
                     font-black
                     uppercase
                     tracking-widest
+
                     text-fyn-text-muted
                   "
                 >
@@ -483,6 +569,7 @@ export const Navbar = ({
               </div>
 
               {/* MOBILE CTA */}
+
               <Button
                 variant="primary"
                 size="md"
