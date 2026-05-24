@@ -75,7 +75,6 @@ export default function Home() {
             <>
               <Hero
                 introComplete={!showIntro}
-                setActiveView={setActiveView}
               />
             </>
           )}
