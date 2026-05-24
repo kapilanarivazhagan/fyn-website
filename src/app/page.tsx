@@ -40,7 +40,8 @@ type ViewType =
   | "infynity"
   | "clients"
   | "media"
-  | "careers";
+  | "careers"
+  | "get-involved";
 
 export default function Home() {
   const [showIntro, setShowIntro] =
