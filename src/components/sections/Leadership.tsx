@@ -9,9 +9,7 @@ import { SectionBackground } from "../ui/SectionBackground";
 // ─── Carousel constants ───────────────────────────────────────────────────────
 const CARD_WIDTH = 288;  // px (w-72)
 const CARD_GAP   = 24;   // px (mr-6)
-const SCROLL_SPEED = 0.5; // px per RAF frame (slowed down for premium cinematic feel)
-const INITIAL_REVEAL_SPEED = 0.16;
-const INITIAL_REVEAL_MS = 14000;
+const SCROLL_SPEED = 0.7; // px per RAF frame (smooth premium cinematic feel)
 
 export const Leadership = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -24,6 +22,7 @@ export const Leadership = () => {
   const startScroll = useRef(0);
   const scrollReady = useRef(false);
   const revealStartedAt = useRef(0);
+  const hasUserInteracted = useRef(false);  // Track if user has triggered animation
 
   // Triplicate list so the carousel always has a copy on the left and right
   const items = [...leadershipList, ...leadershipList, ...leadershipList];
@@ -64,9 +63,10 @@ export const Leadership = () => {
 
     const loop = () => {
       if (!running) return;
+      // Only scroll if: carousel is ready AND user has interacted AND not hovering/dragging
       if (scrollReady.current && !isHovered.current && !isDragging.current && el) {
         const elapsed = performance.now() - revealStartedAt.current;
-        const speed = elapsed < INITIAL_REVEAL_MS ? INITIAL_REVEAL_SPEED : SCROLL_SPEED;
+        const speed = SCROLL_SPEED;  // Use constant speed after interaction
         el.scrollLeft += speed;
 
         // Wrap boundaries inside the middle copy to ensure infinite loop
@@ -119,6 +119,8 @@ export const Leadership = () => {
 
   // ─── Drag Controls (Mouse + Touch Pointer events) ──────────────────────────
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    hasUserInteracted.current = true;  // Trigger animation on first interaction
+    revealStartedAt.current = performance.now();  // Reset timer for consistent speed
     isDragging.current = true;
     startX.current     = e.clientX;
     startScroll.current = containerRef.current?.scrollLeft ?? 0;
@@ -160,7 +162,7 @@ export const Leadership = () => {
   return (
     <section
       id="leadership"
-      className="py-12 sm:py-16 md:py-20 relative overflow-hidden font-barlow border-t border-fyn-border/10"
+      className="py-12 sm:py-16 md:py-20 relative overflow-x-hidden font-barlow border-t border-fyn-border/10"
     >
       <SectionBackground variant="careers" />
       {/* Ambient spotlights */}
@@ -195,7 +197,11 @@ export const Leadership = () => {
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
           onPointerCancel={onPointerUp}
-          onMouseEnter={() => { isHovered.current = true;  }}
+          onMouseEnter={() => {
+            hasUserInteracted.current = true;  // Trigger animation on first hover
+            revealStartedAt.current = performance.now();  // Reset timer
+            isHovered.current = true;
+          }}
           onMouseLeave={() => { isHovered.current = false; }}
           className="flex overflow-x-auto no-scrollbar pb-6 px-4"
           style={{

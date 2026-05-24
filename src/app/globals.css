@@ -55,6 +55,10 @@
   }
 }
 
+section {
+  scroll-margin-top: 100px;
+}
+
 /* PREMIUM SCROLLBAR */
 
 ::-webkit-scrollbar {

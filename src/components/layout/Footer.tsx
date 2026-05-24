@@ -20,7 +20,17 @@ export const Footer = () => {
       const targetId = href.substring(1);
       const element = document.getElementById(targetId);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        const navbarOffset = 100;
+
+        const elementPosition =
+          element.getBoundingClientRect().top + window.scrollY;
+
+        const offsetPosition = elementPosition - navbarOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
       }
     } else if (href === "/") {
       if (typeof window !== "undefined") {

@@ -1,61 +1,201 @@
 "use client";
 
 import React, { useState } from "react";
+
 import IntroLoader from "../components/intro/IntroLoader";
+
 import { Navbar } from "../components/layout/Navbar";
-import { Hero } from "../components/sections/Hero";
-import { About } from "../components/sections/About";
-import { VisionMission } from "../components/sections/VisionMission";
-import { WhatWeDo } from "../components/sections/WhatWeDo";
-import { LastMileBrands } from "../components/sections/LastMileBrands";
-import { Ecosystem } from "../components/sections/Ecosystem";
-import { Platforms } from "../components/sections/Platforms";
-import { Refynd } from "../components/sections/Refynd";
-import { Infynity } from "../components/sections/Infynity";
-import { FleetImpact } from "../components/sections/FleetImpact";
-import { ClientsPartners } from "../components/sections/ClientsPartners";
-import { Investors } from "../components/sections/Investors";
-import { Leadership } from "../components/sections/Leadership";
-import { Media } from "../components/sections/Media";
-import { GetInvolved } from "../components/sections/GetInvolved";
-import { Careers } from "../components/sections/Careers";
-import { ConnectWithUs } from "../components/sections/ConnectWithUs";
 import { Footer } from "../components/layout/Footer";
 
+import { Hero } from "../components/sections/Hero";
+
+import { About } from "../components/sections/About";
+import { VisionMission } from "../components/sections/VisionMission";
+import { Leadership } from "../components/sections/Leadership";
+import { Ecosystem } from "../components/sections/Ecosystem";
+import { GetInvolved } from "../components/sections/GetInvolved";
+
+import { WhatWeDo } from "../components/sections/WhatWeDo";
+import { LastMileBrands } from "../components/sections/LastMileBrands";
+import { Platforms } from "../components/sections/Platforms";
+import { FleetImpact } from "../components/sections/FleetImpact";
+
+import { Refynd } from "../components/sections/Refynd";
+import { Infynity } from "../components/sections/Infynity";
+
+import { ClientsPartners } from "../components/sections/ClientsPartners";
+import { Investors } from "../components/sections/Investors";
+
+import { Media } from "../components/sections/Media";
+import { Careers } from "../components/sections/Careers";
+
+import { ConnectWithUs } from "../components/sections/ConnectWithUs";
+
+type ViewType =
+  | "home"
+  | "about"
+  | "vision"
+  | "what-we-do"
+  | "refynd"
+  | "infynity"
+  | "clients"
+  | "media"
+  | "careers";
+
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] =
+    useState(true);
+
+  const [activeView, setActiveView] =
+    useState<ViewType>("home");
 
   return (
     <>
-      <div className="relative min-h-screen bg-[#080808]">
-        <div className="relative z-10">
-          <Navbar />
+      <div
+        className="
+          relative
+          min-h-screen
+          bg-[#080808]
+          overflow-x-hidden
+        "
+      >
+        {/* NAVBAR */}
+        <Navbar
+          activeView={activeView}
+          setActiveView={setActiveView}
+        />
 
-          <main>
-            <Hero introComplete={!showIntro} />
-            <About />
-            <VisionMission />
-            <WhatWeDo />
-            <LastMileBrands />
-            <Ecosystem />
-            <Platforms />
-            <Refynd />
-            <Infynity />
-            <FleetImpact />
-            <ClientsPartners />
-            <Investors />
-            <Leadership />
-            <Media />
-            <GetInvolved />
-            <Careers />
-          </main>
+        {/* MAIN CONTENT */}
+        <main className="relative z-10">
+          
+          {/* =========================================
+              HOME VIEW
+          ========================================= */}
+          {activeView === "home" && (
+            <>
+              <Hero
+                introComplete={!showIntro}
+                setActiveView={setActiveView}
+              />
+            </>
+          )}
 
-          <Footer />
-        </div>
+          {/* =========================================
+              ABOUT VIEW
+          ========================================= */}
+          {activeView === "about" && (
+            <>
+              <About />
+
+              <VisionMission />
+
+              <Leadership />
+
+              <Ecosystem />
+
+              <GetInvolved />
+
+              <Footer />
+            </>
+          )}
+
+          {/* =========================================
+              VISION VIEW
+          ========================================= */}
+          {activeView === "vision" && (
+            <>
+              <VisionMission />
+
+              <LastMileBrands />
+
+              <Investors />
+
+              <Footer />
+            </>
+          )}
+
+          {/* =========================================
+              WHAT WE DO VIEW
+          ========================================= */}
+          {activeView === "what-we-do" && (
+            <>
+              <WhatWeDo />
+
+              <Platforms />
+
+              <FleetImpact />
+
+              <Footer />
+            </>
+          )}
+
+          {/* =========================================
+              REFYND VIEW
+          ========================================= */}
+          {activeView === "refynd" && (
+            <>
+              <Refynd />
+
+              <Footer />
+            </>
+          )}
+
+          {/* =========================================
+              INFYNITY VIEW
+          ========================================= */}
+          {activeView === "infynity" && (
+            <>
+              <Infynity />
+
+              <Footer />
+            </>
+          )}
+
+          {/* =========================================
+              CLIENTS VIEW
+          ========================================= */}
+          {activeView === "clients" && (
+            <>
+              <ClientsPartners />
+
+              <Investors />
+
+              <Footer />
+            </>
+          )}
+
+          {/* =========================================
+              MEDIA VIEW
+          ========================================= */}
+          {activeView === "media" && (
+            <>
+              <Media />
+
+              <Footer />
+            </>
+          )}
+
+          {/* =========================================
+              CAREERS VIEW
+          ========================================= */}
+          {activeView === "careers" && (
+            <>
+              <GetInvolved />
+              <Careers />
+
+              <Footer />
+            </>
+          )}
+        </main>
       </div>
 
+      {/* INTRO LOADER */}
       {showIntro && (
-        <IntroLoader onFinish={() => setShowIntro(false)} />
+        <IntroLoader
+          onFinish={() =>
+            setShowIntro(false)
+          }
+        />
       )}
     </>
   );

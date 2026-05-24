@@ -16,6 +16,7 @@ const scrollToSection = (id: string) => {
 
 export const Hero = ({
   introComplete = true,
+  setActiveView,
 }: {
   introComplete?: boolean;
 }) => {
@@ -153,7 +154,7 @@ export const Hero = ({
             variant="primary"
             size="lg"
             className="w-full sm:w-auto"
-            onClick={() => scrollToSection("about-us")}
+            onClick={() => setActiveView("about")}
           >
             Learn About Us
             <ArrowRight className="w-5 h-5 ml-2 shrink-0" />
@@ -164,7 +165,7 @@ export const Hero = ({
             variant="glass"
             size="lg"
             className="w-full sm:w-auto"
-            onClick={() => scrollToSection("get-involved")}
+            onClick={() => setActiveView("careers")}
           >
             Connect With Us
             <ArrowRight className="w-5 h-5 ml-2 shrink-0" />
