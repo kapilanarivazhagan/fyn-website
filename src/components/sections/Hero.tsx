@@ -153,7 +153,7 @@ export const Hero = ({
             variant="primary"
             size="lg"
             className="w-full sm:w-auto"
-            onClick={() => setActiveView("about")}
+            onClick={() => scrollToSection("about")}
           >
             Learn About Us
             <ArrowRight className="w-5 h-5 ml-2 shrink-0" />
@@ -164,7 +164,7 @@ export const Hero = ({
             variant="glass"
             size="lg"
             className="w-full sm:w-auto"
-            onClick={() => setActiveView("get-involved")}
+            onClick={() =>scrollToSection("get-involved")}
           >
             Connect With Us
             <ArrowRight className="w-5 h-5 ml-2 shrink-0" />
