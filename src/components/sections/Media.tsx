@@ -6,13 +6,15 @@ import { GlowCard } from "../ui/GlowCard";
 import { mediaList, mediaMarqueeSources } from "@/data/media";
 import { PlayCircle, Podcast, ArrowUpRight, Volume2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionBackground } from "../ui/SectionBackground";
 
 export const Media = () => {
   return (
-    <section id="media" className="py-20 bg-[#080808] relative overflow-hidden font-barlow">
+    <section id="media" className="py-12 sm:py-16 md:py-20 bg-[#080808] relative overflow-hidden font-barlow">
+      <SectionBackground variant="media" />
       <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         <SectionHeading
           eyebrow="Press Coverage"
           title="Who’s talking about Fyn"
@@ -21,7 +23,7 @@ export const Media = () => {
       </div>
 
       {/* Scrolling Marquee */}
-      <div className="w-full overflow-hidden border-y border-fyn-border/40 py-6 mb-16 bg-[#0a0a0a]">
+      <div className="relative z-10 w-full overflow-hidden border-y border-fyn-border/40 py-6 mb-16 bg-[#0a0a0a]">
         <div className="flex w-max">
           {/* Double map for seamless looping */}
           <div className="flex space-x-12 animate-marquee shrink-0 uppercase font-black text-2xl tracking-widest text-fyn-text-muted/20 select-none">
@@ -41,7 +43,7 @@ export const Media = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Article Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {mediaList.slice(0, 3).map((art, idx) => (

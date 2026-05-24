@@ -5,6 +5,7 @@ import { GlowCard } from "../ui/GlowCard";
 import { Button } from "../ui/Button";
 import { PlayCircle, Shield, Heart, Landmark, BookOpen, HeartHandshake } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionBackground } from "../ui/SectionBackground";
 
 export const Infynity = () => {
   const pillars = [
@@ -36,10 +37,11 @@ export const Infynity = () => {
   ];
 
   return (
-    <section id="infynity" className="py-20 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+    <section id="infynity" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+      <SectionBackground variant="infynity" />
       <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-fyn-pink/[0.02] blur-[100px] pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Driver app features */}
           <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 order-2 lg:order-1">

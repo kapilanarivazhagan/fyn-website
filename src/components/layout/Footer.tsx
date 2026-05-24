@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Linkedin,
   Instagram,
@@ -16,22 +15,23 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
     if (href.startsWith("#")) {
-      e.preventDefault();
       const targetId = href.substring(1);
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else if (href === "/") {
       if (typeof window !== "undefined") {
-        window.dispatchEvent(new CustomEvent("fyn:open-section", { detail: { id: targetId } }));
-        setTimeout(() => {
-          const el = document.getElementById(targetId);
-          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 280);
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
   };
 
   const footerLinks = {
     platforms: [
-      { label: "OptiFyn Ops Suite", href: "#platforms" },
+      { label: "OptiFyn Ops Suite", href: "#refynd" },
       { label: "Refynd EV Leasing", href: "#refynd" },
       { label: "INFYNITY Driver App", href: "#infynity" },
     ],
@@ -57,18 +57,18 @@ export const Footer = () => {
       {/* Subtle bottom accent glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-24 bg-fyn-pink/5 blur-[80px] pointer-events-none rounded-full" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-10 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-20 pb-10 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16">
           {/* Logo Brand Descriptor */}
           <div className="lg:col-span-2 space-y-6">
-            <Link href="/" className="inline-block relative w-32 h-10">
+            <a href="/" onClick={(e) => handleLinkClick(e, "/")} className="inline-block relative w-32 h-10">
               <Image
                 src="/logos/fyn-logo-negative-2.png"
                 alt="Fyn Mobility Logo"
                 fill
                 className="object-contain"
               />
-            </Link>
+            </a>
             <p className="text-sm text-fyn-text-muted leading-relaxed max-w-sm">
               A tech-enabled, asset-light platform building India&apos;s largest EV supply ecosystem — connecting enterprise demand with trained drivers, smart electric vehicles, and a full-stack tech suite.
             </p>
@@ -112,7 +112,7 @@ export const Footer = () => {
               {footerLinks.platforms.map((link) => (
                 <li key={link.label}>
                   <a
-                    href={link.href}
+                    href="#"
                     onClick={(e) => handleLinkClick(e, link.href)}
                     className="text-xs font-semibold text-fyn-text-muted hover:text-fyn-text transition-colors duration-200 flex items-center group"
                   >
@@ -133,7 +133,28 @@ export const Footer = () => {
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <a
-                    href={link.href}
+                    href="#"
+                    onClick={(e) => handleLinkClick(e, link.href)}
+                    className="text-xs font-semibold text-fyn-text-muted hover:text-fyn-text transition-colors duration-200 flex items-center group"
+                  >
+                    {link.label}
+                    <ArrowUpRight className="w-3 h-3 ml-1 text-fyn-pink opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Quick Links Group 3: Partnerships */}
+          <div>
+            <h4 className="text-xs font-black uppercase tracking-wider text-fyn-text mb-6">
+              Partnerships
+            </h4>
+            <ul className="space-y-4">
+              {footerLinks.partnerships.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href="#"
                     onClick={(e) => handleLinkClick(e, link.href)}
                     className="text-xs font-semibold text-fyn-text-muted hover:text-fyn-text transition-colors duration-200 flex items-center group"
                   >

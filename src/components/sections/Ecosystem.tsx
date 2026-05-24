@@ -5,6 +5,7 @@ import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
 import { Users, Truck, Building, Zap, DollarSign, Cpu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { SectionBackground } from "../ui/SectionBackground";
 
 interface NodeItem {
   id: string;
@@ -65,8 +66,9 @@ export const Ecosystem = () => {
   const activeNodeData = nodes.find((n) => n.id === activeNode) || nodes[0];
 
   return (
-    <section id="vision-&-mission" className="py-20 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
-      <div className="max-w-7xl mx-auto">
+    <section id="ecosystem" className="relative isolate overflow-hidden py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 font-barlow">
+      <SectionBackground variant="ecosystem" />
+      <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading
           eyebrow="Ecosystem Operations"
           title="The Connected EV Supply Chain"
@@ -106,7 +108,7 @@ export const Ecosystem = () => {
 
           {/* Connected Hub Visualizer */}
           <div className="lg:col-span-7">
-            <GlowCard className="bg-[#0b0b0b] border-fyn-border/50 p-8 min-h-[420px] flex flex-col justify-between" glowColor="rgba(232, 25, 122, 0.12)">
+            <GlowCard className="bg-[#0b0b0b]/70 backdrop-blur-sm border-fyn-border/50 p-8 min-h-[420px] flex flex-col justify-between" glowColor="rgba(232, 25, 122, 0.12)">
               <div className="relative">
                 {/* Simulated connection lines & central hub indicator */}
                 <div className="flex items-center space-x-3 mb-6 pb-4 border-b border-fyn-border/40">

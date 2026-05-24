@@ -1,13 +1,15 @@
 "use client";
-
+<div className="absolute inset-0 bg-grid-dots opacity-10 pointer-events-none z-[1]" />
 import React from "react";
 import { GlowCard } from "../ui/GlowCard";
 import { Eye, Target } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionBackground } from "../ui/SectionBackground";
 
 export const VisionMission = () => {
   return (
-    <section id="vision-mission" className="py-20 px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow">
+    <section id="vision-mission" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 relative overflow-hidden font-barlow">
+      <SectionBackground variant="vision" />
       {/* Background dot grid pattern */}
       <div className="absolute inset-0 bg-grid-dots opacity-30 pointer-events-none" />
       

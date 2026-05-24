@@ -3,12 +3,14 @@
 import React from "react";
 import { SectionHeading } from "../ui/SectionHeading";
 import { InvestorCard } from "../ui/InvestorCard";
+import { SectionBackground } from "../ui/SectionBackground";
 import { investorsList } from "@/data/investors";
 import { motion } from "framer-motion";
 
 export const Investors = () => {
   return (
     <section id="investors" className="py-20 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+      <SectionBackground variant="investors" />
       <div className="absolute inset-0 bg-grid-dots opacity-20 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto relative z-10">

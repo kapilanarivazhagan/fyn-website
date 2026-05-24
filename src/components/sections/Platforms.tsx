@@ -7,11 +7,13 @@ import { Button } from "../ui/Button";
 import { platformsList } from "@/data/platforms";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionBackground } from "../ui/SectionBackground";
 
 export const Platforms = () => {
   return (
-    <section id="what-we-do" className="py-20 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
-      <div className="max-w-7xl mx-auto">
+    <section id="platforms" className="py-20 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+      <SectionBackground variant="platforms" />
+      <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading
           eyebrow="Proprietary Technology"
           title="The Platform Suite"

@@ -19,13 +19,39 @@
     scroll-behavior: smooth;
     background-color: #080808;
     color: var(--text-primary);
+    overscroll-behavior-x: none;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   body {
     color: var(--text-primary);
     overflow-x: hidden;
+    overscroll-behavior-x: none;
     min-height: 100vh;
     background-color: #080808;
+    max-width: 100%;
+    position: relative;
+  }
+}
+
+/* SAFARI GPU ACCELERATION HELPER */
+.safari-gpu {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* RESPONSIVE BACKDROP BLUR TUNING FOR MOBILE FPS */
+@media (max-width: 640px) {
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    background-color: rgba(12, 12, 12, 0.95) !important;
   }
 }
 

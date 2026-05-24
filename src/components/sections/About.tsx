@@ -5,11 +5,13 @@ import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
 import { Zap, GitBranch, Share2, Layers } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionBackground } from "../ui/SectionBackground";
 
 export const About = () => {
   return (
-    <section id="about-us" className="py-20 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
-      <div className="max-w-7xl mx-auto">
+    <section id="about-us" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+      <SectionBackground variant="about" />
+      <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading
           eyebrow="Who We Are"
           title="Fyn is more than a fleet operator"

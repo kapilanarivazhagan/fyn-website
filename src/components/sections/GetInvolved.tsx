@@ -5,6 +5,7 @@ import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
 import { FormInput } from "../ui/FormInput";
 import { Button } from "../ui/Button";
+import { SectionBackground } from "../ui/SectionBackground";
 import { CheckCircle2, ShieldCheck, MailOpen } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -150,6 +151,7 @@ export const GetInvolved = () => {
 
   return (
     <section id="get-involved" className="py-20 px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow">
+      <SectionBackground variant="involved" />
       <div className="absolute inset-0 bg-grid-dots opacity-20 pointer-events-none" />
 
       <div className="max-w-4xl mx-auto relative z-10">

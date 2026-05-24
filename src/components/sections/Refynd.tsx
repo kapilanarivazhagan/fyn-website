@@ -5,6 +5,7 @@ import { GlowCard } from "../ui/GlowCard";
 import { Button } from "../ui/Button";
 import { ShoppingBag, ShieldCheck, HeartHandshake, Percent } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionBackground } from "../ui/SectionBackground";
 
 export const Refynd = () => {
   const pillars = [
@@ -26,10 +27,11 @@ export const Refynd = () => {
   ];
 
   return (
-    <section id="refynd" className="py-20 px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow">
+    <section id="refynd" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow">
+      <SectionBackground variant="refynd" />
       <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-fyn-pink/[0.03] blur-[100px] pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Marketplace Narrative */}
           <div className="lg:col-span-5 text-left">

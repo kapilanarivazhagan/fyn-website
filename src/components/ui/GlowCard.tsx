@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -19,8 +19,23 @@ export const GlowCard: React.FC<GlowCardProps> = ({
 }) => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(true);
+
+  useEffect(() => {
+    // Detect touch/hover capability to avoid coordinate tracking on mobile
+    const mediaQuery = window.matchMedia("(hover: hover)");
+    setIsTouchDevice(!mediaQuery.matches);
+
+    const listener = (e: MediaQueryListEvent) => {
+      setIsTouchDevice(!e.matches);
+    };
+
+    mediaQuery.addEventListener("change", listener);
+    return () => mediaQuery.removeEventListener("change", listener);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isTouchDevice) return;
     const rect = e.currentTarget.getBoundingClientRect();
     setCoords({
       x: e.clientX - rect.left,
@@ -28,21 +43,33 @@ export const GlowCard: React.FC<GlowCardProps> = ({
     });
   };
 
-  const CardWrapper = interactive ? motion.div : "div";
+  const baseClassName = cn(
+    "relative overflow-hidden rounded-2xl border border-fyn-border bg-fyn-surface/75 p-6 backdrop-blur-md transition-all duration-300 font-barlow",
+    className
+  );
 
+  // ─── Non-interactive or touch device: plain div (no Framer Motion props on DOM) ───
+  if (!interactive || isTouchDevice) {
+    return (
+      <div className={baseClassName}>
+        <div className="relative z-10">{children}</div>
+      </div>
+    );
+  }
+
+  // ─── Desktop with hover capability: motion.div with whileHover ───
   return (
-    <CardWrapper
+    <motion.div
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={interactive ? { y: -4, transition: { duration: 0.2 } } : undefined}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-fyn-border bg-fyn-surface/75 p-6 backdrop-blur-md transition-all duration-300 font-barlow",
-        interactive && "hover:border-fyn-pink/30 hover:shadow-[0_10px_30px_rgba(232,25,122,0.05)]",
-        className
+        baseClassName,
+        "hover:border-fyn-pink/30 hover:shadow-[0_10px_30px_rgba(232,25,122,0.05)] cursor-pointer"
       )}
     >
-      {interactive && isHovered && (
+      {isHovered && (
         <div
           className="pointer-events-none absolute -inset-px transition-opacity duration-300"
           style={{
@@ -51,6 +78,6 @@ export const GlowCard: React.FC<GlowCardProps> = ({
         />
       )}
       <div className="relative z-10">{children}</div>
-    </CardWrapper>
+    </motion.div>
   );
 };

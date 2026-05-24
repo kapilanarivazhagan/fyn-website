@@ -3,10 +3,9 @@
 import React from "react";
 import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
-import { PartnerLogo } from "../ui/PartnerLogo";
-import { clientsList } from "@/data/clients";
 import { Truck, ShieldCheck, TrendingUp, Navigation, Smartphone, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionBackground } from "../ui/SectionBackground";
 
 export const WhatWeDo = () => {
   const coreActivities = [
@@ -49,8 +48,9 @@ export const WhatWeDo = () => {
   ];
 
   return (
-    <section id="what-we-do" className="py-20 px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow">
-      <div className="max-w-7xl mx-auto">
+    <section id="what-we-do" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow">
+      <SectionBackground variant="operations" />
+      <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading
           eyebrow="Core Operations"
           title="What We Do"
@@ -88,26 +88,6 @@ export const WhatWeDo = () => {
               </motion.div>
             );
           })}
-        </div>
-
-        {/* Enterprise Clients Grid */}
-        <div className="mt-20 pt-16 border-t border-fyn-border/40 text-center">
-          <h4 className="text-xs uppercase tracking-widest text-fyn-text-muted font-bold mb-8">
-            Powering Last-Mile Deliveries for India’s Leading Brands:
-          </h4>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {clientsList.map((client, idx) => (
-              <motion.div
-                key={client.id}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.04 }}
-              >
-                <PartnerLogo name={client.name} />
-              </motion.div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

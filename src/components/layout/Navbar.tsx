@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "../ui/Button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -23,6 +22,21 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      if (mobileMenuOpen) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+    }
+    return () => {
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "";
+      }
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { label: "About Us", href: "#about-us" },
     { label: "Vision & Mission", href: "#vision-mission" },
@@ -38,14 +52,26 @@ export const Navbar = () => {
     e.preventDefault();
     setMobileMenuOpen(false);
     const targetId = href.substring(1);
-    // Dispatch a global event requesting the page to mount/scroll to section
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
     if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("fyn:open-section", { detail: { id: targetId } }));
-      // Attempt to scroll after a short delay in case the section is already mounted
-      setTimeout(() => {
-        const el = document.getElementById(targetId);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 220);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleConnectClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault(); 
+    setMobileMenuOpen(false);
+    const element = document.getElementById("get-involved");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -58,9 +84,9 @@ export const Navbar = () => {
             : "bg-transparent py-5 border-b border-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between">
           {/* Logo Brand */}
-          <Link href="/" className="relative z-50 flex items-center group">
+          <a href="/" onClick={handleLogoClick} className="relative z-50 flex items-center group">
             <div className="relative w-28 h-9 md:w-32 md:h-10 transition-transform duration-300 group-hover:scale-[1.02]">
               <Image
                 src="/logos/fyn-logo-negative-2.png"
@@ -70,16 +96,16 @@ export const Navbar = () => {
                 priority
               />
             </div>
-          </Link>
+          </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center space-x-4 2xl:space-x-6">
+          <nav className="hidden xl:flex items-center space-x-2.5 2xl:space-x-4">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className="text-[11px] font-bold uppercase tracking-wider text-fyn-text-muted hover:text-fyn-text transition-colors duration-300 relative py-1.5 group whitespace-nowrap"
+                className="text-[10px] 2xl:text-[11px] font-bold uppercase tracking-wider text-fyn-text-muted hover:text-fyn-text transition-colors duration-300 relative py-1.5 group whitespace-nowrap"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-fyn-pink transition-all duration-300 group-hover:w-full" />
@@ -88,16 +114,16 @@ export const Navbar = () => {
           </nav>
 
           {/* Desktop Call to Action */}
-          <div className="hidden xl:flex items-center ml-4">
-            <Link href="#get-involved" onClick={(e)=>handleLinkClick(e,'#get-involved')}>
+          <div className="hidden xl:flex items-center ml-2">
+            <a href="#footer" onClick={handleConnectClick}>
               <Button
                 variant="primary"
                 size="sm"
-                className="font-bold cursor-pointer"
+                className="font-bold cursor-pointer text-[10px] px-3 py-1.5 2xl:text-xs 2xl:px-4 2xl:py-1.5"
               >
-                Connect With Us <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                Connect With Us <ArrowRight className="w-3 h-3 2xl:w-3.5 2xl:h-3.5 ml-1.5" />
               </Button>
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Hamburger Button */}
