@@ -16,7 +16,6 @@ const scrollToSection = (id: string) => {
 
 export const Hero = ({
   introComplete = true,
-  setActiveView,
 }: {
   introComplete?: boolean;
 }) => {
