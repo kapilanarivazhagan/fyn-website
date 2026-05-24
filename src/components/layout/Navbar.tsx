@@ -25,7 +25,8 @@ type ViewType =
   | "infynity"
   | "clients"
   | "media"
-  | "careers";
+  | "careers"
+  | "get-involved";
 
 interface NavbarProps {
   activeView: ViewType;
