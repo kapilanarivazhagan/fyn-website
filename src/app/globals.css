@@ -9,8 +9,10 @@
     --dark-surface-1: #0F0F0F;
     --dark-surface-2: #161616;
     --dark-surface-3: #1E1E1E;
+
     --text-primary: #F4F4EF;
     --text-muted: #7A7A75;
+
     --pink-tint: rgba(232, 25, 122, 0.12);
     --pink-border: rgba(232, 25, 122, 0.2);
   }
@@ -19,47 +21,86 @@
     scroll-behavior: smooth;
     background-color: #080808;
     color: var(--text-primary);
+
     overscroll-behavior-x: none;
+
     max-width: 100%;
     overflow-x: hidden;
   }
 
   body {
     color: var(--text-primary);
+
     overflow-x: hidden;
     overscroll-behavior-x: none;
+
     min-height: 100vh;
+
     background-color: #080808;
+
     max-width: 100%;
+
     position: relative;
+  }
+
+  /* =========================================
+     BETTER TEXT READABILITY
+     FOR CINEMATIC DARK BACKGROUNDS
+  ========================================= */
+
+  .text-fyn-text-muted {
+    font-weight: 500;
+    color: #8B8B86;
   }
 }
 
-/* SAFARI GPU ACCELERATION HELPER */
+/* =========================================
+   SAFARI GPU ACCELERATION HELPER
+========================================= */
+
 .safari-gpu {
   will-change: transform, opacity;
+
   transform: translate3d(0, 0, 0);
+
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+
   perspective: 1000px;
 }
 
-/* RESPONSIVE BACKDROP BLUR TUNING FOR MOBILE FPS */
+/* =========================================
+   RESPONSIVE BACKDROP BLUR
+   TUNING FOR MOBILE FPS
+========================================= */
+
 @media (max-width: 640px) {
   .backdrop-blur-md,
   .backdrop-blur-lg,
   .backdrop-blur-xl {
     backdrop-filter: blur(4px) !important;
     -webkit-backdrop-filter: blur(4px) !important;
-    background-color: rgba(12, 12, 12, 0.95) !important;
+
+    background-color: rgba(
+      12,
+      12,
+      12,
+      0.95
+    ) !important;
   }
 }
+
+/* =========================================
+   SECTION SCROLL OFFSET
+========================================= */
 
 section {
   scroll-margin-top: 100px;
 }
 
-/* PREMIUM SCROLLBAR */
+/* =========================================
+   PREMIUM SCROLLBAR
+========================================= */
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -72,7 +113,9 @@ section {
 
 ::-webkit-scrollbar-thumb {
   background: #1e1e1e;
+
   border-radius: 4px;
+
   border: 2px solid #080808;
 }
 
@@ -80,7 +123,9 @@ section {
   background: #E8197A;
 }
 
-/* HIDE SCROLLBAR */
+/* =========================================
+   HIDE SCROLLBAR
+========================================= */
 
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
@@ -93,7 +138,9 @@ section {
   }
 }
 
-/* GLOW EFFECT */
+/* =========================================
+   GLOW EFFECT
+========================================= */
 
 .glow-card-spotlight {
   transition: opacity 0.5s ease;

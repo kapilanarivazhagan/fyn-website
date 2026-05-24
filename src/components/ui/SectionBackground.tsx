@@ -169,8 +169,10 @@ export const SectionBackground = ({
             backgroundImage: `
               radial-gradient(circle at 72% 35%, rgba(232, 25, 122, 0.08), transparent 34%),
               linear-gradient(
-                rgba(8, 8, 8, ${background.overlay ?? 0.52}),
-                rgba(8, 8, 8, ${background.overlay ?? 0.52})
+                to bottom,
+                rgba(8, 8, 8, ${background.overlay ?? 0.58}),
+                rgba(8, 8, 8, ${background.overlay ?? 0.42}),
+                rgba(8, 8, 8, ${background.overlay ?? 0.68})
               ),
               url('${background.desktop}')
             `,
@@ -192,8 +194,10 @@ export const SectionBackground = ({
             backgroundImage: `
               radial-gradient(circle at 50% 82%, rgba(232, 25, 122, 0.06), transparent 36%),
               linear-gradient(
-                rgba(8, 8, 8, ${background.mobileOverlay ?? 0.64}),
-                rgba(8, 8, 8, ${background.mobileOverlay ?? 0.64})
+                to bottom,
+                rgba(8, 8, 8, ${background.mobileOverlay ?? 0.72}),
+                rgba(8, 8, 8, ${background.mobileOverlay ?? 0.52}),
+                rgba(8, 8, 8, ${background.mobileOverlay ?? 0.78})
               ),
               url('${background.mobile}')
             `,

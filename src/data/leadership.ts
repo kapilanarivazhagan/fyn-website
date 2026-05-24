@@ -1,20 +1,3 @@
-/**
- * ============================================================================
- * FYN LEADERSHIP & TEAM DATA CONSTANTS
- * ============================================================================
- * Centralized, editable database of Fyn's founders and team members.
- * 
- * HOW TO EDIT:
- * 1. ADDING A MEMBER: Insert a new object in the `leadershipList` array.
- * 2. IMAGES: Place the team member's square photo in the `public/Images/team/` 
- *    or similar public folder, then specify the filename in `imageName`.
- *    (e.g., `imageName: "jane-doe.jpg"`).
- * 3. SOCIALS: Add their LinkedIn profile link in the `linkedin` field. If not
- *    yet available, leave as an empty string `""` or omit it.
- * 4. BIO: Keep descriptions to under 30 words for clean aesthetic card display.
- * ============================================================================
- */
-
 export interface LeaderItem {
   id: string;
   name: string;
@@ -26,38 +9,6 @@ export interface LeaderItem {
 
 export const leadershipList: LeaderItem[] = [
   {
-    id: "visakh",
-    name: "Visakh Sasikumar",
-    role: "Co-founder & CEO",
-    bio: "Driving the strategic vision for India's clean energy mobility transition. Leading Fyn towards an asset-light, fully integrated EV ecosystem.",
-    imageName: "/Images/intro/visakh2.webp",
-    linkedin: ""
-  },
-  {
-    id: "niroop",
-    name: "Niroop Janardhanan",
-    role: "Co-founder & CBO",
-    bio: "Spearheading business development and strategic partnerships with enterprise clients, charging networks, and major financiers.",
-    imageName: "/Images/intro/niroop.webp",
-    linkedin: ""
-  },
-  {
-    id: "manu",
-    name: "Manu Iyer",
-    role: "Co-founder & CSO",
-    bio: "Focusing on supply chain optimization, strategic expansion, and hardware integration across our growing EV fleets.",
-    imageName: "manu.jpg",
-    linkedin: ""
-  },
-  {
-    id: "swagata",
-    name: "Swagata Borthakur",
-    role: "Senior Manager, Founder's Office",
-    bio: "Driving corporate development, cross-functional projects, and investor relations closely aligned with the executive vision.",
-    imageName: "swagata.jpg",
-    linkedin: ""
-  },
-  {
     id: "deeksha",
     name: "Deeksha Joshi",
     role: "Product Manager",
@@ -65,6 +16,7 @@ export const leadershipList: LeaderItem[] = [
     imageName: "deeksha.jpg",
     linkedin: ""
   },
+
   {
     id: "abhishek",
     name: "Abhishek Sharma",
@@ -73,6 +25,7 @@ export const leadershipList: LeaderItem[] = [
     imageName: "abhishek.jpg",
     linkedin: ""
   },
+
   {
     id: "anant",
     name: "Anant R",
@@ -81,6 +34,52 @@ export const leadershipList: LeaderItem[] = [
     imageName: "anant.jpg",
     linkedin: ""
   },
+
+  /* =========================================
+     FOUNDERS START HERE
+     (RIGHT-SIDE CINEMATIC REVEAL)
+  ========================================= */
+
+  {
+    id: "visakh",
+    name: "Visakh Sasikumar",
+    role: "Co-founder & CEO",
+    bio: "Driving the strategic vision for India's clean energy mobility transition. Leading Fyn towards an asset-light, fully integrated EV ecosystem.",
+    imageName: "/Images/intro/visakh2.webp",
+    linkedin: ""
+  },
+
+  {
+    id: "niroop",
+    name: "Niroop Janardhanan",
+    role: "Co-founder & CBO",
+    bio: "Spearheading business development and strategic partnerships with enterprise clients, charging networks, and major financiers.",
+    imageName: "/Images/intro/niroop.webp",
+    linkedin: ""
+  },
+
+  {
+    id: "manu",
+    name: "Manu Iyer",
+    role: "Co-founder & CSO",
+    bio: "Focusing on supply chain optimization, strategic expansion, and hardware integration across our growing EV fleets.",
+    imageName: "manu.jpg",
+    linkedin: ""
+  },
+
+  {
+    id: "swagata",
+    name: "Swagata Borthakur",
+    role: "Senior Manager, Founder's Office",
+    bio: "Driving corporate development, cross-functional projects, and investor relations closely aligned with the executive vision.",
+    imageName: "swagata.jpg",
+    linkedin: ""
+  },
+
+  /* =========================================
+     EXTENDED LEADERSHIP
+  ========================================= */
+
   {
     id: "aishwarya",
     name: "Aishwarya Rao",
@@ -89,6 +88,7 @@ export const leadershipList: LeaderItem[] = [
     imageName: "aishwarya.jpg",
     linkedin: ""
   },
+
   {
     id: "anguraj",
     name: "Anguraj Pandyan",
@@ -97,6 +97,7 @@ export const leadershipList: LeaderItem[] = [
     imageName: "anguraj.jpg",
     linkedin: ""
   },
+
   {
     id: "karthick",
     name: "Karthick B",
@@ -105,6 +106,7 @@ export const leadershipList: LeaderItem[] = [
     imageName: "karthick.jpg",
     linkedin: ""
   },
+
   {
     id: "sunil",
     name: "Sunil Kumar K",
@@ -113,6 +115,7 @@ export const leadershipList: LeaderItem[] = [
     imageName: "sunil.jpg",
     linkedin: ""
   },
+
   {
     id: "faraz",
     name: "Faraz Hakim Shaikh",
@@ -121,6 +124,7 @@ export const leadershipList: LeaderItem[] = [
     imageName: "faraz.jpg",
     linkedin: ""
   },
+
   {
     id: "manoj",
     name: "Manoj Kumar",
@@ -129,6 +133,7 @@ export const leadershipList: LeaderItem[] = [
     imageName: "manoj.jpg",
     linkedin: ""
   },
+
   {
     id: "naveen",
     name: "Naveen Kumar Verma",

@@ -278,37 +278,34 @@ export const Navbar = ({
               items-center ml-2
             "
           >
-            <button
+            <Button
+              variant="primary"
+              size="sm"
               onClick={() =>
                 handleViewChange(
-                  "careers"
+                  "get-involved"
                 )
               }
+              className="
+                font-bold
+                cursor-pointer
+                text-[10px]
+                px-3 py-1.5
+                2xl:text-xs
+                2xl:px-4
+                2xl:py-1.5
+              "
             >
-              <Button
-                variant="primary"
-                size="sm"
-                className="
-                  font-bold
-                  cursor-pointer
-                  text-[10px]
-                  px-3 py-1.5
-                  2xl:text-xs
-                  2xl:px-4
-                  2xl:py-1.5
-                "
-              >
-                Connect With Us
+              Connect With Us
 
-                <ArrowRight
-                  className="
-                    w-3 h-3
-                    2xl:w-3.5 2xl:h-3.5
-                    ml-1.5
-                  "
-                />
-              </Button>
-            </button>
+              <ArrowRight
+                className="
+                  w-3 h-3
+                  2xl:w-3.5 2xl:h-3.5
+                  ml-1.5
+                "
+              />
+            </Button>
           </div>
 
           {/* MOBILE MENU BUTTON */}
@@ -484,25 +481,21 @@ export const Navbar = ({
                 </span>
               </div>
 
-              {/* CTA */}
-              <button
+              {/* MOBILE CTA */}
+              <Button
+                variant="primary"
+                size="md"
                 onClick={() =>
                   handleViewChange(
-                    "careers"
+                    "get-involved"
                   )
                 }
-                className="block w-full"
+                className="w-full"
               >
-                <Button
-                  variant="primary"
-                  size="md"
-                  className="w-full"
-                >
-                  Connect With Us
+                Connect With Us
 
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </button>
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
             </motion.div>
           </motion.div>
         )}

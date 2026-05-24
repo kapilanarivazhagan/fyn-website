@@ -175,14 +175,22 @@ export default function Home() {
             </>
           )}
 
+          {activeView === "get-involved" && (
+            <>
+               <GetInvolved />
+
+              <Footer />
+            </>
+          )}
+
           {/* =========================================
               CAREERS VIEW
           ========================================= */}
           {activeView === "careers" && (
             <>
-              <GetInvolved />
+             
               <Careers />
-
+              <GetInvolved />
               <Footer />
             </>
           )}

@@ -165,7 +165,7 @@ export const Hero = ({
             variant="glass"
             size="lg"
             className="w-full sm:w-auto"
-            onClick={() => setActiveView("careers")}
+            onClick={() => setActiveView("get-involved")}
           >
             Connect With Us
             <ArrowRight className="w-5 h-5 ml-2 shrink-0" />
