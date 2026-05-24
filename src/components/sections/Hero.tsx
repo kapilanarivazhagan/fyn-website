@@ -54,7 +54,7 @@ export const Hero = ({
                 rgba(8, 8, 8, 0.10),
                 rgba(8, 8, 8, 0.30)
               ),
-              url('/Images/intro/desktop_bg.png')
+              url('/Images/intro/desktop_bg.webp')
             `,
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -71,7 +71,7 @@ export const Hero = ({
                 rgba(8, 8, 8, 0.15),
                 rgba(8, 8, 8, 0.38)
               ),
-              url('/Images/intro/mobile_bg.png')
+              url('/Images/intro/mobile_bg.webp')
             `,
             backgroundSize: "cover",
             backgroundPosition: "center",

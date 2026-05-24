@@ -30,7 +30,7 @@ export const leadershipList: LeaderItem[] = [
     name: "Visakh Sasikumar",
     role: "Co-founder & CEO",
     bio: "Driving the strategic vision for India's clean energy mobility transition. Leading Fyn towards an asset-light, fully integrated EV ecosystem.",
-    imageName: "/Images/intro/visakh(2).png",
+    imageName: "/Images/intro/visakh2.webp",
     linkedin: ""
   },
   {
@@ -38,7 +38,7 @@ export const leadershipList: LeaderItem[] = [
     name: "Niroop Janardhanan",
     role: "Co-founder & CBO",
     bio: "Spearheading business development and strategic partnerships with enterprise clients, charging networks, and major financiers.",
-    imageName: "/Images/intro/niroop.png",
+    imageName: "/Images/intro/niroop.webp",
     linkedin: ""
   },
   {

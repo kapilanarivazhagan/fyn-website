@@ -31,8 +31,8 @@ const cinematicBackgrounds: Record<
   }
 > = {
   about: {
-    desktop: `${IMAGE_BASE}/about_desktop.png`,
-    mobile: `${IMAGE_BASE}/about_mobile.png`,
+    desktop: `${IMAGE_BASE}/about_desktop.webp`,
+    mobile: `${IMAGE_BASE}/about_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center bottom",
     overlay: 0.52,
@@ -40,8 +40,8 @@ const cinematicBackgrounds: Record<
   },
 
   vision: {
-    desktop: `${IMAGE_BASE}/vision_desktop.png`, 
-    mobile: `${IMAGE_BASE}/vision_mobile.png`,
+    desktop: `${IMAGE_BASE}/vision_desktop.webp`, 
+    mobile: `${IMAGE_BASE}/vision_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center bottom",
     overlay: 0.52,
@@ -49,8 +49,8 @@ const cinematicBackgrounds: Record<
   },
 
   ecosystem: {
-    desktop: `${IMAGE_BASE}/ecosystem_desktop.png`,
-    mobile: `${IMAGE_BASE}/ecosystem_mobile.png`,
+    desktop: `${IMAGE_BASE}/ecosystem_desktop.webp`,
+    mobile: `${IMAGE_BASE}/ecosystem_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center",
     overlay: 0.28,
@@ -58,8 +58,8 @@ const cinematicBackgrounds: Record<
   },
 
   operations: {
-    desktop: `${IMAGE_BASE}/what_we_do_desktop.png`,
-    mobile: `${IMAGE_BASE}/what_we_do_mobile.png`,
+    desktop: `${IMAGE_BASE}/what_we_do_desktop.webp`,
+    mobile: `${IMAGE_BASE}/what_we_do_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center bottom",
     overlay: 0.52,
@@ -67,8 +67,8 @@ const cinematicBackgrounds: Record<
   },
 
   platforms: {
-    desktop: `${IMAGE_BASE}/platform_desktop.png`,
-    mobile: `${IMAGE_BASE}/platform_mobile.png`,
+    desktop: `${IMAGE_BASE}/platform_desktop.webp`,
+    mobile: `${IMAGE_BASE}/platform_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center bottom",
     overlay: 0.52,
@@ -76,8 +76,8 @@ const cinematicBackgrounds: Record<
   },
 
   refynd: {
-    desktop: `${IMAGE_BASE}/refynd_desktop.png`,
-    mobile: `${IMAGE_BASE}/refynd_mobile.png`,
+    desktop: `${IMAGE_BASE}/refynd_desktop.webp`,
+    mobile: `${IMAGE_BASE}/refynd_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center",
     overlay: 0.52,
@@ -85,8 +85,8 @@ const cinematicBackgrounds: Record<
   },
 
   infynity: {
-    desktop: `${IMAGE_BASE}/infynity_desktop.png`,
-    mobile: `${IMAGE_BASE}/infynity_mobile.png`,
+    desktop: `${IMAGE_BASE}/infynity_desktop.webp`,
+    mobile: `${IMAGE_BASE}/infynity_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center bottom",
     overlay: 0.52,
@@ -94,8 +94,8 @@ const cinematicBackgrounds: Record<
   },
 
   impact: {
-    desktop: `${IMAGE_BASE}/fleet_desktop.png`,
-    mobile: `${IMAGE_BASE}/fleet_mobile.png`,
+    desktop: `${IMAGE_BASE}/fleet_desktop.webp`,
+    mobile: `${IMAGE_BASE}/fleet_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center",
     overlay: 0.52,
@@ -103,8 +103,8 @@ const cinematicBackgrounds: Record<
   },
 
   partners: {
-    desktop: `${IMAGE_BASE}/clients_desktop.png`,
-    mobile: `${IMAGE_BASE}/clients_mobile.png`,
+    desktop: `${IMAGE_BASE}/clients_desktop.webp`,
+    mobile: `${IMAGE_BASE}/clients_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center bottom",
     overlay: 0.52,
@@ -112,8 +112,8 @@ const cinematicBackgrounds: Record<
   },
 
   investors: {
-    desktop: `${IMAGE_BASE}/investors_desktop.png`,
-    mobile: `${IMAGE_BASE}/investors_mobile.png`,
+    desktop: `${IMAGE_BASE}/investors_desktop.webp`,
+    mobile: `${IMAGE_BASE}/investors_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center",
     overlay: 0.52,
@@ -121,8 +121,8 @@ const cinematicBackgrounds: Record<
   },
 
   media: {
-    desktop: `${IMAGE_BASE}/media_desktop.png`,
-    mobile: `${IMAGE_BASE}/media_mobile.png`,
+    desktop: `${IMAGE_BASE}/media_desktop.webp`,
+    mobile: `${IMAGE_BASE}/media_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center",
     overlay: 0.52,
@@ -130,8 +130,8 @@ const cinematicBackgrounds: Record<
   },
 
   careers: {
-    desktop: `${IMAGE_BASE}/careers_desktop.png`,
-    mobile: `${IMAGE_BASE}/careers_mobile.png`,
+    desktop: `${IMAGE_BASE}/careers_desktop.webp`,
+    mobile: `${IMAGE_BASE}/careers_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center bottom",
     overlay: 0.52,
@@ -139,8 +139,8 @@ const cinematicBackgrounds: Record<
   },
 
   involved: {
-    desktop: `${IMAGE_BASE}/get_involved_desktop.png`,
-    mobile: `${IMAGE_BASE}/get_involved_mobile.png`,
+    desktop: `${IMAGE_BASE}/get_involved_desktop.webp`,
+    mobile: `${IMAGE_BASE}/get_involved_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center",
     overlay: 0.52,

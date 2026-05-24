@@ -12,15 +12,17 @@ export default function IntroLoader({
   const [hide, setHide] = useState(false);
 
   useEffect(() => {
-    const totalMs = 2600;
+    const totalMs = 3500;
+    const unmountExitMs = 800; // must match exit.duration
 
     const timer = window.setTimeout(() => {
+      // Trigger exit animation/unmount via AnimatePresence
       setHide(true);
 
-      // Wait for dissolve animation to complete
-      setTimeout(() => {
+      // Notify parent when overlay is gone (homepage can reveal safely)
+      window.setTimeout(() => {
         onFinish?.();
-      }, 1200);
+      }, unmountExitMs);
     }, totalMs);
 
     return () => {
@@ -39,10 +41,9 @@ export default function IntroLoader({
           "
           exit={{
             opacity: 0,
-            scale: 1.02,
-            filter: "blur(6px)",
+            y: 12,
             transition: {
-              duration: 1.2,
+              duration: 0.8,
               ease: [0.22, 1, 0.36, 1],
             },
           }}
@@ -50,7 +51,7 @@ export default function IntroLoader({
           {/* DESKTOP BG */}
           <div className="absolute inset-0 hidden md:block">
             <Image
-              src="/Images/intro/ChatGPT Image May 22, 2026, 06_25_25 PM.png"
+              src="/Images/intro/intro_20260522_062525.webp"
               alt="desktop bg"
               fill
               priority
@@ -61,7 +62,7 @@ export default function IntroLoader({
           {/* MOBILE BG */}
           <div className="absolute inset-0 block md:hidden">
             <Image
-              src="/Images/intro/ChatGPT Image May 22, 2026, 06_00_18 PM.png"
+              src="/Images/intro/intro_20260522_060018.webp"
               alt="mobile bg"
               fill
               priority
@@ -218,7 +219,7 @@ export default function IntroLoader({
             "
           >
             <Image
-              src="/Images/intro/ChatGPT Image May 23, 2026, 10_34_30 AM.png"
+              src="/Images/intro/intro_vehicle.png"
               alt="vehicle"
               fill
               priority

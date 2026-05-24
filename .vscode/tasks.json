@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Update intro image references",
+			"type": "shell",
+			"command": "echo 'Updating IntroLoader image references...'",
+			"args": [],
+			"isBackground": false
+		}
+	]
+}
