@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import IntroLoader from "../components/intro/IntroLoader";
 
@@ -47,6 +47,79 @@ export default function Home() {
 
   const [activeView, setActiveView] =
     useState<ViewType>("home");
+
+  /* =========================================
+     HASH-BASED VIEW NAVIGATION
+  ========================================= */
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash
+        .replace(/^#/, "")
+        .toLowerCase();
+
+      const hashToViewMap: Record<
+        string,
+        ViewType
+      > = {
+        refynd: "refynd",
+        careers: "careers",
+        infynity: "infynity",
+        "get-involved": "get-involved",
+      };
+
+      if (
+        hash &&
+        hashToViewMap[hash]
+      ) {
+        setActiveView(
+          hashToViewMap[hash]
+        );
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener(
+      "hashchange",
+      handleHashChange
+    );
+
+    return () => {
+      window.removeEventListener(
+        "hashchange",
+        handleHashChange
+      );
+    };
+  }, []);
+
+  /* =========================================
+     SCROLL TO SECTION WHEN VIEW CHANGES
+  ========================================= */
+
+  useEffect(() => {
+    const hash = window.location.hash
+      .replace(/^#/, "")
+      .toLowerCase();
+
+    if (!hash) return;
+
+    const timeoutId = setTimeout(() => {
+      const section =
+        document.getElementById(
+          hash
+        );
+
+      if (section) {
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }, 100);
+
+    return () =>
+      clearTimeout(timeoutId);
+  }, [activeView]);
 
   return (
     <>

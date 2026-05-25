@@ -61,10 +61,10 @@ export const Infynity = () => {
                       <div className="p-2.5 rounded-lg bg-fyn-pink/10 border border-fyn-pink/20 text-fyn-pink w-fit mb-4">
                         <Icon className="w-5 h-5" />
                       </div>
-                      <h3 className="text-lg font-bold text-fyn-text uppercase tracking-wider mb-2">
+                      <h3 className="text-lg font-black text-fyn-text uppercase tracking-wide mb-2">
                         {pil.title}
                       </h3>
-                      <p className="text-sm text-fyn-text-muted leading-relaxed">
+                      <p className="text-sm text-fyn-text leading-relaxed font-semibold opacity-85">
                         {pil.description}
                       </p>
                     </div>
@@ -82,10 +82,10 @@ export const Infynity = () => {
             <h2 className="text-3xl md:text-5xl font-black text-fyn-text uppercase tracking-tight leading-none mb-6">
               INFYNITY: MORE THAN A JOB
             </h2>
-            <p className="text-lg text-fyn-text-muted leading-relaxed mb-6">
+            <p className="text-xl text-fyn-text leading-relaxed font-semibold mb-6 opacity-90">
               A community for drivers. INFYNITY elevates India's last-mile gig-economy workers through healthcare, insurance, and direct financial inclusion.
             </p>
-            <p className="text-sm text-fyn-text-muted/80 leading-relaxed mb-8">
+            <p className="text-[15px] text-fyn-text leading-relaxed font-medium mb-8 opacity-80">
               We believe in driver-first logistics. By providing formal certification pathways, instant micro-payout mechanisms, and robust family medical security, we keep our 5,000+ driver network safe, loyal, and highly productive.
             </p>
             

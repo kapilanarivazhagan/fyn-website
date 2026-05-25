@@ -16,7 +16,14 @@ import { SectionBackground } from "../ui/SectionBackground";
    CAROUSEL CONFIG
 ========================================= */
 
-const CARD_WIDTH = 288;
+const CARD_WIDTH =
+  typeof window !== "undefined" &&
+  window.innerWidth >= 1280
+    ? 420
+    : typeof window !== "undefined" &&
+      window.innerWidth >= 768
+    ? 340
+    : 260;
 
 const CARD_GAP = 24;
 
@@ -54,6 +61,10 @@ export const Leadership = () => {
 
   const revealStartedAt =
     useRef(0);
+
+  const isMobile =
+    typeof window !== "undefined" &&
+    window.innerWidth < 768;
 
   /* =========================================
      TRIPLICATE LIST
@@ -142,7 +153,7 @@ export const Leadership = () => {
 
       if (
         scrollReady.current &&
-        isHovered.current &&
+        (isHovered.current || isMobile) &&
         !isDragging.current &&
         el
       ) {
@@ -339,7 +350,7 @@ export const Leadership = () => {
     <section
       id="leadership"
       className="
-        py-12 sm:py-16 md:py-20
+        py-8 sm:py-10 md:py-14
         relative
         overflow-x-hidden
         font-barlow
@@ -395,7 +406,7 @@ export const Leadership = () => {
       <div
         className="
           relative z-10
-          mt-12
+          mt-2 md:mt-3 lg:mt-4
         "
       >
         {/* LEFT FADE */}
@@ -459,8 +470,8 @@ export const Leadership = () => {
             flex
             overflow-x-auto
             no-scrollbar
-            pb-6
-            px-4
+            pb-4 sm:pb-5 md:pb-6
+            px-4 sm:px-6
           "
           style={{
             cursor: "grab",
@@ -470,8 +481,11 @@ export const Leadership = () => {
             WebkitOverflowScrolling:
               "touch",
 
+            WebkitTransform:
+              "translate3d(0, 0, 0)",
+
             transform:
-              "translateZ(0)",
+              "translate3d(0, 0, 0)",
 
             willChange:
               "scroll-position",
@@ -514,15 +528,16 @@ export const Leadership = () => {
         className="
           flex justify-center items-center
           gap-2
-          mt-4
+          mt-6 md:mt-8
 
-          text-[10px]
+          text-[9px] sm:text-[10px]
           font-mono
           tracking-widest
-          text-fyn-text-muted/50
+          text-fyn-text-muted/40
           uppercase
 
           select-none
+          pointer-events-none
         "
       >
         <span className="hidden md:block">
@@ -530,7 +545,7 @@ export const Leadership = () => {
         </span>
 
         <span className="md:hidden">
-          Swipe to explore team
+          Auto-scrolling leadership
         </span>
 
         <span

@@ -49,38 +49,39 @@ export const TeamCard: React.FC<TeamCardProps> = ({
         className="
           relative
           w-full
-          h-[360px]
+          h-[180px] sm:h-[240px] md:h-[280px] lg:h-[320px] xl:h-[360px]
 
           flex
-          items-end
+          items-center
           justify-center
 
-          overflow-visible
+          overflow-hidden
         "
       >
         <Image
           src={imageName}
           alt={name}
           fill
-          sizes="400px"
+          sizes="(max-width: 640px) 200px, (max-width: 768px) 280px, (max-width: 1024px) 320px, 360px"
           className="
-            object-contain
-            object-bottom
+            object-cover
+            object-center
 
-            group-hover:scale-[1.03]
+            group-hover:scale-[1.02]
 
             transition-transform
             duration-700
 
-            drop-shadow-[0_30px_80px_rgba(0,0,0,0.6)]
+            drop-shadow-[0_20px_60px_rgba(0,0,0,0.5)]
           "
           priority={false}
+          quality={85}
         />
       </div>
 
       {/* DETAILS */}
 
-      <div className="mt-4 pb-6">
+      <div className="mt-1 pb-2 sm:pb-3 md:pb-4">
         {/* NAME */}
 
         <h3
