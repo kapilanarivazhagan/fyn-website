@@ -22,7 +22,7 @@ export const platformsList: PlatformItem[] = [
       "Enterprise SLA dashboard with automated reporting"
     ],
     ctaText: "Request Demo",
-    ctaLink: "#get-involved",
+    ctaLink: "https://ops.fynmobility.com/a0ce743445e30281/admin/",
     imageName: "optifyn.jpg"
   },
   {

@@ -5,31 +5,100 @@
  * Centralized, editable database of Fyn's enterprise & last-mile clients.
  * 
  * HOW TO EDIT:
- * 1. ADDING A CLIENT: Insert a new object inside `clientsList`.
- * 2. LOGOS: Add the client logo PNG/SVG into `public/logos/` (e.g. `public/logos/porter.png`)
- *    and specify its path: `logo: "/logos/porter.png"`.
- *    Leave empty `""` to automatically fall back to typographic representation.
- * 3. WEBSITES: Add external website link under `website` if available.
+ * 1. ADDING A CLIENT:
+ *    Insert a new object inside `clientsList`.
+ * 
+ * 2. LOGOS:
+ *    Add logo files inside:
+ *    public/logos/
+ * 
+ *    Example:
+ *    public/logos/porter.webp
+ * 
+ *    Then reference:
+ *    logo: "/logos/porter.webp"
+ * 
+ * 3. WEBSITES:
+ *    Add official website URLs if available.
  * ============================================================================
  */
 
 export interface ClientItem {
   id: string;
   name: string;
-  logo: string; // File path to client logo (e.g., "/logos/porter.png")
-  website?: string; // External website link
-  description?: string; // Optional description
+  logo: string;
+  website?: string;
+  description?: string;
 }
 
 export const clientsList: ClientItem[] = [
-  { id: "porter", name: "Porter", logo: "/logos/porter.png", website: "" },
-  { id: "dhl", name: "DHL", logo: "/logos/dhl.png", website: "" },
-  { id: "delhivery", name: "Delhivery", logo: "/logos/delhivery.png", website: "" },
-  { id: "cocacola", name: "Coca-Cola", logo: "/logos/cocacola.png", website: "" },
-  { id: "amazon", name: "Amazon", logo: "/logos/amazon.png", website: "" },
-  { id: "bigbasket", name: "BigBasket", logo: "/logos/bigbasket.png", website: "" },
-  { id: "flipkart", name: "Flipkart", logo: "/logos/flipkart.png", website: "" },
-  { id: "rapido", name: "Rapido", logo: "/logos/rapido.png", website: "" },
-  { id: "uber", name: "Uber", logo: "/logos/uber.png", website: "" },
-  { id: "nammayatri", name: "NammaYatri", logo: "/logos/nammayatri.png", website: "" }
+  {
+    id: "porter",
+    name: "Porter",
+    logo: "/logos/porter.webp",
+    website: "https://porter.in",
+  },
+
+  {
+    id: "dhl",
+    name: "DHL",
+    logo: "/logos/dhl.webp",
+    website: "https://www.dhl.com",
+  },
+
+  {
+    id: "delhivery",
+    name: "Delhivery",
+    logo: "/logos/delhivery.webp",
+    website: "https://www.delhivery.com",
+  },
+
+  {
+    id: "cocacola",
+    name: "Coca-Cola",
+    logo: "/logos/coke.webp",
+    website: "https://www.coca-cola.com",
+  },
+
+  {
+    id: "amazon",
+    name: "Amazon",
+    logo: "/logos/amazon.webp",
+    website: "https://www.amazon.in",
+  },
+
+  {
+    id: "bigbasket",
+    name: "BigBasket",
+    logo: "/logos/bigbasket.webp",
+    website: "https://www.bigbasket.com",
+  },
+
+  {
+    id: "flipkart",
+    name: "Flipkart",
+    logo: "/logos/flipkart.webp",
+    website: "https://www.flipkart.com",
+  },
+
+  {
+    id: "rapido",
+    name: "Rapido",
+    logo: "/logos/rapido.webp",
+    website: "https://www.rapido.bike",
+  },
+
+  {
+    id: "uber",
+    name: "Uber",
+    logo: "/logos/uber.webp",
+    website: "https://www.uber.com",
+  },
+
+  {
+    id: "nammayatri",
+    name: "Namma Yatri",
+    logo: "/logos/nammayatri.webp",
+    website: "https://www.nammayatri.in",
+  },
 ];
