@@ -359,3 +359,51 @@ section {
 .glow-card-spotlight {
   transition: opacity 0.5s ease;
 }
+
+/* =========================================
+   HERO STAT COUNTING PULSE
+========================================= */
+
+.fyn-hero-stat-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, 0, 0) scale(0.98);
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(232, 25, 122, 0.24),
+      rgba(232, 25, 122, 0.08) 38%,
+      transparent 72%
+    );
+  transition: opacity 420ms ease;
+  will-change: opacity, transform;
+}
+
+.fyn-hero-stat-card-counting::before {
+  animation: fyn-stat-count-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes fyn-stat-count-pulse {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translate3d(0, 0, 0) scale(0.985);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: translate3d(0, 0, 0) scale(1.01);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fyn-hero-stat-card-counting::before {
+    animation: none;
+    opacity: 0.25;
+  }
+}

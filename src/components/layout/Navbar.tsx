@@ -243,7 +243,8 @@ export const Navbar = ({
               xl:flex
 
               items-center
-              space-x-6
+              space-x-5
+              2xl:space-x-6
             "
           >
             {navLinks.map((link) => (
@@ -322,7 +323,8 @@ export const Navbar = ({
               xl:flex
 
               items-center
-              ml-2
+              ml-8
+              2xl:ml-10
             "
           >
             <Button
@@ -337,12 +339,26 @@ export const Navbar = ({
                 cursor-pointer
 
                 text-[10px]
+                leading-none
+                whitespace-nowrap
+                flex-nowrap
 
-                px-3 py-1.5
+                h-9
+                min-h-9
+                px-4
+                py-0
+
+                bg-gradient-to-r
+                from-fyn-pink
+                via-[#ff2d92]
+                to-fyn-pink
+                bg-[length:160%_100%]
+                shadow-[0_0_18px_rgba(232,25,122,0.28)]
+                hover:shadow-[0_0_24px_rgba(232,25,122,0.42)]
+                transform-gpu
 
                 2xl:text-xs
-                2xl:px-4
-                2xl:py-1.5
+                2xl:px-5
               "
             >
               Connect With Us
@@ -353,6 +369,7 @@ export const Navbar = ({
                   2xl:w-3.5
                   2xl:h-3.5
                   ml-1.5
+                  shrink-0
                 "
               />
             </Button>

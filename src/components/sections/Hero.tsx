@@ -1,10 +1,18 @@
 "use client";
 
-import React from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 
 import { Button } from "../ui/Button";
 
-import { motion } from "framer-motion";
+import {
+  animate,
+  motion,
+  useReducedMotion,
+} from "framer-motion";
 
 import { ArrowRight } from "lucide-react";
 
@@ -20,6 +28,222 @@ type ViewType =
   | "careers"
   | "get-involved";
 
+type HeroStat = {
+  value: number;
+  suffix: string;
+  label: string;
+  formatter?: (value: number) => string;
+};
+
+const heroStats: HeroStat[] = [
+  {
+    value: 1500,
+    suffix: "+",
+    label: "EVs on Road",
+  },
+  {
+    value: 5000,
+    suffix: "+",
+    label: "Drivers Onboarded",
+  },
+  {
+    value: 20,
+    suffix: "M+",
+    label: "Green KMs Run",
+  },
+  {
+    value: 3,
+    suffix: " Cities",
+    label: "Multi-City Operations",
+  },
+];
+
+const formatCount = (
+  value: number,
+  formatter?: (value: number) => string
+) => {
+  if (formatter) {
+    return formatter(value);
+  }
+
+  return Math.round(value).toLocaleString("en-IN");
+};
+
+const AnimatedStatCard = ({
+  stat,
+  index,
+  replayKey,
+  isActive,
+}: {
+  stat: HeroStat;
+  index: number;
+  replayKey: number;
+  isActive: boolean;
+}) => {
+  const [displayValue, setDisplayValue] =
+    useState(0);
+
+  const [isCounting, setIsCounting] =
+    useState(false);
+
+  const shouldReduceMotion =
+    useReducedMotion();
+
+  const lastPlayedKeyRef =
+    React.useRef(-1);
+  const controlsRef =
+    React.useRef<
+      ReturnType<typeof animate> | undefined
+    >(undefined);
+
+  useLayoutEffect(() => {
+    if (!isActive) {
+      return;
+    }
+
+    if (
+      lastPlayedKeyRef.current === replayKey
+    ) {
+      return;
+    }
+
+    lastPlayedKeyRef.current = replayKey;
+
+    if (shouldReduceMotion) {
+      setDisplayValue(stat.value);
+      return;
+    }
+
+    setIsCounting(true);
+    setDisplayValue(0);
+
+    const startDelay =
+      shouldReduceMotion ? 0 : index * 0.04;
+    const countDuration =
+      stat.value <= 3
+        ? 0.75
+        : stat.value <= 20
+          ? 0.95
+          : 1.35;
+
+    const timeoutId = window.setTimeout(() => {
+      controlsRef.current?.stop();
+
+      controlsRef.current = animate(
+        0,
+        stat.value,
+        {
+          duration: countDuration,
+          ease: [0.18, 0.74, 0.2, 1],
+          onUpdate: (latest) =>
+            setDisplayValue(latest),
+          onComplete: () =>
+            setIsCounting(false),
+        }
+      );
+    }, startDelay * 1000);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      controlsRef.current?.stop();
+      setIsCounting(false);
+    };
+  }, [
+    index,
+    isActive,
+    replayKey,
+    shouldReduceMotion,
+    stat.value,
+  ]);
+
+  return (
+    <motion.div
+      whileHover={{
+        scale: 1.035,
+        y: -3,
+      }}
+      initial={{
+        opacity: 0,
+        y: 16,
+      }}
+      animate={{
+        opacity: isActive ? 1 : 0,
+        y: isActive ? 0 : 16,
+      }}
+      transition={{
+        duration: 0.7,
+        ease: [0.18, 0.74, 0.2, 1],
+      }}
+      className={`
+        group
+        fyn-hero-stat-card
+        ${isCounting ? "fyn-hero-stat-card-counting" : ""}
+        relative
+        overflow-hidden
+        isolate
+        min-h-[5.35rem]
+        transform-gpu
+        rounded-lg
+        border
+        border-white/10
+        bg-[#080808]/42
+        px-4
+        py-4
+        backdrop-blur-md
+        transition-colors
+        duration-300
+        hover:border-fyn-pink/45
+        hover:bg-fyn-pink/[0.07]
+        hover:shadow-[0_0_30px_rgba(232,25,122,0.22)]
+      `}
+    >
+      <div
+        className="
+          relative
+          z-10
+          inline-block
+          min-w-[4.75rem]
+          text-2xl
+          md:text-3xl
+          font-black
+          text-fyn-text
+          uppercase
+          tracking-tight
+          tabular-nums
+          drop-shadow-[0_0_16px_rgba(232,25,122,0.2)]
+          transition-colors
+          duration-300
+          group-hover:text-white
+        "
+      >
+        {formatCount(
+          displayValue,
+          stat.formatter
+        )}
+        {stat.suffix}
+      </div>
+
+      <div
+        className="
+          relative
+          z-10
+          mt-1
+          text-xs
+          font-semibold
+          uppercase
+          tracking-widest
+          text-fyn-text-muted
+          transition-colors
+          duration-300
+          group-hover:text-white/72
+        "
+      >
+        {stat.label}
+      </div>
+    </motion.div>
+  );
+};
+
 export const Hero = ({
   introComplete = true,
   setActiveView,
@@ -30,8 +254,130 @@ export const Hero = ({
     React.SetStateAction<ViewType>
   >;
 }) => {
+  const [statsReplayKey, setStatsReplayKey] =
+    useState(0);
+
+  const [heroInView, setHeroInView] =
+    useState(true);
+
+  const heroRef =
+    React.useRef<HTMLElement>(null);
+  const heroWasVisibleRef =
+    React.useRef(false);
+  const lastReplayAtRef =
+    React.useRef(0);
+  const introReplayDoneRef =
+    React.useRef(false);
+
+  useEffect(() => {
+    const heroElement = heroRef.current;
+
+    if (
+      !heroElement ||
+      typeof IntersectionObserver ===
+        "undefined"
+    ) {
+      return;
+    }
+
+    const triggerReplay = () => {
+      const now = performance.now();
+
+      if (
+        now - lastReplayAtRef.current <
+        700
+      ) {
+        return;
+      }
+
+      lastReplayAtRef.current = now;
+
+      setStatsReplayKey((current) =>
+        current + 1
+      );
+    };
+
+    const observer =
+      new IntersectionObserver(
+        ([entry]) => {
+          const viewportHeight =
+            window.innerHeight ||
+            document.documentElement
+              .clientHeight;
+          const rect =
+            entry.boundingClientRect;
+          const visibleEnough =
+            entry.isIntersecting &&
+            entry.intersectionRatio >= 0.34 &&
+            rect.top <
+              viewportHeight * 0.86 &&
+            rect.bottom >
+              viewportHeight * 0.18;
+
+          setHeroInView(visibleEnough);
+
+          if (
+            visibleEnough &&
+            !heroWasVisibleRef.current
+          ) {
+            heroWasVisibleRef.current =
+              true;
+            if (introComplete) {
+              triggerReplay();
+            }
+            return;
+          }
+
+          if (!visibleEnough) {
+            heroWasVisibleRef.current =
+              false;
+          }
+        },
+        {
+          root: null,
+          rootMargin:
+            "-10% 0px -24% 0px",
+          threshold: [
+            0,
+            0.15,
+            0.28,
+            0.42,
+            0.6,
+            0.8,
+            1,
+          ],
+        }
+      );
+
+    observer.observe(heroElement);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [introComplete]);
+
+  useEffect(() => {
+    if (
+      !introComplete ||
+      !heroInView ||
+      introReplayDoneRef.current
+    ) {
+      return;
+    }
+
+    introReplayDoneRef.current = true;
+
+    lastReplayAtRef.current =
+      performance.now();
+
+    setStatsReplayKey((current) =>
+      current + 1
+    );
+  }, [heroInView, introComplete]);
+
   return (
     <motion.section
+      ref={heroRef}
       initial={{
         opacity: 0,
         filter: "blur(12px)",
@@ -49,7 +395,9 @@ export const Hero = ({
       id="hero"
       className="
         relative
-        min-h-[90vh]
+        min-h-[92vh]
+        min-h-[92svh]
+        lg:min-h-[94vh]
 
         flex
         items-center
@@ -59,11 +407,14 @@ export const Hero = ({
 
         bg-transparent
 
-        pt-32
-        pb-16
+        pt-28
+        pb-14
+        md:pt-32
+        md:pb-16
 
         px-6
-        md:px-12
+        md:px-10
+        xl:px-12
       "
     >
       {/* RESPONSIVE BACKGROUND */}
@@ -87,13 +438,14 @@ export const Hero = ({
                 rgba(8, 8, 8, 0.10),
                 rgba(8, 8, 8, 0.30)
               ),
-              url('/Images/intro/desktop_bg.webp')
+              url('/Images/intro/desktop_bg2.webp')
             `,
             backgroundSize: "cover",
             backgroundPosition:
-              "center",
+              "left center",
             backgroundRepeat:
               "no-repeat",
+            filter: "blur(2px)",
           }}
         />
 
@@ -115,13 +467,14 @@ export const Hero = ({
                 rgba(8, 8, 8, 0.15),
                 rgba(8, 8, 8, 0.38)
               ),
-              url('/Images/intro/mobile_bg.webp')
+              url('/Images/intro/mobile_bg2.webp')
             `,
             backgroundSize: "cover",
             backgroundPosition:
-              "center",
+              "center top",
             backgroundRepeat:
               "no-repeat",
+            filter: "blur(2px)",
           }}
         />
       </div>
@@ -131,9 +484,9 @@ export const Hero = ({
       <div className="absolute inset-0 z-[1] safari-gpu">
         <div className="absolute inset-0 bg-[#080808]/28" />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/20 via-[#080808]/5 to-[#080808]/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/30 via-[#080808]/10 to-[#080808]/42" />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/20 via-transparent to-[#080808]/15" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/8 via-[#080808]/8 to-[#080808]/55" />
 
         <div className="absolute inset-0 backdrop-blur-[2px] md:backdrop-blur-[3px]" />
       </div>
@@ -191,7 +544,7 @@ export const Hero = ({
             absolute
 
             bottom-1/4
-            right-1/4
+            right-[18%]
 
             translate-x-1/2
             translate-y-1/2
@@ -220,6 +573,22 @@ export const Hero = ({
               "transform",
           }}
         />
+
+        <div
+          className="
+            absolute
+            right-[4%]
+            top-1/2
+            hidden
+            h-[520px]
+            w-[560px]
+            -translate-y-1/2
+            rounded-full
+            bg-[radial-gradient(circle,rgba(232,25,122,0.20)_0%,rgba(8,8,8,0.68)_42%,transparent_72%)]
+            blur-[46px]
+            md:block
+          "
+        />
       </div>
 
       {/* HERO CONTENT */}
@@ -229,34 +598,88 @@ export const Hero = ({
           relative
           z-10
 
-          max-w-5xl
-
-          text-center
+          grid
+          w-full
+          max-w-7xl
+          grid-cols-1
+          items-center
+          gap-8
+          md:grid-cols-[minmax(0,1fr)_minmax(0,0.96fr)]
+          lg:gap-10
+          xl:gap-12
 
           mx-auto
-          px-4
         "
       >
-        {/* HEADLINE */}
+        <div
+          className="
+            hidden
+            md:block
+          "
+          aria-hidden="true"
+        />
 
-        <motion.h1
+        <motion.div
           initial={{
             opacity: 0,
-            y: 25,
+            y: 28,
           }}
           animate={{
             opacity: 1,
             y: 0,
           }}
           transition={{
-            duration: 0.8,
-            delay: 0.15,
+            duration: 0.9,
+            delay: 0.1,
+            ease: [0.22, 1, 0.36, 1],
           }}
           className="
-            text-[2.5rem]
+            relative
+            mx-auto
+            w-full
+            max-w-[40rem]
+            text-center
+            md:mx-auto
+            md:max-w-[37.5rem]
+            md:text-left
+          "
+        >
+          <div
+            className="
+              absolute
+              -inset-x-8
+              -inset-y-10
+              -z-10
+              rounded-[2rem]
+              bg-[radial-gradient(circle_at_48%_42%,rgba(232,25,122,0.18),rgba(8,8,8,0.72)_44%,rgba(8,8,8,0.22)_70%,transparent_82%)]
+              blur-xl
+              md:-inset-x-14
+              md:-inset-y-12
+            "
+          />
+
+          {/* HEADLINE */}
+
+        <motion.h1
+          initial={{
+            opacity: 0,
+            y: 18,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.75,
+            delay: 0.18,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="
+            text-[2.7rem]
             xs:text-5xl
             sm:text-6xl
-            md:text-8xl
+            md:text-7xl
+            xl:text-[5.35rem]
 
             font-black
 
@@ -265,9 +688,10 @@ export const Hero = ({
             tracking-tighter
             uppercase
 
-            leading-none
+            leading-[0.92]
 
             font-barlow
+            drop-shadow-[0_6px_28px_rgba(0,0,0,0.82)]
           "
         >
           RedeFYNing <br />
@@ -294,34 +718,38 @@ export const Hero = ({
         <motion.p
           initial={{
             opacity: 0,
-            y: 25,
+            y: 18,
           }}
           animate={{
             opacity: 1,
             y: 0,
           }}
           transition={{
-            duration: 0.8,
-            delay: 0.25,
+            duration: 0.75,
+            delay: 0.3,
+            ease: [0.22, 1, 0.36, 1],
           }}
           className="
-            mt-8
+            mt-6
+            md:mt-7
 
             text-base
+            sm:text-lg
             md:text-xl
 
             text-white/90
 
             font-medium
 
-            max-w-3xl
+            max-w-[33rem]
             mx-auto
+            md:mx-0
 
-            leading-relaxed
+            leading-[1.65]
 
             font-barlow
 
-            drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]
+            drop-shadow-[0_3px_16px_rgba(0,0,0,0.95)]
           "
         >
           India&apos;s largest,
@@ -339,18 +767,20 @@ export const Hero = ({
         <motion.div
           initial={{
             opacity: 0,
-            y: 25,
+            y: 18,
           }}
           animate={{
             opacity: 1,
             y: 0,
           }}
           transition={{
-            duration: 0.8,
-            delay: 0.35,
+            duration: 0.75,
+            delay: 0.42,
+            ease: [0.22, 1, 0.36, 1],
           }}
           className="
-            mt-10
+            mt-8
+            md:mt-9
 
             flex
             flex-col
@@ -358,8 +788,10 @@ export const Hero = ({
 
             items-center
             justify-center
+            md:justify-start
 
-            gap-4
+            gap-3
+            sm:gap-4
           "
         >
           {/* PRIMARY CTA */}
@@ -369,7 +801,14 @@ export const Hero = ({
             size="lg"
             className="
               w-full
+              min-h-[3.5rem]
+              px-7
+              flex-nowrap
+              whitespace-nowrap
               sm:w-auto
+              sm:min-w-[11.25rem]
+              transform-gpu
+              shadow-[0_0_26px_rgba(232,25,122,0.36)]
             "
             onClick={() =>
               setActiveView(
@@ -398,7 +837,13 @@ export const Hero = ({
             size="lg"
             className="
               w-full
+              min-h-[3.5rem]
+              px-7
+              flex-nowrap
+              whitespace-nowrap
               sm:w-auto
+              sm:min-w-[11.25rem]
+              transform-gpu
             "
             onClick={() =>
               setActiveView(
@@ -426,177 +871,56 @@ export const Hero = ({
         <motion.div
           initial={{
             opacity: 0,
+            y: 18,
           }}
           animate={{
             opacity: 1,
+            y: 0,
           }}
           transition={{
-            duration: 1,
-            delay: 0.5,
+            duration: 0.8,
+            delay: 0.54,
+            ease: [0.22, 1, 0.36, 1],
           }}
           className="
-            mt-20
+            mt-14
+            md:mt-16
 
             border-t
             border-fyn-border/40
 
-            pt-8
+            pt-6
 
             grid
             grid-cols-2
-            md:grid-cols-4
+            sm:grid-cols-4
 
-            gap-6
+            gap-3
+            sm:gap-4
 
             text-left
 
-            max-w-4xl
+            max-w-[38rem]
             mx-auto
+            md:mx-0
 
             font-barlow
           "
         >
-          <div>
-            <div
-              className="
-                text-2xl
-                md:text-3xl
-
-                font-black
-
-                text-fyn-text
-
-                uppercase
-                tracking-tight
-              "
-            >
-              1,500+
-            </div>
-
-            <div
-              className="
-                text-xs
-
-                uppercase
-                tracking-widest
-
-                text-fyn-text-muted
-
-                mt-1
-
-                font-semibold
-              "
-            >
-              EVs on Road
-            </div>
-          </div>
-
-          <div>
-            <div
-              className="
-                text-2xl
-                md:text-3xl
-
-                font-black
-
-                text-fyn-text
-
-                uppercase
-                tracking-tight
-              "
-            >
-              5,000+
-            </div>
-
-            <div
-              className="
-                text-xs
-
-                uppercase
-                tracking-widest
-
-                text-fyn-text-muted
-
-                mt-1
-
-                font-semibold
-              "
-            >
-              Drivers Onboarded
-            </div>
-          </div>
-
-          <div>
-            <div
-              className="
-                text-2xl
-                md:text-3xl
-
-                font-black
-
-                text-fyn-text
-
-                uppercase
-                tracking-tight
-              "
-            >
-              20M+
-            </div>
-
-            <div
-              className="
-                text-xs
-
-                uppercase
-                tracking-widest
-
-                text-fyn-text-muted
-
-                mt-1
-
-                font-semibold
-              "
-            >
-              Green KMs Run
-            </div>
-          </div>
-
-          <div>
-            <div
-              className="
-                text-2xl
-                md:text-3xl
-
-                font-black
-
-                text-fyn-text
-
-                uppercase
-                tracking-tight
-              "
-            >
-              3 Cities
-            </div>
-
-            <div
-              className="
-                text-xs
-
-                uppercase
-                tracking-widest
-
-                text-fyn-text-muted
-
-                mt-1
-
-                font-semibold
-              "
-            >
-              Multi-City Operations
-            </div>
-          </div>
+          {heroStats.map((stat, index) => (
+            <AnimatedStatCard
+              key={stat.label}
+              stat={stat}
+              index={index}
+              replayKey={statsReplayKey}
+              isActive={
+                introComplete && heroInView
+              }
+            />
+          ))}
+        </motion.div>
         </motion.div>
       </div>
     </motion.section>
   );
-}
+};
