@@ -40,8 +40,12 @@ export const Investors = () => {
   const isDragging = useRef(false);
 
   const startX = useRef(0);
+  const startY = useRef(0);
 
   const startScroll = useRef(0);
+  const gestureDirection = useRef<
+    "pending" | "horizontal" | "vertical"
+  >("pending");
 
   /* =========================================
      DUPLICATE ITEMS
@@ -247,21 +251,27 @@ export const Investors = () => {
   const onPointerDown = (
     e: React.PointerEvent<HTMLDivElement>
   ) => {
-    isDragging.current = true;
-
     startX.current = e.clientX;
+    startY.current = e.clientY;
+    gestureDirection.current =
+      "pending";
+    isDragging.current =
+      e.pointerType === "mouse";
 
     startScroll.current =
       containerRef.current
         ?.scrollLeft ?? 0;
 
-    try {
-      containerRef.current?.setPointerCapture(
-        e.pointerId
-      );
-    } catch {}
+    if (
+      e.pointerType === "mouse" &&
+      containerRef.current
+    ) {
+      try {
+        containerRef.current.setPointerCapture(
+          e.pointerId
+        );
+      } catch {}
 
-    if (containerRef.current) {
       containerRef.current.style.cursor =
         "grabbing";
     }
@@ -270,11 +280,61 @@ export const Investors = () => {
   const onPointerMove = (
     e: React.PointerEvent<HTMLDivElement>
   ) => {
+    const container =
+      containerRef.current;
+
+    if (!container) return;
+
+    if (
+      e.pointerType !== "mouse" &&
+      gestureDirection.current ===
+        "pending"
+    ) {
+      const horizontalDelta =
+        Math.abs(
+          e.clientX - startX.current
+        );
+      const verticalDelta =
+        Math.abs(
+          e.clientY - startY.current
+        );
+
+      if (
+        verticalDelta >
+          horizontalDelta &&
+        verticalDelta > 8
+      ) {
+        gestureDirection.current =
+          "vertical";
+        isDragging.current = false;
+        return;
+      }
+
+      if (
+        horizontalDelta >
+          verticalDelta &&
+        horizontalDelta > 8
+      ) {
+        gestureDirection.current =
+          "horizontal";
+        isDragging.current = true;
+
+        try {
+          container.setPointerCapture(
+            e.pointerId
+          );
+        } catch {}
+      }
+    }
+
     if (
       !isDragging.current ||
-      !containerRef.current
+      gestureDirection.current ===
+        "vertical"
     )
       return;
+
+    e.preventDefault();
 
     const dx =
       startX.current - e.clientX;
@@ -301,14 +361,27 @@ export const Investors = () => {
       startScroll.current = next;
     }
 
-    containerRef.current.scrollLeft =
-      next;
+    container.scrollLeft = next;
   };
 
-  const onPointerUp = () => {
+  const onPointerUp = (
+    e: React.PointerEvent<HTMLDivElement>
+  ) => {
     isDragging.current = false;
+    gestureDirection.current =
+      "pending";
 
     if (containerRef.current) {
+      if (
+        containerRef.current.hasPointerCapture(
+          e.pointerId
+        )
+      ) {
+        containerRef.current.releasePointerCapture(
+          e.pointerId
+        );
+      }
+
       containerRef.current.style.cursor =
         "grab";
     }

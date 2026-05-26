@@ -369,7 +369,15 @@ export const Careers = () => {
           </div>
 
           {/* Job Grid */}
-          <div className="h-[620px] md:h-[660px] overflow-y-auto overscroll-contain pr-1 text-left max-w-5xl mx-auto">
+          <div
+            className="h-[620px] md:h-[660px] overflow-y-auto overflow-x-hidden pr-1 text-left max-w-5xl mx-auto"
+            style={{
+              WebkitOverflowScrolling: "touch",
+              overscrollBehaviorY: "auto",
+              overscrollBehaviorX: "none",
+              touchAction: "pan-y",
+            }}
+          >
             <motion.div
               initial={false}
               animate={{ opacity: 1 }}
