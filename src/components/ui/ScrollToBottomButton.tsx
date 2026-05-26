@@ -1,22 +1,20 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
-export const ScrollToTopButton = () => {
+export const ScrollToBottomButton = () => {
   const [visible, setVisible] = useState(false);
   const lastScrollYRef = useRef<number>(0);
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    // initialize lastScrollY
     lastScrollYRef.current = typeof window !== "undefined" ? window.scrollY : 0;
 
     const onScroll = () => {
       const current = window.scrollY;
       const delta = current - lastScrollYRef.current;
 
-      // ignore very small movements
       if (Math.abs(delta) < 3) {
         lastScrollYRef.current = current;
         if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
@@ -24,8 +22,8 @@ export const ScrollToTopButton = () => {
         return;
       }
 
-      // show only when user is actively scrolling up
-      if (delta < 0) {
+      // show only when user is actively scrolling down
+      if (delta > 0) {
         setVisible(true);
       } else {
         setVisible(false);
@@ -45,8 +43,11 @@ export const ScrollToTopButton = () => {
     };
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToBottom = () => {
+    const footer = document.querySelector("footer");
+    if (footer) {
+      footer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   if (!visible) return null;
@@ -54,13 +55,13 @@ export const ScrollToTopButton = () => {
   return (
     <button
       type="button"
-      aria-label="Scroll to top"
-      onClick={scrollToTop}
+      aria-label="Scroll to footer"
+      onClick={scrollToBottom}
       className="
         fixed
         right-6
         top-1/2
-        -translate-y-1/2
+        translate-y-16
         z-[45]
         flex h-10 w-10
         items-center justify-center
@@ -83,7 +84,7 @@ export const ScrollToTopButton = () => {
         md:right-8
       "
     >
-      <ChevronUp className="h-5 w-5" />
+      <ChevronDown className="h-5 w-5" />
     </button>
   );
 };

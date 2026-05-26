@@ -176,11 +176,16 @@ export const Footer = () => {
             <ul className="space-y-4 text-xs font-semibold text-fyn-text-muted">
               <li className="flex items-start space-x-2.5">
                 <MapPin className="w-4 h-4 text-fyn-pink shrink-0 mt-0.5" />
-                <span className="leading-relaxed">
+                <a
+                  href="https://maps.app.goo.gl/kkd2a2vskPPRykkBA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="leading-relaxed hover:text-fyn-text transition-colors"
+                >
                   Fyn Mobility Headquarters,<br />
                   HSR Layout, Bengaluru,<br />
                   Karnataka, India
-                </span>
+                </a>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Mail className="w-4 h-4 text-fyn-pink shrink-0" />

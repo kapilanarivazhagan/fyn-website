@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   ArrowUpRight,
   BadgeCheck,
-  ChevronUp,
   Headphones,
   Linkedin,
   Newspaper,
@@ -189,40 +188,6 @@ function CarouselCard({ item }: { item: MediaItem }) {
   );
 }
 
-function ScrollToTopButton() {
-  const [visible, setVisible] = useState(false);
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY > 640);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <button
-      type="button"
-      aria-label="Scroll to top"
-      onClick={scrollToTop}
-      onPointerDown={scrollToTop}
-      className={cn(
-        "fixed bottom-24 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-fyn-pink/35 bg-[#0b0b0b]/88 text-fyn-pink shadow-[0_0_26px_rgba(232,25,122,0.24)] backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:border-fyn-pink/60 hover:bg-fyn-pink hover:text-white focus:outline-none focus:ring-2 focus:ring-fyn-pink/45 sm:right-6",
-        visible
-          ? "pointer-events-auto translate-y-0 opacity-100"
-          : "pointer-events-none translate-y-3 opacity-0"
-      )}
-    >
-      <ChevronUp className="h-5 w-5" aria-hidden="true" />
-    </button>
-  );
-}
-
 export const Media = () => {
   return (
     <section
@@ -393,7 +358,6 @@ export const Media = () => {
           );
         })}
       </div>
-      <ScrollToTopButton />
     </section>
   );
 };

@@ -47,7 +47,7 @@ export const investorsList: InvestorItem[] = [
     id: "tvs",
     name: "TVS Mobility Family",
     type: "Corporate Venture",
-    logo: "/logos/tvs-mobility.png",
+    logo: "/logos/tvs-mobility.webp",
     description:
       "Opening legacy doors across India's automotive supply chain and vehicle distribution networks.",
     website: "",
@@ -57,7 +57,7 @@ export const investorsList: InvestorItem[] = [
     id: "gail",
     name: "GAIL (India) Limited",
     type: "Strategic Partner",
-    logo: "/logos/gail.png",
+    logo: "/logos/gail.webp",
     description:
       "A leading Maharatna public sector undertaking empowering our clean energy and green transition objectives.",
     website: "",
@@ -67,7 +67,7 @@ export const investorsList: InvestorItem[] = [
     id: "upaya",
     name: "Upaya Social Ventures",
     type: "Social Impact Venture",
-    logo: "/logos/upaya.png",
+    logo: "/logos/upaya.webp",
     description:
       "Committed to creating dignified jobs and lifting drivers out of poverty through sustainable livelihoods.",
     website: "",
@@ -77,7 +77,7 @@ export const investorsList: InvestorItem[] = [
     id: "sattva",
     name: "Sattva",
     type: "Impact Investor",
-    logo: "/logos/sattva.png",
+    logo: "/logos/sattva.webp",
     description:
       "Driving large-scale social impact and systemic ecosystem improvements within the EV community.",
     website: "",
@@ -97,7 +97,7 @@ export const investorsList: InvestorItem[] = [
     id: "sincere",
     name: "Sincere Syndication",
     type: "Angel Syndicate",
-    logo: "/logos/sincere.png",
+    logo: "/logos/sincere.webp",
     description:
       "Early-stage strategic backing focusing on technology-first mobility and infrastructure solutions.",
     website: "",
@@ -119,7 +119,7 @@ export const investorsList: InvestorItem[] = [
     id: "keiretsu",
     name: "Keiretsu Forum",
     type: "Global Angel Network",
-    logo: "/logos/keiretsu.png",
+    logo: "/logos/keiretsu.webp",
     description:
       "International angel investment network validating Fyn's scalability and institutional quality.",
     website: "",
@@ -129,7 +129,7 @@ export const investorsList: InvestorItem[] = [
     id: "eagle10",
     name: "Eagle10 Ventures",
     type: "Venture Builder",
-    logo: "/logos/eagle10.png",
+    logo: "/logos/eagle10.webp",
     description:
       "Co-investing and scaling game-changing platform models with operational advisory.",
     website: "",
@@ -139,7 +139,7 @@ export const investorsList: InvestorItem[] = [
     id: "ipv",
     name: "Inflection Point Ventures",
     type: "Early-Stage VC",
-    logo: "/logos/ipv.png",
+    logo: "/logos/ipv.webp",
     description:
       "Empowering scalable startups through a vast network of corporate leaders and capital.",
     website: "",

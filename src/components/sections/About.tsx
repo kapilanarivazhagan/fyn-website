@@ -1,64 +1,70 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import Image from "next/image";
 import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
 import { Zap, GitBranch, Share2, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionBackground } from "../ui/SectionBackground";
-import { StoryImage } from "../ui/StoryImage";
+import { ImageLightbox } from "../ui/ImageLightbox";
 
 const aboutStoryImages = [
   {
-    image: "about-leadership-fe",
-    alt: "Fyn leadership standing with orange electric three wheelers",
+    src: "/about_us/grp_pic.webp",
+    alt: "Fyn team group moment",
     caption:
-      "Founder-led operating conversations anchored in fleet deployment, city expansion, and customer partnerships.",
-    source: "Financial Express / Leadership",
-    className: "lg:col-span-7 lg:row-span-2 min-h-[360px] sm:min-h-[440px]",
-    tone: "pink" as const,
+      "The operating team behind every city rollout, partner commitment, and fleet milestone.",
+    label: "Team Engine",
+    className: "lg:col-span-7 h-[360px] sm:h-[430px] lg:h-[610px]",
     priority: true,
   },
   {
-    image: "about-dubai-north-star",
-    alt: "Fyn Mobility at Dubai Expand North Star event booth",
+    src: "/about_us/visakh_public_meeting3.webp",
+    alt: "Fyn founder speaking at a public meeting",
     caption:
-      "Global startup ecosystem presence, investor visibility, and mobility-market participation.",
-    source: "LinkedIn / Expand North Star",
-    className: "lg:col-span-5 min-h-[260px]",
+      "Founder-led conversations that connect clean mobility, commerce, and public infrastructure.",
+    label: "Founder Voice",
+    className: "lg:col-span-5 h-[280px] sm:h-[320px] lg:h-[295px]",
   },
   {
-    image: "about-ecosystem-truck",
-    alt: "Fyn branded electric cargo vehicle and charging station graphic",
+    src: "/about_us/townhall general.webp",
+    alt: "Fyn townhall gathering",
     caption:
-      "EV ecosystem planning across vehicles, energy partners, and charging infrastructure.",
-    source: "Fyn official / EV ecosystem",
-    className: "lg:col-span-5 min-h-[260px]",
-  },
-];
-
-const leadershipPortraits = [
-  {
-    image: "about-founder-visakh",
-    alt: "Visakh Sasikumar Fyn founder portrait",
-    name: "Visakh Sasikumar",
-    role: "Founder perspective",
+      "Townhalls turn operating lessons into shared context across teams and functions.",
+    label: "Culture Sync",
+    className: "lg:col-span-5 h-[280px] sm:h-[320px] lg:h-[295px]",
   },
   {
-    image: "about-founder-manu",
-    alt: "Manu Iyer Fyn leadership portrait",
-    name: "Manu Iyer",
-    role: "Strategy and scale",
+    src: "/about_us/college_meeting.webp",
+    alt: "Fyn team meeting with students and collaborators",
+    caption:
+      "Ecosystem building extends into colleges, hiring channels, and future operator communities.",
+    label: "Campus Bridge",
+    className: "md:col-span-4 h-[260px] md:h-[300px]",
   },
   {
-    image: "about-leader-niroop",
-    alt: "Niroop Janardhanan Fyn leadership portrait",
-    name: "Niroop Janardhanan",
-    role: "Business operations",
+    src: "/about_us/visakh_public_meeting2.webp",
+    alt: "Fyn founder speaking at public meeting",
+    caption:
+      "Recognition gained through consistent engagement with communities and ecosystem partners.",
+    label: "Community Voice",
+    className: "md:col-span-4 h-[260px] md:h-[300px]",
+  },
+  {
+    src: "/about_us/townhall_niroop.webp",
+    alt: "Fyn leadership townhall session",
+    caption:
+      "Business, technology, and field operations stay aligned through high-context leadership rituals.",
+    label: "Operating Cadence",
+    className: "md:col-span-4 h-[260px] md:h-[300px]",
   },
 ];
 
 export const About = () => {
+  const [previewIndex, setPreviewIndex] =
+    useState<number | null>(null);
+
   return (
     <section id="about-us" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
       <SectionBackground variant="about" />
@@ -176,6 +182,85 @@ export const About = () => {
           </div>
         </div>
 
+        {/* Editorial Storytelling */}
+        <div className="mt-20 border-t border-fyn-border/30 pt-16">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+            className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+          >
+            <div>
+              <p className="text-[10px] font-mono uppercase tracking-widest text-fyn-pink">
+                Visual Story
+              </p>
+              <h3 className="mt-3 max-w-3xl text-2xl font-black uppercase leading-tight tracking-tight text-fyn-text md:text-4xl">
+                Built through field conviction, founder proximity, and operating rhythm.
+              </h3>
+            </div>
+
+            <p className="max-w-md text-sm leading-relaxed text-fyn-text-muted">
+              Fyn's ecosystem is shaped in rooms, yards, campuses, and city conversations where the clean mobility transition becomes practical.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
+            {aboutStoryImages.map((image, index) => (
+              <motion.figure
+                key={image.src}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{
+                  duration: 0.55,
+                  delay: index * 0.06,
+                  ease: "easeOut",
+                }}
+                role="button"
+                tabIndex={0}
+                onClick={() => setPreviewIndex(index)}
+                onKeyDown={(event) => {
+                  if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                  ) {
+                    event.preventDefault();
+                    setPreviewIndex(index);
+                  }
+                }}
+                className={`group relative cursor-zoom-in overflow-hidden rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/80 shadow-[0_18px_60px_rgba(0,0,0,0.38)] outline-none transition-all duration-300 hover:border-fyn-pink/35 focus-visible:ring-2 focus-visible:ring-fyn-pink/70 ${image.className}`}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes={
+                    index === 0
+                      ? "(min-width: 1024px) 58vw, 100vw"
+                      : "(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw"
+                  }
+                  priority={image.priority}
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/24 to-black/6" />
+                <div className="absolute left-0 top-0 h-full w-1 bg-fyn-pink/80" />
+                <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-fyn-pink/[0.035]" />
+
+                <figcaption className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-fyn-pink/90">
+                    {image.label}
+                  </p>
+                  <p className="mt-1 max-w-[32rem] text-sm font-semibold leading-snug text-fyn-text">
+                    {image.caption}
+                  </p>
+                </figcaption>
+              </motion.figure>
+            ))}
+          </div>
+        </div>
+
         {/* Key Metrics Grid */}
         <div className="mt-20 pt-16 border-t border-fyn-border/30">
           <motion.div
@@ -220,6 +305,13 @@ export const About = () => {
           </motion.div>
         </div>
       </div>
+
+      <ImageLightbox
+        images={aboutStoryImages}
+        activeIndex={previewIndex}
+        onClose={() => setPreviewIndex(null)}
+        onNavigate={setPreviewIndex}
+      />
     </section>
   );
 };

@@ -159,7 +159,6 @@ export const GetInvolved = () => {
         newErrors.phone = "Phone must be exactly 10 digits";
       }
       if (!formData.city) newErrors.city = "Please select your city";
-      if (!formData.hasEV) newErrors.hasEV = "Please clarify if you own an EV";
     }
 
     setErrors(newErrors);
@@ -187,7 +186,7 @@ export const GetInvolved = () => {
         <SectionHeading
           eyebrow="Partnership Ecosystem"
           title="Get Involved"
-          description="Ready to scale? Select a category, submit your telemetry, and let's redeFYNe EV Mobility together."
+          description="Ready to scale? Select a category and submit. For queries, reach out to kapilan@fynmobility.com"
         />
 
         {/* Tab Selection */}
@@ -226,10 +225,10 @@ export const GetInvolved = () => {
                   <CheckCircle2 className="w-12 h-12" />
                 </div>
                 <h3 className="text-2xl font-black text-fyn-text uppercase tracking-tight mb-2">
-                  Telemetry Transmitted Successfully
+                  Application Received
                 </h3>
                 <p className="text-sm text-fyn-text-muted max-w-md leading-relaxed">
-                  Thank you! Your parameters have been logged. An operational lead from Fyn Mobility will contact you within 24 hours.
+                  Thank you! Your application has been received successfully. Our team will review your submission and contact you within 24 hours.
                 </p>
                 <Button
                   variant="outline"
@@ -237,7 +236,7 @@ export const GetInvolved = () => {
                   className="mt-8"
                   onClick={() => setSuccess(false)}
                 >
-                  Submit Another Form
+                  Submit Another Application
                 </Button>
               </motion.div>
             ) : (
@@ -467,17 +466,6 @@ export const GetInvolved = () => {
                       onChange={handleInputChange}
                       error={errors.city}
                     />
-                    <FormInput
-                      label="Do you currently own an EV?"
-                      id="hasEV"
-                      type="select"
-                      placeholder="Clarify ownership"
-                      required
-                      options={["Yes, I own a 2W/3W", "No, I need a leased EV"]}
-                      value={formData.hasEV}
-                      onChange={handleInputChange}
-                      error={errors.hasEV}
-                    />
                   </div>
                 )}
 
@@ -497,7 +485,7 @@ export const GetInvolved = () => {
                   className="w-full font-bold cursor-pointer"
                   disabled={loading}
                 >
-                  {loading ? "Transmitting Parameter Logs..." : "Submit Parameters"}
+                  {loading ? "Submitting..." : "Submit Application"}
                 </Button>
               </motion.form>
             )}

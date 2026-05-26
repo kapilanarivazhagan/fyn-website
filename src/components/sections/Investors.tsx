@@ -422,9 +422,10 @@ export const Investors = () => {
                   className="
                     shrink-0
                     animate-fade-in
+                    h-[292px]
                   "
                   style={{
-                    width: `${CARD_WIDTH}px`,
+                    width: `min(${CARD_WIDTH}px, calc(100vw - 48px))`,
                     marginRight: `${CARD_GAP}px`,
                   }}
                 >

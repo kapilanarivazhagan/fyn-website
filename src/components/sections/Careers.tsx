@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
 import { Button } from "../ui/Button";
@@ -18,6 +19,59 @@ import {
   X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ImageLightbox } from "../ui/ImageLightbox";
+
+const careerStoryImages = [
+  {
+    src: "/career/grppic3.webp",
+    alt: "Fyn team group culture moment",
+    label: "One Team",
+    caption:
+      "Cross-functional teams working close to the operating floor, not far away from it.",
+    className: "lg:col-span-7 h-[360px] sm:h-[430px] lg:h-[590px]",
+    priority: true,
+  },
+  {
+    src: "/career/funfriday.webp",
+    alt: "Fyn team fun Friday activity",
+    label: "Culture Rituals",
+    caption:
+      "The week has room for intensity, play, and the small rituals that keep people connected.",
+    className: "lg:col-span-5 h-[270px] sm:h-[315px] lg:h-[285px]",
+  },
+  {
+    src: "/career/batteryworking.webp",
+    alt: "Fyn team working on battery operations",
+    label: "Hands-On Ops",
+    caption:
+      "Fleet intelligence is built by people who understand batteries, vehicles, routes, and field reality.",
+    className: "lg:col-span-5 h-[270px] sm:h-[315px] lg:h-[285px]",
+  },
+  {
+    src: "/career/cricket.webp",
+    alt: "Fyn team cricket activity",
+    label: "After Hours",
+    caption:
+      "High-trust teams are built in workshops, huddles, games, and shared wins.",
+    className: "md:col-span-4 h-[255px] md:h-[300px]",
+  },
+  {
+    src: "/career/award.webp",
+    alt: "Fyn award celebration",
+    label: "Recognition",
+    caption:
+      "The pace is startup-fast, but achievement still gets celebrated properly.",
+    className: "md:col-span-4 h-[255px] md:h-[300px]",
+  },
+  {
+    src: "/career/indesk.webp",
+    alt: "Fyn desk collaboration",
+    label: "Builder Mode",
+    caption:
+      "Product, operations, and people teams stay close enough to solve together.",
+    className: "md:col-span-4 h-[255px] md:h-[300px]",
+  },
+];
 
 export const Careers = () => {
   const [activeDept, setActiveDept] = useState<string>("All");
@@ -27,6 +81,8 @@ export const Careers = () => {
   const [applicationStatus, setApplicationStatus] = useState<
     "idle" | "submitted"
   >("idle");
+  const [previewIndex, setPreviewIndex] =
+    useState<number | null>(null);
 
   const [applicationForm, setApplicationForm] = useState({
     fullName: "",
@@ -151,7 +207,7 @@ export const Careers = () => {
         <SectionHeading
           eyebrow="Join Fyn"
           title="Build the future of EV mobility with us"
-          description="We're looking for ambitious people who want to solve real-world mobility challenges at scale. Welcome to a high-agency, mission-driven startup."
+          description="We're looking for ambitious people who want to solve real-world mobility challenges at scale. Welcome to a high-agency, mission-driven startup. For career inquiries, reach out to kapilan@fynmobility.com"
         />
 
         {/* Culture / Values */}
@@ -181,6 +237,85 @@ export const Careers = () => {
               </GlowCard>
             );
           })}
+        </div>
+
+        {/* Workplace Storytelling */}
+        <div className="mb-20 border-y border-fyn-border/35 py-14">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+            className="mb-8 grid grid-cols-1 gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-end"
+          >
+            <div>
+              <p className="text-[10px] font-mono uppercase tracking-widest text-fyn-pink">
+                Life At Fyn
+              </p>
+              <h3 className="mt-3 text-2xl font-black uppercase leading-tight tracking-tight text-fyn-text md:text-4xl">
+                Built by people who move between desks, depots, and decisions.
+              </h3>
+            </div>
+
+            <p className="max-w-2xl text-sm leading-relaxed text-fyn-text-muted lg:ml-auto">
+              Careers here are shaped by hands-on operations, high-context collaboration, field exposure, and the energy of a team building something consequential.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
+            {careerStoryImages.map((image, index) => (
+              <motion.figure
+                key={image.src}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{
+                  duration: 0.55,
+                  delay: index * 0.06,
+                  ease: "easeOut",
+                }}
+                role="button"
+                tabIndex={0}
+                onClick={() => setPreviewIndex(index)}
+                onKeyDown={(event) => {
+                  if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                  ) {
+                    event.preventDefault();
+                    setPreviewIndex(index);
+                  }
+                }}
+                className={`group relative cursor-zoom-in overflow-hidden rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/80 shadow-[0_18px_60px_rgba(0,0,0,0.38)] outline-none transition-all duration-300 hover:border-fyn-pink/35 focus-visible:ring-2 focus-visible:ring-fyn-pink/70 ${image.className}`}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes={
+                    index === 0
+                      ? "(min-width: 1024px) 58vw, 100vw"
+                      : "(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw"
+                  }
+                  priority={image.priority}
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/22 to-black/8" />
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-fyn-pink/70 to-transparent" />
+                <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-fyn-pink/[0.035]" />
+
+                <figcaption className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-fyn-pink/90">
+                    {image.label}
+                  </p>
+                  <p className="mt-1 max-w-[32rem] text-sm font-semibold leading-snug text-fyn-text">
+                    {image.caption}
+                  </p>
+                </figcaption>
+              </motion.figure>
+            ))}
+          </div>
         </div>
 
         {/* Open Positions */}
@@ -482,6 +617,13 @@ export const Careers = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ImageLightbox
+        images={careerStoryImages}
+        activeIndex={previewIndex}
+        onClose={() => setPreviewIndex(null)}
+        onNavigate={setPreviewIndex}
+      />
     </section>
   );
 }

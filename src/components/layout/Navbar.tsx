@@ -29,20 +29,20 @@ type ViewType =
   | "infynity"
   | "clients"
   | "media"
-  | "careers"
-  | "get-involved";
+  | "careers";
 
 interface NavbarProps {
   activeView: ViewType;
 
-  setActiveView: React.Dispatch<
-    React.SetStateAction<ViewType>
-  >;
+  onNavigate: (view: ViewType) => void;
+
+  onConnect: () => void;
 }
 
 export const Navbar = ({
   activeView,
-  setActiveView,
+  onNavigate,
+  onConnect,
 }: NavbarProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] =
     useState(false);
@@ -153,14 +153,8 @@ export const Navbar = ({
   const handleViewChange = (
     view: ViewType
   ) => {
-    setActiveView(view);
-
     setMobileMenuOpen(false);
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    onNavigate(view);
   };
 
   return (
@@ -260,6 +254,16 @@ export const Navbar = ({
                     link.view
                   )
                 }
+                aria-current={
+                  activeView === link.view
+                    ? "page"
+                    : undefined
+                }
+                data-active={
+                  activeView === link.view
+                    ? "true"
+                    : "false"
+                }
                 className={`
                   relative
                   group
@@ -324,11 +328,10 @@ export const Navbar = ({
             <Button
               variant="primary"
               size="sm"
-              onClick={() =>
-                handleViewChange(
-                  "get-involved"
-                )
-              }
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onConnect();
+              }}
               className="
                 font-bold
                 cursor-pointer
@@ -475,6 +478,18 @@ export const Navbar = ({
                           link.view
                         )
                       }
+                      aria-current={
+                        activeView ===
+                        link.view
+                          ? "page"
+                          : undefined
+                      }
+                      data-active={
+                        activeView ===
+                        link.view
+                          ? "true"
+                          : "false"
+                      }
                       className={`
                         block
 
@@ -573,11 +588,10 @@ export const Navbar = ({
               <Button
                 variant="primary"
                 size="md"
-                onClick={() =>
-                  handleViewChange(
-                    "get-involved"
-                  )
-                }
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onConnect();
+                }}
                 className="w-full"
               >
                 Connect With Us
