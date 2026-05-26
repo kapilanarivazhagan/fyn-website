@@ -80,6 +80,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({
           className="
             object-cover
             object-center
+            fyn-media-image
 
             group-hover:scale-[1.02]
 

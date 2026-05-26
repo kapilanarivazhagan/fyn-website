@@ -9,12 +9,15 @@ import { partnersList } from "@/data/partners";
 const CARD_WIDTH = 160; // px
 const CARD_GAP = 16;   // px (mr-4)
 const SCROLL_SPEED = 0.5; // px per frame (cinematic speed)
+type PartnerCategory = "oem" | "financing" | "charging";
 
 export const ClientsPartners = () => {
-  const [activeCategory, setActiveCategory] = useState<"oem" | "financing" | "charging">("oem");
+  const [activeCategory, setActiveCategory] = useState<PartnerCategory>("oem");
   
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
+  const isInView = useRef(false);
+  const shouldReduceMotion = useRef(false);
   
   // Interaction states
   const isHovered = useRef(false);
@@ -22,7 +25,10 @@ export const ClientsPartners = () => {
   const startX = useRef(0);
   const startScroll = useRef(0);
 
-  const categories = [
+  const categories: {
+    id: PartnerCategory;
+    label: string;
+  }[] = [
     { id: "oem", label: "OEM Partners" },
     { id: "charging", label: "Charging & Swapping" },
     { id: "financing", label: "Financing Partners" }
@@ -39,6 +45,34 @@ export const ClientsPartners = () => {
 
   // Whether scroll position has been initialized (prevents RAF jump on mount)
   const scrollReady = useRef(false);
+
+  useEffect(() => {
+    shouldReduceMotion.current =
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      isInView.current = true;
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInView.current = entry.isIntersecting;
+      },
+      {
+        root: null,
+        rootMargin: "160px 0px",
+        threshold: 0,
+      }
+    );
+
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, []);
 
   // ─── Initialize scroll position in the middle set ──────────────────────────
   useEffect(() => {
@@ -61,7 +95,14 @@ export const ClientsPartners = () => {
 
     const loop = () => {
       if (!running) return;
-      if (scrollReady.current && !isHovered.current && !isDragging.current && el) {
+      if (
+        scrollReady.current &&
+        isInView.current &&
+        !shouldReduceMotion.current &&
+        !isHovered.current &&
+        !isDragging.current &&
+        el
+      ) {
         el.scrollLeft -= SCROLL_SPEED;
 
         // Loop boundary wrap — keep inside middle region
@@ -176,7 +217,7 @@ export const ClientsPartners = () => {
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setActiveCategory(cat.id as any)}
+              onClick={() => setActiveCategory(cat.id)}
               className={`px-4 sm:px-5 py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeCategory === cat.id
                   ? "bg-fyn-pink text-fyn-text shadow-[0_0_15px_rgba(232,25,122,0.2)]"

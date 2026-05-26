@@ -283,9 +283,7 @@ export async function POST(req: Request) {
 
     const aiReply = await getAIResponse(message, language);
     return NextResponse.json({ reply: aiReply });
-  } catch (error: unknown) {
-    console.log("CHAT ROUTE ERROR:", error);
-
+  } catch {
     return NextResponse.json(
       {
         reply: "FYNN is temporarily offline.",

@@ -32,6 +32,8 @@ export const Investors = () => {
     useRef<HTMLDivElement>(null);
 
   const rafRef = useRef<number>(0);
+  const isInView = useRef(false);
+  const shouldReduceMotion = useRef(false);
 
   const isHovered = useRef(false);
 
@@ -57,6 +59,42 @@ export const Investors = () => {
     (CARD_WIDTH + CARD_GAP);
 
   const scrollReady = useRef(false);
+
+  useEffect(() => {
+    shouldReduceMotion.current =
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  useEffect(() => {
+    const el = containerRef.current;
+
+    if (
+      !el ||
+      typeof IntersectionObserver ===
+        "undefined"
+    ) {
+      isInView.current = true;
+      return;
+    }
+
+    const observer =
+      new IntersectionObserver(
+        ([entry]) => {
+          isInView.current =
+            entry.isIntersecting;
+        },
+        {
+          root: null,
+          rootMargin: "160px 0px",
+          threshold: 0,
+        }
+      );
+
+    observer.observe(el);
+
+    return () =>
+      observer.disconnect();
+  }, []);
 
   /* =========================================
      INITIALIZE CENTER POSITION
@@ -92,6 +130,8 @@ export const Investors = () => {
 
       if (
         scrollReady.current &&
+        isInView.current &&
+        !shouldReduceMotion.current &&
         !isHovered.current &&
         !isDragging.current &&
         el

@@ -45,7 +45,7 @@ export const InvestorCard: React.FC<InvestorCardProps> = ({
               loading="lazy"
               decoding="async"
               className={cn(
-                "h-auto max-h-12 w-auto max-w-[68%] object-contain opacity-95",
+                "h-auto max-h-12 w-auto max-w-[68%] object-contain opacity-95 transform-gpu",
                 logoClass
               )}
               onError={() => setImgError(true)}

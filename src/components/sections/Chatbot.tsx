@@ -116,9 +116,7 @@ export const Chatbot = () => {
           links: data.links || [],
         },
       ]);
-    } catch (error) {
-      console.log(error);
-
+    } catch {
       const now = new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",

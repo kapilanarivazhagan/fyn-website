@@ -29,7 +29,6 @@ const careerStoryImages = [
     caption:
       "Cross-functional teams working close to the operating floor, not far away from it.",
     className: "lg:col-span-7 h-[360px] sm:h-[430px] lg:h-[590px]",
-    priority: true,
   },
   {
     src: "/career/funfriday.webp",
@@ -301,19 +300,18 @@ export const Careers = () => {
                       ? "(min-width: 1024px) 58vw, 100vw"
                       : "(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw"
                   }
-                  priority={image.priority}
                   className="fyn-media-image object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/22 to-black/8" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/36 to-black/10" />
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-fyn-pink/70 to-transparent" />
                 <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-fyn-pink/[0.035]" />
 
-                <figcaption className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-                  <p className="text-[10px] font-mono uppercase tracking-widest text-fyn-pink/90">
+                <figcaption className="fyn-story-text-plate absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                  <p className="fyn-story-label text-[10px] font-mono uppercase tracking-widest text-fyn-pink">
                     {image.label}
                   </p>
-                  <p className="mt-1 max-w-[32rem] text-sm font-semibold leading-snug text-fyn-text">
+                  <p className="fyn-story-caption mt-1 max-w-[32rem] text-sm font-semibold leading-snug text-white">
                     {image.caption}
                   </p>
                 </figcaption>

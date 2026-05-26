@@ -3,7 +3,15 @@
 import React, { useState } from "react";
 import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
-import { Users, Truck, Building, Zap, DollarSign, Cpu } from "lucide-react";
+import {
+  Users,
+  Truck,
+  Building,
+  Zap,
+  DollarSign,
+  Cpu,
+  type LucideIcon,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionBackground } from "../ui/SectionBackground";
 
@@ -12,7 +20,7 @@ interface NodeItem {
   name: string;
   description: string;
   connection: string;
-  icon: React.ComponentType<any>;
+  icon: LucideIcon;
 }
 
 export const Ecosystem = () => {

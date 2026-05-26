@@ -3,6 +3,7 @@
 import React from "react";
 import { GlowCard } from "./GlowCard";
 import * as Icons from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface MetricCardProps {
@@ -20,8 +21,12 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   description,
   iconName,
 }) => {
-  // Dynamically resolve icon component
-  const IconComponent = (Icons as any)[iconName] || Icons.HelpCircle;
+  const iconMap = Icons as unknown as Record<
+    string,
+    LucideIcon
+  >;
+  const IconComponent =
+    iconMap[iconName] || Icons.HelpCircle;
 
   return (
     <GlowCard className="h-full flex flex-col justify-between" glowColor="rgba(232, 25, 122, 0.12)">

@@ -22,9 +22,38 @@ import { SectionBackground } from "../ui/SectionBackground";
 export const FleetImpact = () => {
   const [mounted, setMounted] = useState(false);
   const [activeMetricTab, setActiveMetricTab] = useState<"kms" | "co2">("kms");
+  const [sectionActive, setSectionActive] = useState(false);
+  const sectionRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (
+      !section ||
+      typeof IntersectionObserver === "undefined"
+    ) {
+      setSectionActive(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setSectionActive(entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: "160px 0px",
+        threshold: 0,
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
   }, []);
 
   // Live telemetry notifications mock
@@ -37,7 +66,7 @@ export const FleetImpact = () => {
   ]);
 
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || !sectionActive) return;
     const interval = setInterval(() => {
       const cities = ["BLR", "MAS", "HYD"];
       const events = [
@@ -55,10 +84,10 @@ export const FleetImpact = () => {
     }, 4500);
 
     return () => clearInterval(interval);
-  }, [mounted]);
+  }, [mounted, sectionActive]);
 
   return (
-    <section id="fleet-impact" className="py-20 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+    <section ref={sectionRef} id="fleet-impact" className="py-20 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
       <SectionBackground variant="impact" />
       <div className="absolute inset-0 bg-grid-pattern opacity-20 pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-fyn-pink/[0.02] blur-[150px] pointer-events-none" />

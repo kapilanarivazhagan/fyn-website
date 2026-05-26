@@ -28,8 +28,10 @@ export const PartnerLogo: React.FC<PartnerLogoProps> = ({ name, logo, className,
           <img
             src={logo}
             alt={`${name} Logo`}
+            loading="lazy"
+            decoding="async"
             className={cn(
-              "max-w-[80%] max-h-[80%] object-contain transition-transform duration-300 group-hover:scale-105",
+              "max-w-[80%] max-h-[80%] object-contain transition-transform duration-300 group-hover:scale-105 transform-gpu",
               logoClass
             )}
             onError={() => setImgError(true)}

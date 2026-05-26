@@ -3,6 +3,7 @@
 import React, {
   useState,
   useEffect,
+  useRef,
 } from "react";
 
 import Image from "next/image";
@@ -49,14 +50,33 @@ export const Navbar = ({
 
   const [scrolled, setScrolled] =
     useState(false);
+  const scrolledRef = useRef(false);
 
   /* =========================================
      SCROLL DETECTION
   ========================================= */
 
   useEffect(() => {
+    let rafId = 0;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      cancelAnimationFrame(rafId);
+
+      rafId = requestAnimationFrame(() => {
+        const nextScrolled =
+          window.scrollY > 20;
+
+        if (
+          scrolledRef.current ===
+          nextScrolled
+        ) {
+          return;
+        }
+
+        scrolledRef.current =
+          nextScrolled;
+        setScrolled(nextScrolled);
+      });
     };
 
     handleScroll();
@@ -70,6 +90,7 @@ export const Navbar = ({
     );
 
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener(
         "scroll",
         handleScroll

@@ -137,6 +137,11 @@ export default function Home() {
   const [navActiveView, setNavActiveView] =
     useState<MajorView>("home");
 
+  const handleIntroFinish =
+    useCallback(() => {
+      setShowIntro(false);
+    }, []);
+
   const scrollToTarget = useCallback(
     (targetId: string) => {
       if (
@@ -584,9 +589,7 @@ export default function Home() {
 
       {showIntro && (
         <IntroLoader
-          onFinish={() =>
-            setShowIntro(false)
-          }
+          onFinish={handleIntroFinish}
         />
       )}
     </>

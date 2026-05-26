@@ -1,6 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -17,12 +21,11 @@ export const GlowCard: React.FC<GlowCardProps> = ({
   glowColor = "rgba(232, 25, 122, 0.08)",
   interactive = true,
 }) => {
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(true);
+  const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Detect touch/hover capability to avoid coordinate tracking on mobile
     const mediaQuery = window.matchMedia("(hover: hover)");
     setIsTouchDevice(!mediaQuery.matches);
 
@@ -36,11 +39,16 @@ export const GlowCard: React.FC<GlowCardProps> = ({
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isTouchDevice) return;
+
     const rect = e.currentTarget.getBoundingClientRect();
-    setCoords({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    glowRef.current?.style.setProperty(
+      "--glow-x",
+      `${e.clientX - rect.left}px`
+    );
+    glowRef.current?.style.setProperty(
+      "--glow-y",
+      `${e.clientY - rect.top}px`
+    );
   };
 
   const baseClassName = cn(
@@ -71,9 +79,10 @@ export const GlowCard: React.FC<GlowCardProps> = ({
     >
       {isHovered && (
         <div
+          ref={glowRef}
           className="pointer-events-none absolute -inset-px transition-opacity duration-300"
           style={{
-            background: `radial-gradient(350px circle at ${coords.x}px ${coords.y}px, ${glowColor}, transparent 80%)`,
+            background: `radial-gradient(350px circle at var(--glow-x, 50%) var(--glow-y, 50%), ${glowColor}, transparent 80%)`,
           }}
         />
       )}

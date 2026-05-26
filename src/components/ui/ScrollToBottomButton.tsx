@@ -6,38 +6,41 @@ import { ChevronDown } from "lucide-react";
 export const ScrollToBottomButton = () => {
   const [visible, setVisible] = useState(false);
   const lastScrollYRef = useRef<number>(0);
+  const visibleRef = useRef(false);
+  const rafRef = useRef<number>(0);
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     lastScrollYRef.current = typeof window !== "undefined" ? window.scrollY : 0;
 
+    const updateVisible = (nextVisible: boolean) => {
+      if (visibleRef.current === nextVisible) return;
+      visibleRef.current = nextVisible;
+      setVisible(nextVisible);
+    };
+
     const onScroll = () => {
-      const current = window.scrollY;
-      const delta = current - lastScrollYRef.current;
+      cancelAnimationFrame(rafRef.current);
 
-      if (Math.abs(delta) < 3) {
+      rafRef.current = requestAnimationFrame(() => {
+        const current = window.scrollY;
+        const delta = current - lastScrollYRef.current;
+
+        if (Math.abs(delta) >= 3) {
+          updateVisible(delta > 0);
+        }
+
         lastScrollYRef.current = current;
+
         if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-        scrollTimeoutRef.current = setTimeout(() => setVisible(false), 1500);
-        return;
-      }
-
-      // show only when user is actively scrolling down
-      if (delta > 0) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
-
-      lastScrollYRef.current = current;
-
-      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-      scrollTimeoutRef.current = setTimeout(() => setVisible(false), 1500);
+        scrollTimeoutRef.current = setTimeout(() => updateVisible(false), 1500);
+      });
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
+      cancelAnimationFrame(rafRef.current);
       window.removeEventListener("scroll", onScroll);
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     };

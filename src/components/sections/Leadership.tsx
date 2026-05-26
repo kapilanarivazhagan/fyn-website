@@ -1,6 +1,7 @@
 "use client";
 
 import React, {
+  useMemo,
   useRef,
   useState,
   useEffect,
@@ -79,6 +80,7 @@ export const Leadership = () => {
 
   const [currentIndex, setCurrentIndex] =
     useState(0);
+  const currentIndexRef = useRef(0);
 
   const [cardsToMove, setCardsToMove] =
     useState(3);
@@ -99,21 +101,27 @@ export const Leadership = () => {
   const velocityRef = useRef(0);
   const momentumAnimationRef =
     useRef<number>(0);
+  const scrollAnimationRef =
+    useRef<number>(0);
   const snapTimeoutRef =
     useRef<ReturnType<typeof setTimeout> | null>(
       null
     );
   const lastTimeRef = useRef(0);
 
-  const orderedLeaders =
-    getOrderedLeadership();
+  const orderedLeaders = useMemo(
+    getOrderedLeadership,
+    []
+  );
 
-  // Triple the slides for seamless looping
-  const allSlides = [
-    ...orderedLeaders,
-    ...orderedLeaders,
-    ...orderedLeaders,
-  ];
+  const allSlides = useMemo(
+    () => [
+      ...orderedLeaders,
+      ...orderedLeaders,
+      ...orderedLeaders,
+    ],
+    [orderedLeaders]
+  );
 
   const singleSetLength =
     orderedLeaders.length;
@@ -180,9 +188,17 @@ export const Leadership = () => {
 
     const rawIndex =
       container.scrollLeft / slideUnit;
-    setCurrentIndex(
-      normalizeIndex(Math.round(rawIndex))
+    const nextIndex = normalizeIndex(
+      Math.round(rawIndex)
     );
+
+    if (
+      currentIndexRef.current !==
+      nextIndex
+    ) {
+      currentIndexRef.current = nextIndex;
+      setCurrentIndex(nextIndex);
+    }
   };
 
   const keepScrollInMiddleSet = () => {
@@ -264,17 +280,27 @@ export const Leadership = () => {
       cancelAnimationFrame(
         momentumAnimationRef.current
       );
+      cancelAnimationFrame(
+        scrollAnimationRef.current
+      );
       clearSnapTimer();
     };
   }, [middleSetStart, slideUnit]);
 
   const handleScroll = () => {
-    keepScrollInMiddleSet();
-    syncScrollState();
+    cancelAnimationFrame(
+      scrollAnimationRef.current
+    );
 
-    if (!isDraggingRef.current) {
-      scheduleSoftSnap();
-    }
+    scrollAnimationRef.current =
+      requestAnimationFrame(() => {
+        keepScrollInMiddleSet();
+        syncScrollState();
+
+        if (!isDraggingRef.current) {
+          scheduleSoftSnap();
+        }
+      });
   };
 
   /* =========================================

@@ -74,11 +74,13 @@ const AnimatedStatCard = ({
   index,
   replayKey,
   isActive,
+  canDisplay,
 }: {
   stat: HeroStat;
   index: number;
   replayKey: number;
   isActive: boolean;
+  canDisplay: boolean;
 }) => {
   const [displayValue, setDisplayValue] =
     useState(0);
@@ -97,7 +99,7 @@ const AnimatedStatCard = ({
     >(undefined);
 
   useLayoutEffect(() => {
-    if (!isActive) {
+    if (!isActive || replayKey === 0) {
       return;
     }
 
@@ -110,21 +112,23 @@ const AnimatedStatCard = ({
     lastPlayedKeyRef.current = replayKey;
 
     if (shouldReduceMotion) {
+      setIsCounting(false);
       setDisplayValue(stat.value);
       return;
     }
 
-    setIsCounting(true);
+    controlsRef.current?.stop();
     setDisplayValue(0);
+    setIsCounting(true);
 
     const startDelay =
-      shouldReduceMotion ? 0 : index * 0.04;
+      index * 0.025;
     const countDuration =
       stat.value <= 3
-        ? 0.75
+        ? 0.85
         : stat.value <= 20
-          ? 0.95
-          : 1.35;
+          ? 1.05
+          : 1.5;
 
     const timeoutId = window.setTimeout(() => {
       controlsRef.current?.stop();
@@ -167,8 +171,8 @@ const AnimatedStatCard = ({
         y: 16,
       }}
       animate={{
-        opacity: isActive ? 1 : 0,
-        y: isActive ? 0 : 16,
+        opacity: canDisplay ? 1 : 0,
+        y: 0,
       }}
       transition={{
         duration: 0.7,
@@ -269,6 +273,58 @@ export const Hero = ({
   const introReplayDoneRef =
     React.useRef(false);
 
+  const triggerStatsReplay =
+    React.useCallback(() => {
+      const now = performance.now();
+
+      if (
+        now - lastReplayAtRef.current <
+        520
+      ) {
+        return;
+      }
+
+      lastReplayAtRef.current = now;
+
+      setStatsReplayKey((current) =>
+        current + 1
+      );
+    }, []);
+
+  const isHeroVisibleNow =
+    React.useCallback(() => {
+      const heroElement = heroRef.current;
+
+      if (
+        !heroElement ||
+        typeof window === "undefined"
+      ) {
+        return false;
+      }
+
+      const viewportHeight =
+        window.innerHeight ||
+        document.documentElement.clientHeight;
+      const rect =
+        heroElement.getBoundingClientRect();
+      const visiblePixels =
+        Math.min(rect.bottom, viewportHeight) -
+        Math.max(rect.top, 0);
+      const visibleRatio =
+        visiblePixels /
+        Math.max(
+          1,
+          Math.min(rect.height, viewportHeight)
+        );
+
+      return (
+        visiblePixels > 96 &&
+        visibleRatio >= 0.18 &&
+        rect.top < viewportHeight * 0.94 &&
+        rect.bottom > viewportHeight * 0.06
+      );
+    }, []);
+
   useEffect(() => {
     const heroElement = heroRef.current;
 
@@ -279,23 +335,6 @@ export const Hero = ({
     ) {
       return;
     }
-
-    const triggerReplay = () => {
-      const now = performance.now();
-
-      if (
-        now - lastReplayAtRef.current <
-        700
-      ) {
-        return;
-      }
-
-      lastReplayAtRef.current = now;
-
-      setStatsReplayKey((current) =>
-        current + 1
-      );
-    };
 
     const observer =
       new IntersectionObserver(
@@ -308,11 +347,11 @@ export const Hero = ({
             entry.boundingClientRect;
           const visibleEnough =
             entry.isIntersecting &&
-            entry.intersectionRatio >= 0.34 &&
+            entry.intersectionRatio >= 0.16 &&
             rect.top <
-              viewportHeight * 0.86 &&
+              viewportHeight * 0.94 &&
             rect.bottom >
-              viewportHeight * 0.18;
+              viewportHeight * 0.06;
 
           setHeroInView(visibleEnough);
 
@@ -323,7 +362,7 @@ export const Hero = ({
             heroWasVisibleRef.current =
               true;
             if (introComplete) {
-              triggerReplay();
+              triggerStatsReplay();
             }
             return;
           }
@@ -336,13 +375,14 @@ export const Hero = ({
         {
           root: null,
           rootMargin:
-            "-10% 0px -24% 0px",
+            "0px 0px -8% 0px",
           threshold: [
             0,
-            0.15,
+            0.08,
+            0.16,
             0.28,
-            0.42,
-            0.6,
+            0.45,
+            0.65,
             0.8,
             1,
           ],
@@ -354,12 +394,11 @@ export const Hero = ({
     return () => {
       observer.disconnect();
     };
-  }, [introComplete]);
+  }, [introComplete, triggerStatsReplay]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       !introComplete ||
-      !heroInView ||
       introReplayDoneRef.current
     ) {
       return;
@@ -367,13 +406,33 @@ export const Hero = ({
 
     introReplayDoneRef.current = true;
 
-    lastReplayAtRef.current =
-      performance.now();
+    const startIfVisible = () => {
+      const visibleNow =
+        isHeroVisibleNow();
 
-    setStatsReplayKey((current) =>
-      current + 1
-    );
-  }, [heroInView, introComplete]);
+      setHeroInView(visibleNow);
+
+      if (visibleNow) {
+        heroWasVisibleRef.current = true;
+        triggerStatsReplay();
+      }
+    };
+
+    startIfVisible();
+
+    const rafId =
+      window.requestAnimationFrame(
+        startIfVisible
+      );
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+    };
+  }, [
+    introComplete,
+    isHeroVisibleNow,
+    triggerStatsReplay,
+  ]);
 
   return (
     <motion.section
@@ -879,7 +938,7 @@ export const Hero = ({
           }}
           transition={{
             duration: 0.8,
-            delay: 0.54,
+            delay: 0.34,
             ease: [0.22, 1, 0.36, 1],
           }}
           className="
@@ -915,6 +974,9 @@ export const Hero = ({
               replayKey={statsReplayKey}
               isActive={
                 introComplete && heroInView
+              }
+              canDisplay={
+                introComplete || statsReplayKey > 0
               }
             />
           ))}

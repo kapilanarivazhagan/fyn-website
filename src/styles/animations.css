@@ -68,6 +68,12 @@
   -webkit-backface-visibility: hidden;
 }
 
+.media-carousel {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  contain: layout paint;
+}
+
 .media-carousel:hover .animate-media-carousel {
   animation-play-state: paused;
 }
@@ -98,9 +104,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse,
   .animate-media-carousel {
-    animation-duration: 1ms;
-    animation-iteration-count: 1;
+    animation: none !important;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .animate-pulse-slow,
+  .animate-scanline {
+    animation: none !important;
   }
 }
 
