@@ -29,6 +29,7 @@ export interface ClientItem {
   logo: string;
   website?: string;
   description?: string;
+  logoClass?: string;
 }
 
 export const clientsList: ClientItem[] = [

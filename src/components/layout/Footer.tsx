@@ -15,50 +15,42 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.startsWith("#") && href !== "/") return;
+
     e.preventDefault();
-    if (href.startsWith("#")) {
-      const targetId = href.substring(1);
-      const element = document.getElementById(targetId);
-      if (element) {
-        const navbarOffset = 100;
 
-        const elementPosition =
-          element.getBoundingClientRect().top + window.scrollY;
-
-        const offsetPosition = elementPosition - navbarOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-      }
-    } else if (href === "/") {
-      if (typeof window !== "undefined") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+    if (href === "/") {
+      window.history.pushState(null, "", "/");
+      window.dispatchEvent(new Event("hashchange"));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
     }
+
+    window.history.pushState(null, "", href);
+    window.dispatchEvent(new Event("hashchange"));
   };
 
   const footerLinks = {
     platforms: [
-      { label: "OptiFyn Ops Suite", href: "#refynd" },
+      { label: "OptiFyn Ops Suite", href: "#platforms" },
       { label: "Refynd EV Leasing", href: "#refynd" },
       { label: "INFYNITY Driver App", href: "#infynity" },
     ],
     company: [
       { label: "About Us", href: "#about-us" },
       { label: "Vision & Mission", href: "#vision-mission" },
+      { label: "Future of Fyn", href: "#future-of-fyn" },
       { label: "What We Do", href: "#what-we-do" },
       { label: "Clients & Partners", href: "#clients-partners" },
       { label: "Media & Press", href: "#media" },
       { label: "Careers Hub", href: "#careers" },
     ],
     partnerships: [
-      { label: "Invest in Fyn", href: "#get-involved" },
-      { label: "Enterprise Fleet", href: "#get-involved" },
-      { label: "Refynd Partner", href: "#get-involved" },
-      { label: "INFYNITY Partner", href: "#get-involved" },
-      { label: "Drive with Fyn", href: "#get-involved" },
+      { label: "Invest in Fyn", href: "#get-involved-invest" },
+      { label: "Enterprise Fleet", href: "#get-involved-enterprise" },
+      { label: "Refynd Partner", href: "#get-involved-refynd" },
+      { label: "INFYNITY Partner", href: "#get-involved-infynity" },
+      { label: "Drive with Fyn", href: "#get-involved-drive" },
     ],
   };
 
@@ -122,7 +114,7 @@ export const Footer = () => {
               {footerLinks.platforms.map((link) => (
                 <li key={link.label}>
                   <a
-                    href="#"
+                    href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
                     className="text-xs font-semibold text-fyn-text-muted hover:text-fyn-text transition-colors duration-200 flex items-center group"
                   >
@@ -143,7 +135,7 @@ export const Footer = () => {
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <a
-                    href="#"
+                    href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
                     className="text-xs font-semibold text-fyn-text-muted hover:text-fyn-text transition-colors duration-200 flex items-center group"
                   >
@@ -164,7 +156,7 @@ export const Footer = () => {
               {footerLinks.partnerships.map((link) => (
                 <li key={link.label}>
                   <a
-                    href="#"
+                    href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
                     className="text-xs font-semibold text-fyn-text-muted hover:text-fyn-text transition-colors duration-200 flex items-center group"
                   >
@@ -213,9 +205,9 @@ export const Footer = () => {
         <div className="pt-10 border-t border-fyn-border/40 flex flex-col md:flex-row items-center justify-between text-[11px] font-semibold text-fyn-text-muted space-y-4 md:space-y-0">
           <p>© {currentYear} Fyn Mobility (VNPR Technologies Pvt Ltd). All Rights Reserved.</p>
           <div className="flex space-x-6">
-            <a href="#" className="hover:text-fyn-text transition-colors">Privacy Parameters</a>
-            <a href="#" className="hover:text-fyn-text transition-colors">Ecosystem Terms</a>
-            <a href="#" className="hover:text-fyn-text transition-colors">Operational Protocols</a>
+            <a href="mailto:info@fynmobility.com?subject=Privacy%20Parameters" className="hover:text-fyn-text transition-colors">Privacy Parameters</a>
+            <a href="mailto:info@fynmobility.com?subject=Ecosystem%20Terms" className="hover:text-fyn-text transition-colors">Ecosystem Terms</a>
+            <a href="mailto:info@fynmobility.com?subject=Operational%20Protocols" className="hover:text-fyn-text transition-colors">Operational Protocols</a>
           </div>
         </div>
       </div>

@@ -7,9 +7,10 @@ interface PartnerLogoProps {
   name: string;
   logo?: string;
   className?: string;
+  logoClass?: string;
 }
 
-export const PartnerLogo: React.FC<PartnerLogoProps> = ({ name, logo, className }) => {
+export const PartnerLogo: React.FC<PartnerLogoProps> = ({ name, logo, className, logoClass }) => {
   const [imgError, setImgError] = useState(false);
 
   // Show image only if logo is specified and has not thrown a loading error
@@ -27,7 +28,10 @@ export const PartnerLogo: React.FC<PartnerLogoProps> = ({ name, logo, className 
           <img
             src={logo}
             alt={`${name} Logo`}
-            className="max-w-[80%] max-h-[80%] object-contain transition-transform duration-300 group-hover:scale-105"
+            className={cn(
+              "max-w-[80%] max-h-[80%] object-contain transition-transform duration-300 group-hover:scale-105",
+              logoClass
+            )}
             onError={() => setImgError(true)}
           />
         </div>

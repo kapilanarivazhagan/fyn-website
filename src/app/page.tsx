@@ -6,6 +6,8 @@ import IntroLoader from "../components/intro/IntroLoader";
 
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
+import { SectionAtmosphere } from "../components/ui/SectionAtmosphere";
+import { ScrollToTopButton } from "../components/ui/ScrollToTopButton";
 
 import { Hero } from "../components/sections/Hero";
 
@@ -41,6 +43,38 @@ type ViewType =
   | "careers"
   | "get-involved";
 
+const hashRoutes: Record<
+  string,
+  { view: ViewType; targetId: string }
+> = {
+  "about-us": { view: "about", targetId: "about-us" },
+  "vision-mission": { view: "vision", targetId: "vision-mission" },
+  "future-of-fyn": { view: "vision", targetId: "future-of-fyn" },
+  "what-we-do": { view: "what-we-do", targetId: "what-we-do" },
+  ecosystem: { view: "what-we-do", targetId: "ecosystem" },
+  platforms: { view: "what-we-do", targetId: "platforms" },
+  "fleet-impact": { view: "what-we-do", targetId: "fleet-impact" },
+  refynd: { view: "refynd", targetId: "refynd" },
+  infynity: { view: "infynity", targetId: "infynity" },
+  "clients-partners": { view: "clients", targetId: "clients-partners" },
+  "financial-banking": { view: "clients", targetId: "financial-banking" },
+  media: { view: "media", targetId: "media" },
+  careers: { view: "careers", targetId: "careers" },
+  "get-involved": { view: "get-involved", targetId: "get-involved" },
+  "get-involved-invest": { view: "get-involved", targetId: "get-involved" },
+  "get-involved-enterprise": {
+    view: "get-involved",
+    targetId: "get-involved",
+  },
+  "get-involved-refynd": { view: "get-involved", targetId: "get-involved" },
+  "get-involved-infynity": {
+    view: "get-involved",
+    targetId: "get-involved",
+  },
+  "get-involved-drive": { view: "get-involved", targetId: "get-involved" },
+  home: { view: "home", targetId: "" },
+};
+
 export default function Home() {
   const [showIntro, setShowIntro] =
     useState(true);
@@ -58,23 +92,13 @@ export default function Home() {
         .replace(/^#/, "")
         .toLowerCase();
 
-      const hashToViewMap: Record<
-        string,
-        ViewType
-      > = {
-        refynd: "refynd",
-        careers: "careers",
-        infynity: "infynity",
-        "get-involved": "get-involved",
-      };
+      if (!hash) {
+        setActiveView("home");
+        return;
+      }
 
-      if (
-        hash &&
-        hashToViewMap[hash]
-      ) {
-        setActiveView(
-          hashToViewMap[hash]
-        );
+      if (hashRoutes[hash]) {
+        setActiveView(hashRoutes[hash].view);
       }
     };
 
@@ -103,19 +127,24 @@ export default function Home() {
 
     if (!hash) return;
 
+    const targetId = hashRoutes[hash]?.targetId ?? hash;
+
     const timeoutId = setTimeout(() => {
-      const section =
-        document.getElementById(
-          hash
-        );
+      const section = document.getElementById(targetId);
 
       if (section) {
-        section.scrollIntoView({
+        const navbarOffset = 96;
+        const targetTop =
+          section.getBoundingClientRect().top +
+          window.scrollY -
+          navbarOffset;
+
+        window.scrollTo({
+          top: Math.max(targetTop, 0),
           behavior: "smooth",
-          block: "start",
         });
       }
-    }, 100);
+    }, 160);
 
     return () =>
       clearTimeout(timeoutId);
@@ -162,15 +191,21 @@ export default function Home() {
 
           {activeView === "about" && (
             <>
-              <About />
-
-              <VisionMission />
-
-              <Leadership />
-
-              <Ecosystem />
-
-              <GetInvolved />
+              <SectionAtmosphere exit tone="warm">
+                <About />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter exit>
+                <VisionMission />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter exit tone="deep">
+                <Leadership />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter exit>
+                <Ecosystem />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter>
+                <GetInvolved />
+              </SectionAtmosphere>
 
               <Footer />
             </>
@@ -182,11 +217,15 @@ export default function Home() {
 
           {activeView === "vision" && (
             <>
-              <VisionMission />
-
-              <LastMileBrands />
-
-              <Investors />
+              <SectionAtmosphere exit>
+                <VisionMission />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter exit tone="warm">
+                <LastMileBrands />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter tone="deep">
+                <Investors />
+              </SectionAtmosphere>
 
               <Footer />
             </>
@@ -199,13 +238,18 @@ export default function Home() {
           {activeView ===
             "what-we-do" && (
             <>
-              <WhatWeDo />
-
-              <Ecosystem />
-
-              <Platforms />
-
-              <FleetImpact />
+              <SectionAtmosphere exit>
+                <WhatWeDo />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter exit>
+                <Ecosystem />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter exit tone="warm">
+                <Platforms />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter tone="deep">
+                <FleetImpact />
+              </SectionAtmosphere>
 
               <Footer />
             </>
@@ -242,9 +286,12 @@ export default function Home() {
 
           {activeView === "clients" && (
             <>
-              <ClientsPartners />
-
-              <Investors />
+              <SectionAtmosphere exit>
+                <ClientsPartners />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter tone="deep">
+                <Investors />
+              </SectionAtmosphere>
 
               <Footer />
             </>
@@ -268,9 +315,12 @@ export default function Home() {
 
           {activeView === "careers" && (
             <>
-              <Careers />
-
-              <GetInvolved />
+              <SectionAtmosphere exit tone="warm">
+                <Careers />
+              </SectionAtmosphere>
+              <SectionAtmosphere enter>
+                <GetInvolved />
+              </SectionAtmosphere>
 
               <Footer />
             </>
@@ -289,6 +339,8 @@ export default function Home() {
             </>
           )}
         </main>
+
+        <ScrollToTopButton />
       </div>
 
       {/* INTRO LOADER */}

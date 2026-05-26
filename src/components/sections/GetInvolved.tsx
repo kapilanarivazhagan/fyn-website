@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
 import { FormInput } from "../ui/FormInput";
@@ -39,6 +39,35 @@ export const GetInvolved = () => {
     { id: "infynity", label: "INFYNITY Partner" },
     { id: "drive", label: "Drive with Fyn" },
   ];
+
+  useEffect(() => {
+    const hashToTab: Record<string, FormTab> = {
+      "get-involved": "invest",
+      "get-involved-invest": "invest",
+      "get-involved-enterprise": "enterprise",
+      "get-involved-refynd": "refynd",
+      "get-involved-infynity": "infynity",
+      "get-involved-drive": "drive",
+    };
+
+    const syncTabFromHash = () => {
+      const hash = window.location.hash.replace(/^#/, "");
+      const nextTab = hashToTab[hash];
+
+      if (nextTab) {
+        setActiveTab(nextTab);
+        setSuccess(false);
+        setErrors({});
+      }
+    };
+
+    syncTabFromHash();
+    window.addEventListener("hashchange", syncTabFromHash);
+
+    return () => {
+      window.removeEventListener("hashchange", syncTabFromHash);
+    };
+  }, []);
 
   const handleInputChange = (
     e: React.ChangeEvent<

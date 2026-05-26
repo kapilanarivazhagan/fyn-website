@@ -1,0 +1,288 @@
+[
+  {
+    "name": "culture-leadership-team",
+    "source": "LinkedIn Fyn leadership culture post",
+    "original": {
+      "width": 1080,
+      "height": 1080,
+      "bytes": 156174
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/culture-leadership-team-sm.webp",
+        "width": 640,
+        "bytes": 35334
+      },
+      {
+        "file": "/images/storytelling/culture-leadership-team-md.webp",
+        "width": 960,
+        "bytes": 60170
+      },
+      {
+        "file": "/images/storytelling/culture-leadership-team-lg.webp",
+        "width": 1400,
+        "bytes": 78584
+      }
+    ]
+  },
+  {
+    "name": "culture-event-handshake",
+    "source": "Fyn official event image",
+    "original": {
+      "width": 1024,
+      "height": 1024,
+      "bytes": 671610
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/culture-event-handshake-sm.webp",
+        "width": 640,
+        "bytes": 19416
+      },
+      {
+        "file": "/images/storytelling/culture-event-handshake-md.webp",
+        "width": 960,
+        "bytes": 31688
+      },
+      {
+        "file": "/images/storytelling/culture-event-handshake-lg.webp",
+        "width": 1400,
+        "bytes": 38384
+      }
+    ]
+  },
+  {
+    "name": "culture-fleet-lineup",
+    "source": "Fyn official fleet event image",
+    "original": {
+      "width": 1024,
+      "height": 1024,
+      "bytes": 2009451
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/culture-fleet-lineup-sm.webp",
+        "width": 640,
+        "bytes": 70814
+      },
+      {
+        "file": "/images/storytelling/culture-fleet-lineup-md.webp",
+        "width": 960,
+        "bytes": 127506
+      },
+      {
+        "file": "/images/storytelling/culture-fleet-lineup-lg.webp",
+        "width": 1400,
+        "bytes": 156014
+      }
+    ]
+  },
+  {
+    "name": "culture-year-milestones",
+    "source": "LinkedIn Fyn milestone post",
+    "original": {
+      "width": 1024,
+      "height": 640,
+      "bytes": 35346
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/culture-year-milestones-sm.webp",
+        "width": 640,
+        "bytes": 14800
+      },
+      {
+        "file": "/images/storytelling/culture-year-milestones-md.webp",
+        "width": 960,
+        "bytes": 23454
+      },
+      {
+        "file": "/images/storytelling/culture-year-milestones-lg.webp",
+        "width": 1400,
+        "bytes": 31238
+      }
+    ]
+  },
+  {
+    "name": "about-leadership-fe",
+    "source": "Financial Express leadership article",
+    "original": {
+      "width": 1200,
+      "height": 675,
+      "bytes": 440641
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/about-leadership-fe-sm.webp",
+        "width": 640,
+        "bytes": 44056
+      },
+      {
+        "file": "/images/storytelling/about-leadership-fe-md.webp",
+        "width": 960,
+        "bytes": 90228
+      },
+      {
+        "file": "/images/storytelling/about-leadership-fe-lg.webp",
+        "width": 1400,
+        "bytes": 142004
+      }
+    ]
+  },
+  {
+    "name": "about-fast-charge",
+    "source": "Fyn official fast-charge EV visual",
+    "original": {
+      "width": 2512,
+      "height": 1160,
+      "bytes": 351384
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/about-fast-charge-sm.webp",
+        "width": 640,
+        "bytes": 5380
+      },
+      {
+        "file": "/images/storytelling/about-fast-charge-md.webp",
+        "width": 960,
+        "bytes": 9108
+      },
+      {
+        "file": "/images/storytelling/about-fast-charge-lg.webp",
+        "width": 1400,
+        "bytes": 15344
+      }
+    ]
+  },
+  {
+    "name": "about-dubai-north-star",
+    "source": "LinkedIn Dubai Expand North Star post",
+    "original": {
+      "width": 1152,
+      "height": 1536,
+      "bytes": 178482
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/about-dubai-north-star-sm.webp",
+        "width": 640,
+        "bytes": 31700
+      },
+      {
+        "file": "/images/storytelling/about-dubai-north-star-md.webp",
+        "width": 960,
+        "bytes": 51984
+      },
+      {
+        "file": "/images/storytelling/about-dubai-north-star-lg.webp",
+        "width": 1400,
+        "bytes": 71016
+      }
+    ]
+  },
+  {
+    "name": "about-ecosystem-truck",
+    "source": "Fyn official EV ecosystem event image",
+    "original": {
+      "width": 1024,
+      "height": 1024,
+      "bytes": 883271
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/about-ecosystem-truck-sm.webp",
+        "width": 640,
+        "bytes": 18052
+      },
+      {
+        "file": "/images/storytelling/about-ecosystem-truck-md.webp",
+        "width": 960,
+        "bytes": 30594
+      },
+      {
+        "file": "/images/storytelling/about-ecosystem-truck-lg.webp",
+        "width": 1400,
+        "bytes": 36532
+      }
+    ]
+  },
+  {
+    "name": "about-founder-visakh",
+    "source": "Fyn founder portrait",
+    "original": {
+      "width": 1200,
+      "height": 1200,
+      "bytes": 175588
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/about-founder-visakh-sm.webp",
+        "width": 640,
+        "bytes": 20366
+      },
+      {
+        "file": "/images/storytelling/about-founder-visakh-md.webp",
+        "width": 960,
+        "bytes": 32664
+      },
+      {
+        "file": "/images/storytelling/about-founder-visakh-lg.webp",
+        "width": 1400,
+        "bytes": 42644
+      }
+    ]
+  },
+  {
+    "name": "about-founder-manu",
+    "source": "Fyn leadership portrait",
+    "original": {
+      "width": 1200,
+      "height": 1200,
+      "bytes": 139500
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/about-founder-manu-sm.webp",
+        "width": 640,
+        "bytes": 19980
+      },
+      {
+        "file": "/images/storytelling/about-founder-manu-md.webp",
+        "width": 960,
+        "bytes": 33496
+      },
+      {
+        "file": "/images/storytelling/about-founder-manu-lg.webp",
+        "width": 1400,
+        "bytes": 39112
+      }
+    ]
+  },
+  {
+    "name": "about-leader-niroop",
+    "source": "Fyn leadership portrait",
+    "original": {
+      "width": 1200,
+      "height": 1200,
+      "bytes": 185852
+    },
+    "variants": [
+      {
+        "file": "/images/storytelling/about-leader-niroop-sm.webp",
+        "width": 640,
+        "bytes": 17560
+      },
+      {
+        "file": "/images/storytelling/about-leader-niroop-md.webp",
+        "width": 960,
+        "bytes": 30122
+      },
+      {
+        "file": "/images/storytelling/about-leader-niroop-lg.webp",
+        "width": 1400,
+        "bytes": 36958
+      }
+    ]
+  }
+]

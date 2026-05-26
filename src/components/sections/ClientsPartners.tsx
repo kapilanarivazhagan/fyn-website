@@ -228,7 +228,11 @@ export const ClientsPartners = () => {
                   marginRight: `${CARD_GAP}px`,
                 }}
               >
-                <PartnerLogo name={partner.name} logo={partner.logo} />
+                <PartnerLogo
+                  name={partner.name}
+                  logo={partner.logo}
+                  logoClass={partner.logoClass}
+                />
               </div>
             ))}
           </div>

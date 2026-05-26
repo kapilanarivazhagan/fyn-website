@@ -148,9 +148,7 @@ export const Ecosystem = () => {
 
               {/* Technical readout details */}
               <div className="mt-8 pt-6 border-t border-fyn-border/30 flex flex-wrap gap-4 text-[10px] font-mono text-fyn-text-muted/40 uppercase tracking-widest">
-                <span>Ecosystem Protocol: FYN_LINK_v2.0</span>
                 <span>System status: fully operational</span>
-                <span>Latency: 14ms</span>
               </div>
             </GlowCard>
           </div>

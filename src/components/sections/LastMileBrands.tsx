@@ -191,7 +191,11 @@ export const LastMileBrands = () => {
                 marginRight: `${CARD_GAP}px`,
               }}
             >
-              <PartnerLogo name={client.name} logo={client.logo} />
+              <PartnerLogo
+                name={client.name}
+                logo={client.logo}
+                logoClass={client.logoClass}
+              />
             </div>
           ))}
         </div>

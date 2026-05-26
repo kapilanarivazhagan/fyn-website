@@ -21,6 +21,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export const Careers = () => {
   const [activeDept, setActiveDept] = useState<string>("All");
+  const [activeCity, setActiveCity] = useState<string>("All Cities");
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
   const [resumeName, setResumeName] = useState("");
   const [applicationStatus, setApplicationStatus] = useState<
@@ -45,10 +46,20 @@ export const Careers = () => {
     "HR",
   ];
 
+  const cities = [
+    "All Cities",
+    ...Array.from(new Set(openJobsList.map((job) => job.location))).sort(),
+  ];
+
   const filteredJobs =
-    activeDept === "All"
-      ? openJobsList
-      : openJobsList.filter((j) => j.department === activeDept);
+    openJobsList.filter((job) => {
+      const departmentMatch =
+        activeDept === "All" || job.department === activeDept;
+      const cityMatch =
+        activeCity === "All Cities" || job.location === activeCity;
+
+      return departmentMatch && cityMatch;
+    });
 
   const inputBase =
     "w-full bg-[#101010]/95 border border-fyn-border/70 text-fyn-text rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-fyn-pink/70 transition-colors duration-200 placeholder-fyn-text-muted/60 font-barlow";
@@ -179,29 +190,54 @@ export const Careers = () => {
           </h3>
 
           {/* Filters */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10 max-w-2xl mx-auto">
-            {departments.map((dept) => (
-              <button
-                key={dept}
-                onClick={() => setActiveDept(dept)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                  activeDept === dept
-                    ? "bg-fyn-pink text-fyn-text shadow-[0_0_15px_rgba(232,25,122,0.2)]"
-                    : "bg-fyn-surface/60 border border-fyn-border/40 text-fyn-text-muted hover:border-fyn-border hover:text-fyn-text"
-                }`}
-              >
-                {dept}
-              </button>
-            ))}
+          <div className="mb-10 mx-auto max-w-4xl rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/72 p-3 sm:p-4">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
+                {departments.map((dept) => (
+                  <button
+                    key={dept}
+                    onClick={() => setActiveDept(dept)}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                      activeDept === dept
+                        ? "bg-fyn-pink text-fyn-text shadow-[0_0_15px_rgba(232,25,122,0.2)]"
+                        : "bg-fyn-surface/60 border border-fyn-border/40 text-fyn-text-muted hover:border-fyn-border hover:text-fyn-text"
+                    }`}
+                  >
+                    {dept}
+                  </button>
+                ))}
+              </div>
+
+              <label className="flex w-full items-center gap-3 rounded-xl border border-fyn-border/45 bg-[#101010]/90 px-3 py-2 text-left sm:w-auto">
+                <span className="shrink-0 text-[10px] font-mono uppercase tracking-widest text-fyn-text-muted">
+                  City
+                </span>
+                <select
+                  value={activeCity}
+                  onChange={(event) => setActiveCity(event.target.value)}
+                  className="w-full min-w-0 bg-transparent text-xs font-bold uppercase tracking-wider text-fyn-text outline-none sm:min-w-[150px]"
+                >
+                  {cities.map((city) => (
+                    <option
+                      key={city}
+                      value={city}
+                      className="bg-[#101010] text-fyn-text"
+                    >
+                      {city}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
           </div>
 
           {/* Job Grid */}
-          <div className="min-h-[200px] text-left max-w-5xl mx-auto">
+          <div className="h-[620px] md:h-[660px] overflow-y-auto overscroll-contain pr-1 text-left max-w-5xl mx-auto">
             <motion.div
               initial={false}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.18 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 content-start"
             >
               {filteredJobs.length > 0 ? (
                 filteredJobs.map((job) => (
@@ -276,9 +312,14 @@ export const Careers = () => {
                   </motion.div>
                 ))
               ) : (
-                <div className="col-span-2 text-center py-12 text-fyn-text-muted uppercase font-mono tracking-widest text-sm">
-                  No active roles in {activeDept} currently. Submit open
-                  application in Get Involved.
+                <div className="md:col-span-2 min-h-[340px] flex flex-col items-center justify-center rounded-lg border border-fyn-border/35 bg-[#0c0c0c]/72 px-6 text-center">
+                  <p className="text-fyn-text-muted uppercase font-mono tracking-widest text-sm">
+                    No active roles for this filter.
+                  </p>
+                  <p className="mt-3 max-w-md text-sm leading-relaxed text-fyn-text-muted">
+                    Submit an open application in Get Involved and our team can
+                    route it to the right city or function.
+                  </p>
                 </div>
               )}
             </motion.div>

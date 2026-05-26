@@ -6,6 +6,57 @@ import { GlowCard } from "../ui/GlowCard";
 import { Zap, GitBranch, Share2, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionBackground } from "../ui/SectionBackground";
+import { StoryImage } from "../ui/StoryImage";
+
+const aboutStoryImages = [
+  {
+    image: "about-leadership-fe",
+    alt: "Fyn leadership standing with orange electric three wheelers",
+    caption:
+      "Founder-led operating conversations anchored in fleet deployment, city expansion, and customer partnerships.",
+    source: "Financial Express / Leadership",
+    className: "lg:col-span-7 lg:row-span-2 min-h-[360px] sm:min-h-[440px]",
+    tone: "pink" as const,
+    priority: true,
+  },
+  {
+    image: "about-dubai-north-star",
+    alt: "Fyn Mobility at Dubai Expand North Star event booth",
+    caption:
+      "Global startup ecosystem presence, investor visibility, and mobility-market participation.",
+    source: "LinkedIn / Expand North Star",
+    className: "lg:col-span-5 min-h-[260px]",
+  },
+  {
+    image: "about-ecosystem-truck",
+    alt: "Fyn branded electric cargo vehicle and charging station graphic",
+    caption:
+      "EV ecosystem planning across vehicles, energy partners, and charging infrastructure.",
+    source: "Fyn official / EV ecosystem",
+    className: "lg:col-span-5 min-h-[260px]",
+  },
+];
+
+const leadershipPortraits = [
+  {
+    image: "about-founder-visakh",
+    alt: "Visakh Sasikumar Fyn founder portrait",
+    name: "Visakh Sasikumar",
+    role: "Founder perspective",
+  },
+  {
+    image: "about-founder-manu",
+    alt: "Manu Iyer Fyn leadership portrait",
+    name: "Manu Iyer",
+    role: "Strategy and scale",
+  },
+  {
+    image: "about-leader-niroop",
+    alt: "Niroop Janardhanan Fyn leadership portrait",
+    name: "Niroop Janardhanan",
+    role: "Business operations",
+  },
+];
 
 export const About = () => {
   return (

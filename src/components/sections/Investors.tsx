@@ -431,6 +431,10 @@ export const Investors = () => {
                   <InvestorCard
                     name={investor.name}
                     type={investor.type}
+                    logo={investor.logo}
+                    logoClass={
+                      investor.logoClass
+                    }
                     description={
                       investor.description
                     }

@@ -16,6 +16,15 @@
   }
 }
 
+@keyframes media-carousel {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 @keyframes pulse-slow {
   0%, 100% {
     opacity: 0.15;
@@ -48,6 +57,21 @@
   animation: marquee-reverse 35s linear infinite;
 }
 
+.animate-media-carousel {
+  display: flex;
+  width: max-content;
+  animation: media-carousel 52s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.media-carousel:hover .animate-media-carousel {
+  animation-play-state: paused;
+}
+
 .animate-pulse-slow {
   animation: pulse-slow 8s ease-in-out infinite;
 }
@@ -71,4 +95,139 @@
 .text-stroke-pink {
   -webkit-text-stroke: 1px rgba(232, 25, 122, 0.3);
   color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-media-carousel {
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+  }
+}
+
+/* =============================================
+   CINEMATIC SECTION ATMOSPHERE
+   Environmental blending, not visible dividers.
+============================================= */
+
+.atmospheric-section {
+  --atmo-bg: 8, 8, 8;
+  --atmo-pink: 232, 25, 122;
+  --atmo-pink-strength: 0.032;
+  --atmo-enter-start: 0.65;
+  --atmo-enter-mid: 0.4;
+  --atmo-enter-end: 0.17;
+  --atmo-exit-start: 0.13;
+  --atmo-exit-mid: 0.4;
+  --atmo-exit-end: 0.68;
+  --atmo-height: clamp(112px, 14vw, 220px);
+  --atmo-mobile-height: clamp(84px, 24vw, 132px);
+
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.atmospheric-deep {
+  --atmo-pink-strength: 0.024;
+  --atmo-enter-start: 0.74;
+  --atmo-enter-mid: 0.46;
+  --atmo-enter-end: 0.2;
+  --atmo-exit-start: 0.15;
+  --atmo-exit-mid: 0.46;
+  --atmo-exit-end: 0.78;
+}
+
+.atmospheric-warm {
+  --atmo-pink-strength: 0.048;
+  --atmo-enter-start: 0.61;
+  --atmo-enter-mid: 0.38;
+  --atmo-enter-end: 0.16;
+  --atmo-exit-start: 0.12;
+  --atmo-exit-mid: 0.38;
+  --atmo-exit-end: 0.65;
+}
+
+.atmospheric-section::before,
+.atmospheric-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--atmo-height);
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.atmospheric-enter::before {
+  top: -1px;
+  opacity: 1;
+  background:
+    radial-gradient(ellipse at 18% 0%, rgba(var(--atmo-pink), var(--atmo-pink-strength)), transparent 48%),
+    radial-gradient(ellipse at 82% 8%, rgba(255, 255, 255, 0.018), transparent 38%),
+    linear-gradient(
+      to bottom,
+      rgba(var(--atmo-bg), var(--atmo-enter-start)) 0%,
+      rgba(var(--atmo-bg), var(--atmo-enter-mid)) 28%,
+      rgba(var(--atmo-bg), var(--atmo-enter-end)) 62%,
+      rgba(var(--atmo-bg), 0) 100%
+    );
+}
+
+.atmospheric-exit::after {
+  bottom: -1px;
+  opacity: 1;
+  background:
+    radial-gradient(ellipse at 76% 100%, rgba(var(--atmo-pink), var(--atmo-pink-strength)), transparent 50%),
+    radial-gradient(ellipse at 22% 92%, rgba(255, 255, 255, 0.014), transparent 42%),
+    linear-gradient(
+      to bottom,
+      rgba(var(--atmo-bg), 0) 0%,
+      rgba(var(--atmo-bg), var(--atmo-exit-start)) 36%,
+      rgba(var(--atmo-bg), var(--atmo-exit-mid)) 72%,
+      rgba(var(--atmo-bg), var(--atmo-exit-end)) 100%
+    );
+}
+
+/* Safari GPU acceleration */
+.safari-gpu-section {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+@media (max-width: 640px) {
+  .atmospheric-section::before,
+  .atmospheric-section::after {
+    height: var(--atmo-mobile-height, clamp(84px, 24vw, 132px));
+  }
+
+  .atmospheric-enter::before {
+    background:
+      radial-gradient(ellipse at 30% 0%, rgba(var(--atmo-pink), var(--atmo-pink-strength)), transparent 50%),
+      linear-gradient(
+        to bottom,
+        rgba(var(--atmo-bg), var(--atmo-enter-start)) 0%,
+        rgba(var(--atmo-bg), var(--atmo-enter-mid)) 46%,
+        rgba(var(--atmo-bg), 0) 100%
+      );
+  }
+
+  .atmospheric-exit::after {
+    background:
+      radial-gradient(ellipse at 72% 100%, rgba(var(--atmo-pink), var(--atmo-pink-strength)), transparent 50%),
+      linear-gradient(
+        to bottom,
+        rgba(var(--atmo-bg), 0) 0%,
+        rgba(var(--atmo-bg), var(--atmo-exit-mid)) 56%,
+        rgba(var(--atmo-bg), var(--atmo-exit-end)) 100%
+      );
+  }
 }
