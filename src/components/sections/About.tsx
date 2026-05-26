@@ -72,7 +72,7 @@ export const About = () => {
         <SectionHeading
           eyebrow="Who We Are"
           title="Fyn is more than a fleet operator"
-          description="We are India’s first fully integrated EV Supply Ecosystem. We bridge the gap between demand and delivery through technology-first, asset-light operations."
+          description="We are India's first fully integrated EV Supply Ecosystem. We bridge the gap between demand and delivery through technology-first, asset-light operations."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mt-12">
@@ -229,7 +229,7 @@ export const About = () => {
                     setPreviewIndex(index);
                   }
                 }}
-                className={`group relative cursor-zoom-in overflow-hidden rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/80 shadow-[0_18px_60px_rgba(0,0,0,0.38)] outline-none transition-all duration-300 hover:border-fyn-pink/35 focus-visible:ring-2 focus-visible:ring-fyn-pink/70 ${image.className}`}
+                className={`fyn-media-frame group relative cursor-zoom-in overflow-hidden rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/80 shadow-[0_18px_60px_rgba(0,0,0,0.38)] outline-none transition-colors duration-300 hover:border-fyn-pink/35 focus-visible:ring-2 focus-visible:ring-fyn-pink/70 ${image.className}`}
               >
                 <Image
                   src={image.src}
@@ -241,7 +241,7 @@ export const About = () => {
                       : "(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw"
                   }
                   priority={image.priority}
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                  className="fyn-media-image object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/24 to-black/6" />

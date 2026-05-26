@@ -206,7 +206,11 @@ export const Careers = () => {
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading
           eyebrow="Join Fyn"
-          title="Build the future of EV mobility with us"
+          title={
+            <>
+              Build the future of EV mobility with&nbsp;us
+            </>
+          }
           description="We're looking for ambitious people who want to solve real-world mobility challenges at scale. Welcome to a high-agency, mission-driven startup. For career inquiries, reach out to kapilan@fynmobility.com"
         />
 
@@ -286,7 +290,7 @@ export const Careers = () => {
                     setPreviewIndex(index);
                   }
                 }}
-                className={`group relative cursor-zoom-in overflow-hidden rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/80 shadow-[0_18px_60px_rgba(0,0,0,0.38)] outline-none transition-all duration-300 hover:border-fyn-pink/35 focus-visible:ring-2 focus-visible:ring-fyn-pink/70 ${image.className}`}
+                className={`fyn-media-frame group relative cursor-zoom-in overflow-hidden rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/80 shadow-[0_18px_60px_rgba(0,0,0,0.38)] outline-none transition-colors duration-300 hover:border-fyn-pink/35 focus-visible:ring-2 focus-visible:ring-fyn-pink/70 ${image.className}`}
               >
                 <Image
                   src={image.src}
@@ -298,7 +302,7 @@ export const Careers = () => {
                       : "(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw"
                   }
                   priority={image.priority}
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+                  className="fyn-media-image object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/22 to-black/8" />

@@ -286,7 +286,7 @@ export const GetInvolved = () => {
                       type="select"
                       placeholder="Select investment range"
                       required
-                      options={["Under $100k", "$100k - $500k", "$500k+"]}
+                      options={["Under ₹1 Cr", "₹1 Cr - ₹5 Cr", "₹5 Cr+"]}
                       value={formData.investment}
                       onChange={handleInputChange}
                       error={errors.investment}

@@ -1,33 +1,21 @@
 "use client";
 
-import React, {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-
+import React, { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  motion,
-  AnimatePresence,
-} from "framer-motion";
-
-import {
-  MessageSquare,
-  X,
-  Send,
   ArrowUpRight,
-  Layers,
-  Sparkles,
   Globe,
+  Layers,
+  MessageSquare,
+  Send,
+  Sparkles,
+  X,
 } from "lucide-react";
 
 interface ChatMessage {
   sender: "user" | "bot";
-
   text: string;
-
   timestamp: string;
-
   links?: {
     label: string;
     url: string;
@@ -35,54 +23,53 @@ interface ChatMessage {
   }[];
 }
 
+const languages = ["English", "தமிழ்", "ಕನ್ನಡ", "తెలుగు", "हिन्दी"];
+
+const quickPrompts = [
+  {
+    label: "Lease EV Fleet",
+    query: "I want EV leasing solutions",
+  },
+  {
+    label: "Become Driver",
+    query: "Tell me about driver onboarding",
+  },
+  {
+    label: "Join Fyn",
+    query: "Tell me about careers at Fyn",
+  },
+  {
+    label: "Investors",
+    query: "Tell me about Fyn investments",
+  },
+];
+
 export const Chatbot = () => {
-  const [isOpen, setIsOpen] =
-    useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [activeLanguage, setActiveLanguage] = useState("English");
 
-  const [messages, setMessages] =
-    useState<ChatMessage[]>([]);
-
-  const [inputValue, setInputValue] =
-    useState("");
-
-  const [isTyping, setIsTyping] =
-    useState(false);
-
-  const [activeLanguage, setActiveLanguage] =
-    useState("English");
-
-  const messagesEndRef =
-    useRef<HTMLDivElement>(null);
-
-  /* =========================================
-     INITIAL GREETING
-  ========================================= */
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const now =
-      new Date().toLocaleTimeString(
-        [],
-        {
-          hour: "2-digit",
-          minute: "2-digit",
-        }
-      );
+    const now = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
 
     setMessages([
       {
         sender: "bot",
-
         text:
-          "⚡ Hey, I’m FYNN.\n\nYour intelligent EV mobility assistant for Fyn Mobility.\n\nI can help with:\n• EV leasing\n• Driver onboarding\n• Careers\n• Partnerships\n• Investments\n• INFYNITY ecosystem\n\nHow can I help today?",
-
+          "Hey, I'm FYNN.\n\nYour intelligent EV mobility assistant for Fyn Mobility.\n\nI can help with:\n• EV leasing\n• Driver onboarding\n• Careers\n• Partnerships\n• Investments\n• INFYNITY ecosystem\n\nHow can I help today?",
         timestamp: now,
-
         links: [
           {
             label: "Explore Refynd",
             url: "#refynd",
           },
-
           {
             label: "Explore Careers",
             url: "#careers",
@@ -92,124 +79,56 @@ export const Chatbot = () => {
     ]);
   }, []);
 
-  /* =========================================
-     AUTO SCROLL
-  ========================================= */
-
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView(
-      {
-        behavior: "smooth",
-      }
-    );
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
   }, [messages, isTyping]);
 
-  /* =========================================
-     QUICK PROMPTS
-  ========================================= */
-
-  const quickPrompts = [
-    {
-      label: "Lease EV Fleet",
-      query:
-        "I want EV leasing solutions",
-    },
-
-    {
-      label: "Become Driver",
-      query:
-        "Tell me about driver onboarding",
-    },
-
-    {
-      label: "Join Fyn",
-      query:
-        "Tell me about careers at Fyn",
-    },
-
-    {
-      label: "Investors",
-      query:
-        "Tell me about Fyn investments",
-    },
-  ];
-
-  /* =========================================
-     SEND TO API
-  ========================================= */
-
-  const handleResponse = async (
-    query: string
-  ) => {
+  const handleResponse = async (query: string) => {
     setIsTyping(true);
 
     try {
-      const response =
-        await fetch("/api/chat", {
-          method: "POST",
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: query,
+          language: activeLanguage,
+        }),
+      });
 
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-
-          body: JSON.stringify({
-            message: query,
-
-            language:
-              activeLanguage,
-          }),
-        });
-
-      const data =
-        await response.json();
-
-      const now =
-        new Date().toLocaleTimeString(
-          [],
-          {
-            hour: "2-digit",
-            minute: "2-digit",
-          }
-        );
+      const data = await response.json();
+      const now = new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
 
       setMessages((prev) => [
         ...prev,
-
         {
           sender: "bot",
-
-          text:
-            data.reply ||
-            "FYNN is thinking...",
-
+          text: data.reply || "FYNN is thinking...",
           timestamp: now,
-
-          links:
-            data.links || [],
+          links: data.links || [],
         },
       ]);
     } catch (error) {
       console.log(error);
 
-      const now =
-        new Date().toLocaleTimeString(
-          [],
-          {
-            hour: "2-digit",
-            minute: "2-digit",
-          }
-        );
+      const now = new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
 
       setMessages((prev) => [
         ...prev,
-
         {
           sender: "bot",
-
-          text:
-            "⚠️ FYNN is temporarily offline.",
-
+          text: "FYNN is temporarily offline.",
           timestamp: now,
         },
       ]);
@@ -218,351 +137,123 @@ export const Chatbot = () => {
     setIsTyping(false);
   };
 
-  /* =========================================
-     SEND MESSAGE
-  ========================================= */
-
-  const handleSend = (
-    text: string
-  ) => {
+  const handleSend = (text: string) => {
     if (!text.trim()) return;
 
-    const now =
-      new Date().toLocaleTimeString(
-        [],
-        {
-          hour: "2-digit",
-          minute: "2-digit",
-        }
-      );
+    const now = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
 
     setMessages((prev) => [
       ...prev,
-
       {
         sender: "user",
-
         text,
-
         timestamp: now,
       },
     ]);
 
     setInputValue("");
-
     handleResponse(text);
   };
 
-  /* =========================================
-     LINK HANDLER
-  ========================================= */
-
-  const handleLinkClick = (
-    url: string,
-    external?: boolean
-  ) => {
+  const handleLinkClick = (url: string, external?: boolean) => {
     if (!url) return;
 
     if (external || url.startsWith("http")) {
-      window.open(
-        url,
-        "_blank",
-        "noopener,noreferrer"
-      );
+      window.open(url, "_blank", "noopener,noreferrer");
       return;
     }
 
-    const hash = url
-      .replace("/#", "")
-      .replace("#", "");
-
-    console.log("NAVIGATING TO:", hash);
-
+    const hash = url.replace("/#", "").replace("#", "");
     window.location.hash = hash;
   };
+
   return (
     <>
-      {/* FLOATING BUTTON */}
-
-      <div
-        className="
-          fixed
-          bottom-6
-          right-6
-          z-50
-        "
-      >
+      <div className="fyn-chatbot-launcher">
         <motion.button
-          onClick={() =>
-            setIsOpen(!isOpen)
-          }
-          whileHover={{
-            scale: 1.05,
-          }}
-          whileTap={{
-            scale: 0.95,
-          }}
+          type="button"
+          aria-label={isOpen ? "Close FYNN assistant" : "Open FYNN assistant"}
+          onClick={() => setIsOpen(!isOpen)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           className={`
-            relative
-
-            w-14
-            h-14
-
-            rounded-full
-
-            flex
-            items-center
-            justify-center
-
-            transition-all
-            duration-300
-
-            shadow-lg
-
+            relative flex h-14 w-14 transform-gpu items-center justify-center rounded-full
+            shadow-lg transition-all duration-300
             ${
               isOpen
-                ? "bg-[#1E1E1E] border border-fyn-pink"
+                ? "border border-fyn-pink bg-[#1E1E1E]"
                 : "bg-fyn-pink"
             }
           `}
         >
           {isOpen ? (
-            <X className="w-6 h-6 text-white" />
+            <X className="h-6 w-6 text-white" />
           ) : (
             <>
-              <MessageSquare className="w-6 h-6 text-white" />
-
-              <span
-                className="
-                  absolute
-                  top-0
-                  right-0
-
-                  flex
-                  h-3
-                  w-3
-                "
-              >
-                <span
-                  className="
-                    animate-ping
-                    absolute
-                    inline-flex
-                    h-full
-                    w-full
-                    rounded-full
-                    bg-white
-                    opacity-75
-                  "
-                />
-
-                <span
-                  className="
-                    relative
-                    inline-flex
-                    rounded-full
-                    h-3
-                    w-3
-                    bg-white
-                  "
-                />
+              <MessageSquare className="h-6 w-6 text-white" />
+              <span className="absolute right-0 top-0 flex h-3 w-3">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-white" />
               </span>
             </>
           )}
         </motion.button>
       </div>
 
-      {/* CHAT WINDOW */}
-
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 30,
-              scale: 0.95,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
-            exit={{
-              opacity: 0,
-              y: 30,
-              scale: 0.95,
-            }}
+            initial={{ opacity: 0, y: 22, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 22, scale: 0.96 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
             className="
-              fixed
-              bottom-24
-              right-6
-
-              w-96
-              max-w-[calc(100vw-2rem)]
-
-              h-[620px]
-
-              rounded-2xl
-
-              bg-[#0F0F0F]
-
-              border
-              border-fyn-border/80
-
-              shadow-2xl
-
-              flex
-              flex-col
-
-              z-50
-
-              font-barlow
+              fyn-chatbot-panel flex flex-col rounded-2xl border border-fyn-border/80
+              bg-[#0F0F0F] font-barlow shadow-2xl
             "
           >
-            {/* HEADER */}
-
-            <div
-              className="
-                bg-[#161616]
-
-                p-4
-
-                border-b
-                border-fyn-border/60
-
-                flex
-                items-center
-                justify-between
-              "
-            >
-              <div
-                className="
-                  flex
-                  items-center
-                  space-x-3
-                "
-              >
-                <div
-                  className="
-                    w-10
-                    h-10
-
-                    rounded-full
-
-                    bg-fyn-pink/10
-
-                    border
-                    border-fyn-pink/30
-
-                    flex
-                    items-center
-                    justify-center
-                  "
-                >
-                  <Sparkles
-                    className="
-                      w-5
-                      h-5
-
-                      text-fyn-pink
-                    "
-                  />
+            <div className="flex items-center justify-between border-b border-fyn-border/60 bg-[#161616] px-3.5 py-3.5 sm:p-4">
+              <div className="flex min-w-0 items-center gap-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-fyn-pink/30 bg-fyn-pink/10 sm:h-10 sm:w-10">
+                  <Sparkles className="h-5 w-5 text-fyn-pink" />
                 </div>
 
-                <div>
-                  <h4
-                    className="
-                      text-sm
-                      font-black
-                      uppercase
-                      tracking-wide
-
-                      text-fyn-text
-                    "
-                  >
+                <div className="min-w-0">
+                  <h4 className="text-sm font-black uppercase leading-tight tracking-wide text-fyn-text">
                     FYNN
                   </h4>
-
-                  <p
-                    className="
-                      text-[10px]
-                      text-green-400
-                    "
-                  >
+                  <p className="fyn-chatbot-text text-[10px] leading-snug text-green-400">
                     Intelligent EV Assistant
                   </p>
                 </div>
               </div>
 
               <button
-                onClick={() =>
-                  setIsOpen(false)
-                }
-                className="
-                  text-fyn-text-muted
-                  hover:text-fyn-text
-                "
+                type="button"
+                aria-label="Close FYNN assistant"
+                onClick={() => setIsOpen(false)}
+                className="shrink-0 text-fyn-text-muted hover:text-fyn-text"
               >
-                <X className="w-5 h-5" />
+                <X className="h-5 w-5" />
               </button>
             </div>
 
-            {/* LANGUAGE BAR */}
+            <div className="no-scrollbar flex items-center gap-2 overflow-x-auto border-b border-fyn-border/40 bg-[#1A1A1A] px-3 py-2 sm:px-4">
+              <Globe className="h-3 w-3 shrink-0 text-fyn-pink" />
 
-            <div
-              className="
-                bg-[#1A1A1A]
-
-                px-4
-                py-2
-
-                border-b
-                border-fyn-border/40
-
-                flex
-                items-center
-                gap-2
-
-                overflow-x-auto
-              "
-            >
-              <Globe
-                className="
-                  w-3
-                  h-3
-
-                  text-fyn-pink
-                "
-              />
-
-              {[
-                "English",
-                "தமிழ்",
-                "ಕನ್ನಡ",
-                "తెలుగు",
-              ].map((lang) => (
+              {languages.map((lang) => (
                 <button
+                  type="button"
                   key={lang}
-                  onClick={() =>
-                    setActiveLanguage(
-                      lang
-                    )
-                  }
+                  onClick={() => setActiveLanguage(lang)}
                   className={`
-                    text-[11px]
-
-                    px-3
-                    py-1.5
-
-                    rounded-full
-
-                    whitespace-nowrap
-
-                    transition-all
-
+                    whitespace-nowrap rounded-full px-2.5 py-1.5 text-[10px] leading-none
+                    transition-all sm:px-3 sm:text-[11px]
                     ${
-                      activeLanguage ===
-                      lang
+                      activeLanguage === lang
                         ? "bg-fyn-pink text-white"
                         : "bg-[#222] text-fyn-text-muted"
                     }
@@ -573,421 +264,127 @@ export const Chatbot = () => {
               ))}
             </div>
 
-            {/* MESSAGES */}
-
-            <div
-              className="
-                flex-1
-
-                overflow-y-auto
-
-                p-4
-
-                space-y-4
-
-                bg-[#080808]/60
-              "
-            >
-              {messages.map(
-                (msg, index) => (
+            <div className="fyn-chatbot-scroll flex-1 space-y-4 overflow-y-auto bg-[#080808]/60 p-4">
+              {messages.map((msg, index) => (
+                <div
+                  key={index}
+                  className={`flex flex-col ${
+                    msg.sender === "user" ? "items-end" : "items-start"
+                  }`}
+                >
                   <div
-                    key={index}
-                    className={`flex flex-col ${
-                      msg.sender ===
-                      "user"
-                        ? "items-end"
-                        : "items-start"
-                    }`}
+                    className={`
+                      fyn-chatbot-text max-w-[88%] rounded-2xl p-3.5 text-[12px]
+                      leading-relaxed sm:max-w-[85%] sm:text-xs
+                      ${
+                        msg.sender === "user"
+                          ? "rounded-tr-none bg-fyn-pink text-white"
+                          : "rounded-tl-none border border-fyn-border/40 bg-fyn-surface/90 text-fyn-text"
+                      }
+                    `}
                   >
-                    <div
-                      className={`
-                        max-w-[85%]
+                    <p className="whitespace-pre-line">{msg.text}</p>
 
-                        rounded-2xl
-
-                        p-3.5
-
-                        text-xs
-
-                        leading-relaxed
-
-                        ${
-                          msg.sender ===
-                          "user"
-                            ? "bg-fyn-pink text-white rounded-tr-none"
-                            : "bg-fyn-surface/90 border border-fyn-border/40 text-fyn-text rounded-tl-none"
-                        }
-                      `}
-                    >
-                      <p className="whitespace-pre-line">
-                        {msg.text}
-                      </p>
-
-                      {/* ACTION LINKS */}
-
-                      {msg.links &&
-                        msg.links
-                          .length >
-                          0 && (
-                          <div
+                    {!!msg.links?.length && (
+                      <div className="mt-3 flex flex-wrap gap-2 border-t border-fyn-border/20 pt-2">
+                        {msg.links.map((link, idx) => (
+                          <button
+                            type="button"
+                            key={idx}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              handleLinkClick(link.url, link.external);
+                            }}
                             className="
-                              mt-3
-
-                              flex
-                              flex-wrap
-
-                              gap-2
-
-                              pt-2
-
-                              border-t
-                              border-fyn-border/20
+                              fyn-chatbot-text inline-flex max-w-full items-center rounded-lg border
+                              border-fyn-pink/30 bg-black/40 px-2.5 py-1.5 text-[10px]
+                              font-bold uppercase tracking-wider text-fyn-text transition-all
+                              hover:border-fyn-pink hover:bg-black/80
                             "
                           >
-                            {msg.links.map(
-                              (
-                                link,
-                                idx
-                              ) => (
-                                <button
-                                  type="button"
-                                  key={idx}
-                                  onClick={(e) => {
-                                    e.preventDefault();
-
-                                    e.stopPropagation();
-
-                                    handleLinkClick(
-                                      link.url,
-                                      link.external
-                                    );
-                                  }}
-                                  className="
-                                    flex
-                                    items-center
-
-                                    text-[10px]
-
-                                    font-bold
-
-                                    uppercase
-
-                                    tracking-wider
-
-                                    bg-black/40
-
-                                    hover:bg-black/80
-
-                                    text-fyn-text
-
-                                    border
-                                    border-fyn-pink/30
-
-                                    hover:border-fyn-pink
-
-                                    px-2.5
-                                    py-1.5
-
-                                    rounded-lg
-
-                                    transition-all
-                                  "
-                                >
-                                  {
-                                    link.label
-                                  }
-
-                                  <ArrowUpRight
-                                    className="
-                                      w-3
-                                      h-3
-
-                                      ml-1
-
-                                      text-fyn-pink
-                                    "
-                                  />
-                                </button>
-                              )
-                            )}
-                          </div>
-                        )}
-                    </div>
-
-                    <span
-                      className="
-                        text-[9px]
-
-                        text-fyn-text-muted
-
-                        mt-1
-                        px-1
-                      "
-                    >
-                      {msg.timestamp}
-                    </span>
+                            {link.label}
+                            <ArrowUpRight className="ml-1 h-3 w-3 shrink-0 text-fyn-pink" />
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                )
-              )}
 
-              {/* TYPING */}
+                  <span className="mt-1 px-1 text-[9px] text-fyn-text-muted">
+                    {msg.timestamp}
+                  </span>
+                </div>
+              ))}
 
               {isTyping && (
-                <div
-                  className="
-                    bg-fyn-surface/90
-
-                    border
-                    border-fyn-border/40
-
-                    text-fyn-text
-
-                    rounded-2xl
-                    rounded-tl-none
-
-                    p-3.5
-
-                    flex
-                    items-center
-                    space-x-1.5
-                  "
-                >
+                <div className="flex items-center space-x-1.5 rounded-2xl rounded-tl-none border border-fyn-border/40 bg-fyn-surface/90 p-3.5 text-fyn-text">
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-fyn-pink" />
                   <span
-                    className="
-                      w-2
-                      h-2
-
-                      bg-fyn-pink
-
-                      rounded-full
-
-                      animate-bounce
-                    "
+                    className="h-2 w-2 animate-bounce rounded-full bg-fyn-pink"
+                    style={{ animationDelay: "150ms" }}
                   />
-
                   <span
-                    className="
-                      w-2
-                      h-2
-
-                      bg-fyn-pink
-
-                      rounded-full
-
-                      animate-bounce
-                    "
-                    style={{
-                      animationDelay:
-                        "150ms",
-                    }}
-                  />
-
-                  <span
-                    className="
-                      w-2
-                      h-2
-
-                      bg-fyn-pink
-
-                      rounded-full
-
-                      animate-bounce
-                    "
-                    style={{
-                      animationDelay:
-                        "300ms",
-                    }}
+                    className="h-2 w-2 animate-bounce rounded-full bg-fyn-pink"
+                    style={{ animationDelay: "300ms" }}
                   />
                 </div>
               )}
 
-              <div
-                ref={messagesEndRef}
-              />
+              <div ref={messagesEndRef} />
             </div>
 
-            {/* QUICK ACTIONS */}
-
-            <div
-              className="
-                p-3
-
-                bg-[#161616]/40
-
-                border-t
-                border-fyn-border/40
-              "
-            >
-              <span
-                className="
-                  text-[10px]
-
-                  font-bold
-
-                  uppercase
-
-                  tracking-widest
-
-                  text-fyn-text-muted
-
-                  px-1
-
-                  flex
-                  items-center
-
-                  mb-2
-                "
-              >
-                <Layers
-                  className="
-                    w-3
-                    h-3
-
-                    mr-1
-
-                    text-fyn-pink
-                  "
-                />
-
+            <div className="border-t border-fyn-border/40 bg-[#161616]/40 p-3">
+              <span className="mb-2 flex items-center px-1 text-[10px] font-bold uppercase tracking-widest text-fyn-text-muted">
+                <Layers className="mr-1 h-3 w-3 text-fyn-pink" />
                 Popular Queries
               </span>
 
-              <div
-                className="
-                  grid
-                  grid-cols-2
-
-                  gap-2
-                "
-              >
-                {quickPrompts.map(
-                  (p, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() =>
-                        handleSend(
-                          p.query
-                        )
-                      }
-                      className="
-                        text-left
-
-                        text-[10px]
-
-                        font-medium
-
-                        text-fyn-text-muted
-
-                        hover:text-fyn-text
-
-                        bg-[#161616]/80
-
-                        hover:bg-[#1E1E1E]
-
-                        border
-                        border-fyn-border/40
-
-                        hover:border-fyn-pink/60
-
-                        px-2
-                        py-2
-
-                        rounded-xl
-
-                        transition-all
-                      "
-                    >
-                      {p.label}
-                    </button>
-                  )
-                )}
+              <div className="grid grid-cols-2 gap-2">
+                {quickPrompts.map((prompt) => (
+                  <button
+                    type="button"
+                    key={prompt.query}
+                    onClick={() => handleSend(prompt.query)}
+                    className="
+                      fyn-chatbot-text rounded-xl border border-fyn-border/40 bg-[#161616]/80
+                      px-2 py-2 text-left text-[10px] font-medium leading-snug
+                      text-fyn-text-muted transition-all hover:border-fyn-pink/60
+                      hover:bg-[#1E1E1E] hover:text-fyn-text
+                    "
+                  >
+                    {prompt.label}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* INPUT */}
-
-            <div
-              className="
-                bg-[#161616]
-
-                p-3
-
-                border-t
-                border-fyn-border/60
-              "
-            >
+            <div className="border-t border-fyn-border/60 bg-[#161616] p-3">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-
-                  handleSend(
-                    inputValue
-                  );
+                  handleSend(inputValue);
                 }}
-                className="
-                  flex
-                  items-center
-                  space-x-2
-                "
+                className="flex items-center gap-2"
               >
                 <input
                   type="text"
-                  value={
-                    inputValue
-                  }
-                  onChange={(e) =>
-                    setInputValue(
-                      e.target.value
-                    )
-                  }
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Ask FYNN anything..."
                   className="
-                    flex-1
-
-                    bg-[#080808]
-
-                    border
-                    border-fyn-border/60
-
-                    focus:border-fyn-pink/80
-
-                    rounded-xl
-
-                    px-3.5
-                    py-2
-
-                    text-xs
-
-                    text-fyn-text
-
-                    placeholder-fyn-text-muted
-
-                    focus:outline-none
+                    fyn-chatbot-text min-w-0 flex-1 rounded-xl border border-fyn-border/60
+                    bg-[#080808] px-3.5 py-2 text-xs text-fyn-text
+                    placeholder-fyn-text-muted focus:border-fyn-pink/80 focus:outline-none
                   "
                 />
 
                 <button
                   type="submit"
-                  className="
-                    bg-fyn-pink
-
-                    hover:bg-fyn-pink/80
-
-                    text-white
-
-                    p-2.5
-
-                    rounded-xl
-
-                    transition-all
-                  "
+                  aria-label="Send message"
+                  className="shrink-0 rounded-xl bg-fyn-pink p-2.5 text-white transition-all hover:bg-fyn-pink/80"
                 >
-                  <Send
-                    className="
-                      w-4
-                      h-4
-                    "
-                  />
+                  <Send className="h-4 w-4" />
                 </button>
               </form>
             </div>

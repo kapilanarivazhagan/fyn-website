@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
   eyebrow?: string;
-  title: string;
+  title: React.ReactNode;
   description?: string;
   align?: "left" | "center";
   className?: string;
@@ -29,7 +29,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
           {eyebrow}
         </span>
       )}
-      <h2 className="text-3xl md:text-5xl font-black text-fyn-text tracking-tight uppercase max-w-4xl">
+      <h2 className="max-w-4xl text-balance text-3xl font-black uppercase leading-[1.04] tracking-tight text-fyn-text sm:text-4xl md:text-5xl">
         {title}
       </h2>
       {description && (

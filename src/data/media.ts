@@ -37,13 +37,13 @@ export interface MediaItem {
 export const mediaResources: MediaItem[] = [
   {
     id: "economic-times-2025-funding",
-    title: "EVaaS startup Fyn Mobility raises $2.5 million, eyes global markets",
+    title: "EVaaS startup Fyn Mobility raises ₹20 Cr+, eyes global markets",
     source: "The Economic Times",
     platform: "Funding News",
     type: "funding",
     group: "headlines",
     description:
-      "Coverage of Fyn Mobility's $2.5 million round and plans to scale domestic operations, technology, and international market entry.",
+      "Coverage of Fyn Mobility's ₹20 Cr+ round and plans to scale domestic operations, technology, and international market entry.",
     sortDate: "2025-05-19",
     displayDate: "May 2025",
     url: "https://economictimes.indiatimes.com/tech/funding/evaas-startup-fyn-mobility-raises-2-5-million-eyes-global-markets/articleshow/121219146.cms/",
@@ -194,7 +194,7 @@ export const mediaResources: MediaItem[] = [
   },
   {
     id: "linkedin-growthsense-2025-funding",
-    title: "Fyn Mobility raises $2.5M to drive EV fleet expansion",
+    title: "Fyn Mobility raises ₹20 Cr+ to drive EV fleet expansion",
     source: "Growth Sense News",
     platform: "LinkedIn",
     type: "linkedin",

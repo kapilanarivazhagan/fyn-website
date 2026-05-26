@@ -11,36 +11,42 @@ export const WhatWeDo = () => {
   const coreActivities = [
     {
       step: "01",
+      layer: "Fleet Activation",
       title: "Vehicle Procurement",
       description: "Direct strategic OEM pipeline sourcing high-spec connected electric two-wheelers and three-wheelers.",
       icon: Truck
     },
     {
       step: "02",
+      layer: "Driver Enablement",
       title: "Driver Onboarding",
       description: "Verification, compliance check, professional driving training, and mobile onboarding via the INFYNITY app.",
       icon: ShieldCheck
     },
     {
       step: "03",
+      layer: "Operations Engine",
       title: "Fleet Deployment",
       description: "Hyper-local vehicle allocation aligned with enterprise demands, optimized dynamically for peak commerce hours.",
       icon: TrendingUp
     },
     {
       step: "04",
+      layer: "Enterprise Integration",
       title: "Enterprise Logistics",
       description: "Fulfilling strict SLA targets for e-commerce, quick-commerce, and logistics, reducing delivery cost parameters.",
       icon: Navigation
     },
     {
       step: "05",
+      layer: "Scale Network",
       title: "Ride Hailing Operations",
       description: "Powering smart city mobility channels through direct driver-partner ride-hailing app integrations.",
       icon: Smartphone
     },
     {
       step: "06",
+      layer: "Mobility Intelligence",
       title: "Real-Time Fleet Management",
       description: "24/7 centralized monitoring via OptiFyn, providing live battery metrics, location telemetry, and alerts.",
       icon: BarChart3
@@ -73,7 +79,7 @@ export const WhatWeDo = () => {
                   <div>
                     <div className="flex items-center justify-between border-b border-fyn-border/40 pb-4 mb-4">
                       <span className="text-xs font-mono font-bold text-fyn-pink bg-fyn-pink/10 border border-fyn-pink/20 px-2 py-0.5 rounded">
-                        STAGE {act.step}
+                        {act.layer}
                       </span>
                       <IconComponent className="w-5 h-5 text-fyn-pink" />
                     </div>
