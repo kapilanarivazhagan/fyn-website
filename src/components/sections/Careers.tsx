@@ -249,7 +249,7 @@ export const Careers = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.55, ease: "easeOut" }}
-            className="mb-8 grid grid-cols-1 gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-end"
+            className="fyn-visual-story-heading mb-8 grid grid-cols-1 gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-end"
           >
             <div>
               <p className="text-[10px] font-mono uppercase tracking-widest text-fyn-pink">
@@ -260,7 +260,7 @@ export const Careers = () => {
               </h3>
             </div>
 
-            <p className="max-w-2xl text-sm leading-relaxed text-fyn-text-muted lg:ml-auto">
+            <p className="fyn-readable-muted max-w-2xl text-sm leading-relaxed text-fyn-text-muted lg:ml-auto">
               Careers here are shaped by hands-on operations, high-context collaboration, field exposure, and the energy of a team building something consequential.
             </p>
           </motion.div>

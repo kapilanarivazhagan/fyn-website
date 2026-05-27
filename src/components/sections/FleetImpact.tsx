@@ -15,7 +15,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Activity } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, animate } from "framer-motion";
 import { GlowCard } from "../ui/GlowCard";
 import { SectionBackground } from "../ui/SectionBackground";
 
@@ -24,6 +24,10 @@ export const FleetImpact = () => {
   const [activeMetricTab, setActiveMetricTab] = useState<"kms" | "co2">("kms");
   const [sectionActive, setSectionActive] = useState(false);
   const sectionRef = React.useRef<HTMLElement>(null);
+
+  const [replayKey, setReplayKey] = useState(0);
+  const [yoyDisplayValue, setYoyDisplayValue] = useState(0);
+  const wasVisibleRef = React.useRef(false);
 
   useEffect(() => {
     setMounted(true);
@@ -55,6 +59,33 @@ export const FleetImpact = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (sectionActive) {
+      if (!wasVisibleRef.current) {
+        wasVisibleRef.current = true;
+        setReplayKey((prev) => prev + 1);
+      }
+    } else {
+      wasVisibleRef.current = false;
+    }
+  }, [sectionActive]);
+
+  useEffect(() => {
+    if (!sectionActive || replayKey === 0) {
+      setYoyDisplayValue(0);
+      return;
+    }
+
+    const controls = animate(0, 2, {
+      duration: 1.25,
+      ease: [0.18, 0.74, 0.2, 1],
+      delay: 0.1,
+      onUpdate: (latest) => setYoyDisplayValue(latest),
+    });
+
+    return () => controls.stop();
+  }, [sectionActive, replayKey]);
 
   // Live telemetry notifications mock
   const [telemetryLogs, setTelemetryLogs] = useState([
@@ -115,6 +146,9 @@ export const FleetImpact = () => {
                 sublabel={metric.sublabel}
                 description={metric.description}
                 iconName={metric.iconName}
+                isActive={sectionActive}
+                replayKey={replayKey}
+                index={idx}
               />
             </motion.div>
           ))}
@@ -156,6 +190,7 @@ export const FleetImpact = () => {
                 {mounted ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
+                      key={`chart-${activeMetricTab}-${replayKey}`}
                       data={monthlyPerformanceData}
                       margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
                     >
@@ -201,6 +236,9 @@ export const FleetImpact = () => {
                         strokeWidth={2}
                         fillOpacity={1}
                         fill="url(#colorKms)"
+                        isAnimationActive={true}
+                        animationDuration={1500}
+                        animationEasing="ease-out"
                       />
                     </AreaChart>
                   </ResponsiveContainer>
@@ -218,11 +256,22 @@ export const FleetImpact = () => {
           <div className="lg:col-span-4 flex flex-col space-y-6">
             {/* Live Ticker log */}
             <DashboardCard
-              title="Live Telemetry Log"
+              title={
+                <div className="flex items-center gap-2">
+                  <span>Live Telemetry Log</span>
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fyn-pink opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-fyn-pink"></span>
+                  </span>
+                </div>
+              }
               subtitle="Predictive notifications feed"
               className="flex-1"
             >
-              <div className="h-[200px] overflow-hidden flex flex-col justify-start space-y-3 font-mono text-[11px] mt-2">
+              <div 
+                key={replayKey}
+                className="h-[200px] overflow-hidden flex flex-col justify-start space-y-3 font-mono text-[11px] mt-2"
+              >
                 {telemetryLogs.map((log, idx) => (
                   <motion.div
                     key={`${log}-${idx}`}
@@ -256,10 +305,17 @@ export const FleetImpact = () => {
               <div className="flex items-center justify-between border-t border-fyn-border/40 pt-4 mt-6">
                 <div>
                   <span className="text-[9px] font-mono text-fyn-text-muted uppercase tracking-widest block">YoY Metric</span>
-                  <span className="text-xl font-bold text-fyn-pink uppercase tracking-tight">2X GROWTH</span>
+                  <span className="text-xl font-bold text-fyn-pink uppercase tracking-tight">
+                    {Math.round(yoyDisplayValue)}X GROWTH
+                  </span>
                 </div>
-                <div className="w-1.5 h-6 bg-fyn-border rounded-full overflow-hidden">
-                  <div className="w-full h-2/3 bg-fyn-pink" />
+                <div className="w-1.5 h-6 bg-fyn-border rounded-full overflow-hidden flex items-end">
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={sectionActive ? { height: "66.6%" } : { height: 0 }}
+                    transition={{ duration: 1.25, ease: [0.18, 0.74, 0.2, 1], delay: 0.2 }}
+                    className="w-full bg-fyn-pink"
+                  />
                 </div>
               </div>
             </GlowCard>

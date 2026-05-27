@@ -53,8 +53,8 @@
   ========================================= */
 
   .text-fyn-text-muted {
-    font-weight: 500;
-    color: #8B8B86;
+    font-weight: 520;
+    color: #A3A39C;
   }
 }
 
@@ -71,6 +71,457 @@
   -webkit-backface-visibility: hidden;
 
   perspective: 1000px;
+}
+
+/* =========================================
+   GLOBAL CINEMATIC TEXT READABILITY
+========================================= */
+
+.fyn-readable-muted {
+  color: #B8B8B1;
+  font-weight: 600;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.78),
+    0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+.fyn-readable-pink-label {
+  color: #ff4aa0;
+  font-weight: 800;
+  text-shadow:
+    0 1px 10px rgba(0, 0, 0, 0.9),
+    0 0 8px rgba(232, 25, 122, 0.1);
+}
+
+.text-fyn-pink {
+  text-shadow:
+    0 1px 8px rgba(0, 0, 0, 0.78);
+}
+
+.fyn-panel-body-copy {
+  color: #E0E0D8;
+  font-weight: 680;
+  line-height: 1.72;
+  text-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.96),
+    0 1px 2px rgba(0, 0, 0, 0.98);
+}
+
+.fyn-ecosystem-evolution-bg h3,
+.fyn-vision-card-bg h3,
+.fyn-mission-card-bg h3 {
+  color: #ffffff;
+  text-shadow:
+    0 3px 18px rgba(0, 0, 0, 0.96),
+    0 1px 2px rgba(0, 0, 0, 1);
+}
+
+.fyn-vision-card-bg .text-fyn-pink,
+.fyn-mission-card-bg .text-fyn-pink,
+.fyn-ecosystem-evolution-bg .text-fyn-pink {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.86);
+}
+
+.fyn-cinematic-copy-support {
+  position: relative;
+  isolation: isolate;
+}
+
+.fyn-cinematic-copy-support::before {
+  content: "";
+  position: absolute;
+  inset: -0.85rem -1rem;
+  z-index: -1;
+  border-radius: 0.85rem;
+  background:
+    linear-gradient(
+      105deg,
+      rgba(0, 0, 0, 0.58),
+      rgba(0, 0, 0, 0.32) 58%,
+      rgba(0, 0, 0, 0.08)
+    );
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+}
+
+@supports ((backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px))) {
+  .fyn-cinematic-copy-support::before {
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+  }
+}
+
+/* =========================================
+   ECOSYSTEM EVOLUTION CINEMATIC PANEL
+========================================= */
+
+.fyn-ecosystem-evolution-bg {
+  position: relative;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  background: transparent !important;
+
+  border: 1px solid rgba(255,255,255,0.015);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.22);
+
+  transform: translate3d(0,0,0);
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* IMAGE LAYER */
+.fyn-ecosystem-evolution-bg::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 0;
+
+  background-image: url("/career/townhall.webp");
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  filter: blur(1.2px) brightness(0.88);
+
+  transform: scale(1.01);
+
+  will-change: transform;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* CINEMATIC DARK OVERLAY */
+.fyn-ecosystem-evolution-bg::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    radial-gradient(
+      circle at 82% 16%,
+      rgba(232,25,122,0.10),
+      transparent 38%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.12) 0%,
+      rgba(0,0,0,0.28) 45%,
+      rgba(0,0,0,0.58) 100%
+    );
+
+  pointer-events: none;
+}
+
+/* CONTENT ABOVE IMAGE */
+.fyn-ecosystem-evolution-bg > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* REMOVE TEXT GLASS PANEL */
+.fyn-cinematic-copy-support::before {
+  display: none !important;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .fyn-ecosystem-evolution-bg::before {
+    filter: blur(1.8px) brightness(0.82);
+
+    transform: scale(1.02);
+  }
+}
+
+/* SAFARI */
+@supports (-webkit-touch-callout: none) {
+  .fyn-ecosystem-evolution-bg::before {
+    -webkit-transform: scale(1.03);
+  }
+}
+/* =========================================
+   VISUAL STORY READABILITY PLATE
+========================================= */
+
+.fyn-visual-story-heading {
+  position: relative;
+  isolation: isolate;
+  margin-inline: -0.75rem;
+  padding: 1rem 0.75rem;
+}
+
+.fyn-visual-story-heading::before {
+  content: "";
+  position: absolute;
+  inset: -0.25rem -0.75rem;
+  z-index: -1;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.035);
+  background:
+    linear-gradient(
+      105deg,
+      rgba(3, 3, 3, 0.78),
+      rgba(8, 8, 8, 0.52) 58%,
+      rgba(8, 8, 8, 0.22)
+    );
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.26);
+  pointer-events: none;
+}
+
+@supports ((backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px))) {
+  .fyn-visual-story-heading::before {
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+}
+
+@media (min-width: 768px) {
+  .fyn-visual-story-heading {
+    margin-inline: -1rem;
+    padding: 1rem;
+  }
+
+  .fyn-visual-story-heading::before {
+    inset: -0.35rem -1rem;
+  }
+}
+
+/* =========================================
+   LIVE MOBILITY GRAPH ALIGNMENT
+========================================= */
+
+.fyn-live-graph-panel {
+  isolation: isolate;
+  contain: layout paint;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.fyn-live-graph-grid {
+  z-index: 1;
+  min-height: 100%;
+  grid-auto-rows: minmax(108px, auto);
+}
+
+.fyn-live-graph-cell {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  min-height: 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.fyn-live-graph-cell-decision,
+.fyn-live-graph-cell-commerce {
+  border-color: rgba(232, 25, 122, 0.16);
+}
+
+@media (min-width: 640px) {
+  .fyn-live-graph-panel {
+    min-height: 492px;
+  }
+
+  .fyn-live-graph-grid {
+    min-height: 438px;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows:
+      minmax(168px, auto)
+      minmax(144px, auto)
+      minmax(78px, auto);
+  }
+
+  .fyn-live-graph-cell-primary {
+    grid-column: 1 / 5;
+    grid-row: 1 / 2;
+  }
+
+  .fyn-live-graph-cell-control {
+    grid-column: 5 / 7;
+    grid-row: 1 / 2;
+  }
+
+  .fyn-live-graph-cell-decision {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+    border-right-color: transparent;
+  }
+
+  .fyn-live-graph-cell-commerce {
+    grid-column: 4 / 7;
+    grid-row: 2 / 3;
+    border-left-color: transparent;
+  }
+
+  .fyn-live-graph-cell-bars {
+    grid-column: 1 / 7;
+    grid-row: 3 / 4;
+  }
+}
+
+@media (max-width: 639px) {
+  .fyn-live-graph-panel {
+    min-height: 0;
+  }
+
+  .fyn-live-graph-cell {
+    min-height: 108px;
+  }
+
+  .fyn-live-graph-cell-decision {
+    border-bottom-color: transparent;
+  }
+
+  .fyn-live-graph-cell-commerce {
+    border-top-color: transparent;
+    box-shadow: none;
+  }
+
+  .fyn-live-graph-cell-bars {
+    min-height: 0;
+  }
+}
+
+/* =========================================
+   VISION / MISSION CINEMATIC IMAGE CARDS
+========================================= */
+
+.fyn-vision-card-bg,
+.fyn-mission-card-bg {
+  position: relative;
+  overflow: hidden;
+
+  background: transparent !important;
+
+  border: 1px solid rgba(255,255,255,0.015);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.22);
+
+  isolation: isolate;
+
+  contain: paint;
+
+  transform: translate3d(0,0,0);
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* REMOVE DEFAULT DARK SURFACE */
+.fyn-vision-card-bg::after,
+.fyn-mission-card-bg::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.28) 0%,
+      rgba(0,0,0,0.42) 45%,
+      rgba(0,0,0,0.72) 100%
+    );
+
+  transform: translate3d(0,0,0);
+
+  pointer-events: none;
+}
+
+/* BACKGROUND IMAGE LAYER */
+.fyn-vision-card-bg::before,
+.fyn-mission-card-bg::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 0;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  filter: blur(3px) brightness(0.78);
+
+  transform: translate3d(0,0,0);
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* VISION IMAGE */
+.fyn-vision-card-bg::before {
+  background-image: url("/about_us/visakh_public_meeting.webp");
+  background-position: center center;
+
+  filter: blur(3px) brightness(0.78);
+
+  transform: translateZ(0);
+
+  -webkit-transform: translateZ(0);
+
+  will-change: auto;
+
+  contain: strict;
+
+  isolation: isolate;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* MISSION IMAGE */
+.fyn-mission-card-bg::before {
+  background-image: url("/about_us/townhall_niroop2.webp");
+  background-position: center center;
+}
+
+/* CONTENT ABOVE IMAGE */
+.fyn-vision-card-bg > *,
+.fyn-mission-card-bg > * {
+  position: relative;
+  z-index: 3;
+}
+
+/* REMOVE UGLY TEXT GLASS */
+.fyn-cinematic-copy-support::before {
+  display: none !important;
+}
+
+/* MOBILE OPTIMIZATION */
+@media (max-width: 767px) {
+  .fyn-vision-card-bg::before,
+  .fyn-mission-card-bg::before {
+    filter: blur(1.8px) brightness(0.82);
+
+    transform: scale(1.02) translate3d(0,0,0);
+  }
+}
+
+/* SAFARI FIX */
+@supports (-webkit-touch-callout: none) {
+  .fyn-vision-card-bg::before,
+  .fyn-mission-card-bg::before {
+    -webkit-transform: translate3d(0,0,0);
+  }
 }
 
 /* =========================================
@@ -98,7 +549,7 @@
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  contain: layout paint style;
+  contain: paint;
 }
 
 .fyn-chatbot-text {
@@ -174,8 +625,8 @@
   background:
     linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.78),
-      rgba(0, 0, 0, 0.48) 58%,
+      rgba(0, 0, 0, 0.86),
+      rgba(0, 0, 0, 0.58) 60%,
       transparent
     );
   text-shadow:
@@ -190,9 +641,10 @@
   gap: 0.35rem;
   border-radius: 0.35rem;
   border: 1px solid rgba(232, 25, 122, 0.34);
-  background: rgba(6, 6, 6, 0.62);
+  background: rgba(6, 6, 6, 0.72);
   padding: 0.25rem 0.45rem;
   color: #ff4aa0;
+  font-weight: 800;
   line-height: 1.1;
   text-shadow:
     0 0 14px rgba(0, 0, 0, 0.9),
@@ -203,6 +655,8 @@
 
 .fyn-story-caption {
   letter-spacing: 0;
+  color: #ffffff;
+  font-weight: 700;
   text-shadow:
     0 2px 16px rgba(0, 0, 0, 0.98),
     0 1px 3px rgba(0, 0, 0, 0.95);

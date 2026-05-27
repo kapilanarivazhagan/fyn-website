@@ -52,7 +52,7 @@ export const GlowCard: React.FC<GlowCardProps> = ({
   };
 
   const baseClassName = cn(
-    "relative overflow-hidden rounded-2xl border border-fyn-border bg-fyn-surface/75 p-6 backdrop-blur-md transition-all duration-300 font-barlow",
+    "relative overflow-hidden rounded-2xl border border-fyn-border bg-fyn-surface/75 p-6 backdrop-blur-md transition-colors duration-300 font-barlow",
     className
   );
 
@@ -71,10 +71,9 @@ export const GlowCard: React.FC<GlowCardProps> = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
       className={cn(
         baseClassName,
-        "hover:border-fyn-pink/30 hover:shadow-[0_10px_30px_rgba(232,25,122,0.05)] cursor-pointer"
+        "hover:border-fyn-pink/30 hover:shadow-[0_10px_30px_rgba(232,25,122,0.05)]"
       )}
     >
       {isHovered && (

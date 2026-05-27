@@ -25,7 +25,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
       )}
     >
       {eyebrow && (
-        <span className="text-xs md:text-sm font-semibold uppercase tracking-widest text-fyn-pink mb-3 block">
+        <span className="fyn-readable-pink-label text-xs md:text-sm font-semibold uppercase tracking-widest text-fyn-pink mb-3 block">
           {eyebrow}
         </span>
       )}
@@ -33,7 +33,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-base md:text-lg text-fyn-text-muted max-w-2xl leading-relaxed">
+        <p className="fyn-readable-muted mt-4 text-base md:text-lg text-fyn-text-muted max-w-2xl leading-relaxed">
           {description}
         </p>
       )}

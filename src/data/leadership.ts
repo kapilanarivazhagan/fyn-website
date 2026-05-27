@@ -131,7 +131,7 @@ export const leadershipList: LeaderItem[] = [
     role: "Supply Channel Head",
     bio: "Aggregating driver partners, scaling local vehicle sourcing, and managing vendor-owner channels.",
     imageName: "/Images/intro/manoj.webp",
-    linkedin: ""
+    linkedin: "https://www.linkedin.com/in/manoj-kumar-mattapally/"
   },
 
   {

@@ -74,42 +74,61 @@ export const About = () => {
           description="We are India's first fully integrated EV Supply Ecosystem. We bridge the gap between demand and delivery through technology-first, asset-light operations."
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mt-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mt-12">
           {/* Big highlight statement */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col justify-between p-8 rounded-2xl border border-fyn-pink/20 bg-gradient-to-br from-[#12080f] via-[#0b0809] to-[#080808] relative overflow-hidden min-h-[350px]"
+            className="fyn-ecosystem-evolution-bg rounded-2xl border border-white/[0.04] hover:border-fyn-pink/12 bg-transparent relative overflow-hidden transition-colors duration-500 bg-cover bg-center"
+            style={{
+              backgroundImage: "url('/career/townhall.webp')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              minHeight: "520px"
+            }}
           >
-            {/* Ambient pink spotlight */}
-            <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-fyn-pink/[0.04] blur-[80px]" />
-            
-            <div className="relative z-10">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-fyn-pink bg-fyn-pink/10 border border-fyn-pink/20 px-2.5 py-1 rounded-md">
-                Ecosystem Evolution
-              </span>
+            {/* Relative container to capture direct child stylesheet rules */}
+            <div className="relative min-h-[520px] w-full">
+              {/* Background overlay for readability */}
+              <div className="absolute inset-0 bg-black/65 rounded-2xl z-0" />
               
-              <h3 className="text-2xl md:text-4xl font-black text-fyn-text uppercase mt-6 leading-tight tracking-tight">
-                Empowering the future of green commerce through holistic logistics engineering.
-              </h3>
+              {/* Ambient pink spotlight */}
+              <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-fyn-pink/[0.04] blur-[80px] z-0" />
+              
+              {/* Content wrapper with isolated flex layout */}
+              <div className="absolute inset-0 flex flex-col justify-between p-6 z-10">
+                <div className="fyn-cinematic-copy-support pt-0">
+                  <span className="fyn-readable-pink-label text-[10px] font-mono uppercase tracking-widest text-fyn-pink bg-fyn-pink/10 border border-fyn-pink/20 px-2.5 py-1 rounded-md">
+                    Ecosystem Evolution
+                  </span>
+                  
+                  <h3 className="text-2xl md:text-4xl font-black text-fyn-text uppercase mt-3 leading-tight tracking-tight">
+                    Empowering the future of{" "}
+                    <span className="text-fyn-pink">
+                      green commerce
+                    </span>{" "}
+                    through holistic logistics engineering.
+                  </h3>
+                </div>
+                
+                <p className="fyn-cinematic-copy-support fyn-panel-body-copy text-fyn-text-muted mt-4 pt-0 leading-relaxed max-w-lg">
+                  Fyn began with a simple mission: clean up last-mile deliveries. But we soon realized that simple vehicle deployment is not enough. To truly scale, India needs an interconnected framework that unites drivers, smart infrastructure, flexible financial leasing, and predictive telemetry. Today, we are that ecosystem.
+                </p>
+              </div>
             </div>
-            
-            <p className="text-fyn-text-muted mt-8 leading-relaxed max-w-lg relative z-10">
-              Fyn began with a simple mission: clean up last-mile deliveries. But we soon realized that simple vehicle deployment is not enough. To truly scale, India needs an interconnected framework that unites drivers, smart infrastructure, flexible financial leasing, and predictive telemetry. Today, we are that ecosystem.
-            </p>
           </motion.div>
 
           {/* Cards for pillars */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:auto-rows-max">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <GlowCard className="h-full flex flex-col justify-between" glowColor="rgba(232, 25, 122, 0.08)">
+              <GlowCard className="flex flex-col" glowColor="rgba(232, 25, 122, 0.08)">
                 <div>
                   <div className="p-2.5 rounded-lg bg-fyn-pink/10 border border-fyn-pink/20 text-fyn-pink w-fit mb-4">
                     <Share2 className="w-5 h-5" />
@@ -128,7 +147,7 @@ export const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <GlowCard className="h-full flex flex-col justify-between" glowColor="rgba(232, 25, 122, 0.08)">
+              <GlowCard className="flex flex-col" glowColor="rgba(232, 25, 122, 0.08)">
                 <div>
                   <div className="p-2.5 rounded-lg bg-fyn-pink/10 border border-fyn-pink/20 text-fyn-pink w-fit mb-4">
                     <Zap className="w-5 h-5" />
@@ -147,7 +166,7 @@ export const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <GlowCard className="h-full flex flex-col justify-between" glowColor="rgba(232, 25, 122, 0.08)">
+              <GlowCard className="flex flex-col" glowColor="rgba(232, 25, 122, 0.08)">
                 <div>
                   <div className="p-2.5 rounded-lg bg-fyn-pink/10 border border-fyn-pink/20 text-fyn-pink w-fit mb-4">
                     <GitBranch className="w-5 h-5" />
@@ -166,7 +185,7 @@ export const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <GlowCard className="h-full flex flex-col justify-between" glowColor="rgba(232, 25, 122, 0.08)">
+              <GlowCard className="flex flex-col" glowColor="rgba(232, 25, 122, 0.08)">
                 <div>
                   <div className="p-2.5 rounded-lg bg-fyn-pink/10 border border-fyn-pink/20 text-fyn-pink w-fit mb-4">
                     <Layers className="w-5 h-5" />
@@ -188,10 +207,10 @@ export const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.55, ease: "easeOut" }}
-            className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+            className="fyn-visual-story-heading mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
           >
             <div>
-              <p className="text-[10px] font-mono uppercase tracking-widest text-fyn-pink">
+              <p className="fyn-readable-pink-label text-[10px] font-mono uppercase tracking-widest text-fyn-pink">
                 Visual Story
               </p>
               <h3 className="mt-3 max-w-3xl text-2xl font-black uppercase leading-tight tracking-tight text-fyn-text md:text-4xl">
@@ -199,7 +218,7 @@ export const About = () => {
               </h3>
             </div>
 
-            <p className="max-w-md text-sm leading-relaxed text-fyn-text-muted">
+            <p className="fyn-readable-muted max-w-md text-sm leading-relaxed text-fyn-text-muted">
               Fyn's ecosystem is shaped in rooms, yards, campuses, and city conversations where the clean mobility transition becomes practical.
             </p>
           </motion.div>

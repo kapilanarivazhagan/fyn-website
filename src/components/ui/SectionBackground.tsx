@@ -31,12 +31,12 @@ const cinematicBackgrounds: Record<
   }
 > = {
   about: {
-    desktop: `${IMAGE_BASE}/ecosystem_desktop.webp`,
-    mobile: `${IMAGE_BASE}/ecosystem_mobile.webp`,
+    desktop: `${IMAGE_BASE}/about_desktop.webp`,
+    mobile: `${IMAGE_BASE}/about_mobile.webp`,
     desktopPosition: "center",
     mobilePosition: "center",
-    overlay: 0.46,
-    mobileOverlay: 0.58,
+    overlay: 0.50,
+    mobileOverlay: 0.64,
   },
 
   vision: {
