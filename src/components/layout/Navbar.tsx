@@ -198,7 +198,7 @@ export const Navbar = ({
           ${
             scrolled
               ? "backdrop-blur-md bg-[#080808]/85 border-b border-fyn-pink/15 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
-              : "bg-[#080808]/95 py-5 border-b border-fyn-pink/10"
+              : "bg-transparent py-5 border-b border-transparent"
           }
         `}
       >

@@ -83,9 +83,6 @@ export const About = () => {
             transition={{ duration: 0.6 }}
             className="fyn-ecosystem-evolution-bg rounded-2xl border border-white/[0.04] hover:border-fyn-pink/12 bg-transparent relative overflow-hidden transition-colors duration-500 bg-cover bg-center"
             style={{
-              backgroundImage: "url('/career/townhall.webp')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
               minHeight: "520px"
             }}
           >

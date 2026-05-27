@@ -190,9 +190,9 @@
   background-position: center center;
   background-repeat: no-repeat;
 
-  filter: blur(1.2px) brightness(0.88);
+  filter: blur(2.5px) brightness(0.88);
 
-  transform: scale(1.01);
+  transform: scale(1.04) translateZ(0);
 
   will-change: transform;
 
@@ -239,16 +239,16 @@
 /* MOBILE */
 @media (max-width: 767px) {
   .fyn-ecosystem-evolution-bg::before {
-    filter: blur(1.8px) brightness(0.82);
+    filter: blur(2px) brightness(0.82);
 
-    transform: scale(1.02);
+    transform: scale(1.04) translateZ(0);
   }
 }
 
 /* SAFARI */
 @supports (-webkit-touch-callout: none) {
   .fyn-ecosystem-evolution-bg::before {
-    -webkit-transform: scale(1.03);
+    -webkit-transform: scale(1.04) translateZ(0);
   }
 }
 /* =========================================
@@ -459,9 +459,9 @@
   background-size: cover;
   background-repeat: no-repeat;
 
-  filter: blur(3px) brightness(0.78);
+  filter: blur(2.5px) brightness(0.78);
 
-  transform: translate3d(0,0,0);
+  transform: scale(1.04) translate3d(0,0,0);
 
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -472,9 +472,9 @@
   background-image: url("/about_us/visakh_public_meeting.webp");
   background-position: center center;
 
-  filter: blur(3px) brightness(0.78);
+  filter: blur(2.5px) brightness(0.78);
 
-  transform: translateZ(0);
+  transform: scale(1.04) translateZ(0);
 
   -webkit-transform: translateZ(0);
 
@@ -510,9 +510,9 @@
 @media (max-width: 767px) {
   .fyn-vision-card-bg::before,
   .fyn-mission-card-bg::before {
-    filter: blur(1.8px) brightness(0.82);
+    filter: blur(2px) brightness(0.82);
 
-    transform: scale(1.02) translate3d(0,0,0);
+    transform: scale(1.04) translate3d(0,0,0);
   }
 }
 
@@ -735,7 +735,7 @@ section {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  contain: layout;
+  contain: paint layout;
 }
 
 .cinematic-layer + .cinematic-layer {

@@ -29,6 +29,17 @@ export const FleetImpact = () => {
   const [yoyDisplayValue, setYoyDisplayValue] = useState(0);
   const wasVisibleRef = React.useRef(false);
 
+  const lastReplayAt = React.useRef(0);
+
+  const triggerUnifiedReplay = React.useCallback(() => {
+    const now = performance.now();
+    if (now - lastReplayAt.current < 600) {
+      return;
+    }
+    lastReplayAt.current = now;
+    setReplayKey((prev) => prev + 1);
+  }, []);
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -118,7 +129,7 @@ export const FleetImpact = () => {
   }, [mounted, sectionActive]);
 
   return (
-    <section ref={sectionRef} id="fleet-impact" className="py-10 sm:py-12 md:py-14 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+    <section ref={sectionRef} id="fleet-impact" onMouseEnter={triggerUnifiedReplay} className="py-10 sm:py-12 md:py-14 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
       <SectionBackground variant="impact" />
       <div className="absolute inset-0 bg-grid-pattern opacity-20 pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-fyn-pink/[0.02] blur-[150px] pointer-events-none" />
@@ -131,7 +142,7 @@ export const FleetImpact = () => {
         />
 
         {/* Dynamic Metric Cards Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div onMouseEnter={triggerUnifiedReplay} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {impactMetrics.slice(0, 4).map((metric, idx) => (
             <motion.div
               key={metric.id}
@@ -155,7 +166,7 @@ export const FleetImpact = () => {
         </div>
 
         {/* Dashboard Split Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div onMouseEnter={triggerUnifiedReplay} className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Recharts Area Container */}
           <div className="lg:col-span-8">
             <DashboardCard
@@ -311,6 +322,7 @@ export const FleetImpact = () => {
                 </div>
                 <div className="w-1.5 h-6 bg-fyn-border rounded-full overflow-hidden flex items-end">
                   <motion.div
+                    key={`progress-${replayKey}`}
                     initial={{ height: 0 }}
                     animate={sectionActive ? { height: "66.6%" } : { height: 0 }}
                     transition={{ duration: 1.25, ease: [0.18, 0.74, 0.2, 1], delay: 0.2 }}

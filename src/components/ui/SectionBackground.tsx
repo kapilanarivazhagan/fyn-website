@@ -180,7 +180,8 @@ export const SectionBackground = ({
             backgroundPosition:
               background.desktopPosition ?? "center",
             backgroundRepeat: "no-repeat",
-            transform: "translateZ(0)",
+            filter: "blur(2.5px)",
+            transform: "scale(1.04) translateZ(0)",
             willChange: "transform",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
@@ -205,7 +206,8 @@ export const SectionBackground = ({
             backgroundPosition:
               background.mobilePosition ?? "center",
             backgroundRepeat: "no-repeat",
-            transform: "translateZ(0)",
+            filter: "blur(1.8px)",
+            transform: "scale(1.04) translateZ(0)",
             willChange: "transform",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
