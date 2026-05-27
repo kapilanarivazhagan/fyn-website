@@ -391,7 +391,7 @@ export const Investors = () => {
     <section
       id="financial-banking"
       className="
-        py-20
+        py-10 sm:py-12 md:py-14
         px-6 md:px-12
         bg-[#080808]
         relative

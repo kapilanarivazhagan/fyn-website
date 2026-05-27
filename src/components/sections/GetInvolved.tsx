@@ -178,7 +178,7 @@ export const GetInvolved = () => {
   };
 
   return (
-    <section id="get-involved" className="py-20 px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow">
+    <section id="get-involved" className="py-10 sm:py-12 md:py-14 px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow">
       <SectionBackground variant="involved" />
       <div className="absolute inset-0 bg-grid-dots opacity-20 pointer-events-none" />
 

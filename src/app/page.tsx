@@ -108,6 +108,12 @@ const hashTargets: Record<string, string> = {
   careers: "careers",
   "culture-careers": "careers",
   "get-involved": "get-involved",
+  "get-involved-invest": "get-involved",
+  "get-involved-enterprise": "get-involved",
+  "get-involved-refynd": "get-involved",
+  "get-involved-infynity": "get-involved",
+  "get-involved-drive": "get-involved",
+  "future-of-fyn": "future-of-fyn",
 };
 
 const majorScrollSections: {
@@ -164,7 +170,7 @@ export default function Home() {
 
       if (!section) return;
 
-      const navbarOffset = 96;
+      const navbarOffset = 53;
       const targetTop =
         section.getBoundingClientRect().top +
         window.scrollY -

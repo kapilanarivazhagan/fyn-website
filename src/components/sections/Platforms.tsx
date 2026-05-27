@@ -11,7 +11,7 @@ import { SectionBackground } from "../ui/SectionBackground";
 
 export const Platforms = () => {
   return (
-    <section id="platforms" className="py-20 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+    <section id="platforms" className="py-10 sm:py-12 md:py-14 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
       <SectionBackground variant="platforms" />
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading

@@ -74,7 +74,7 @@ export const Ecosystem = () => {
   const activeNodeData = nodes.find((n) => n.id === activeNode) || nodes[0];
 
   return (
-    <section id="ecosystem" className="relative isolate overflow-hidden py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 font-barlow">
+    <section id="ecosystem" className="relative isolate overflow-hidden py-10 sm:py-12 md:py-14 px-4 sm:px-6 md:px-12 font-barlow">
       <SectionBackground variant="ecosystem" />
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading

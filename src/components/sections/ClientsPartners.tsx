@@ -235,7 +235,7 @@ export const ClientsPartners = () => {
   return (
     <section
       id="clients-partners"
-      className="py-12 sm:py-16 md:py-20 bg-[#0F0F0F] relative overflow-hidden font-barlow border-t border-fyn-border/10"
+      className="py-10 sm:py-12 md:py-14 bg-[#0F0F0F] relative overflow-hidden font-barlow border-t border-fyn-border/10"
     >
       <SectionBackground variant="partners" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">

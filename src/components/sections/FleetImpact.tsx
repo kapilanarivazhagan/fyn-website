@@ -118,7 +118,7 @@ export const FleetImpact = () => {
   }, [mounted, sectionActive]);
 
   return (
-    <section ref={sectionRef} id="fleet-impact" className="py-20 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+    <section ref={sectionRef} id="fleet-impact" className="py-10 sm:py-12 md:py-14 px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
       <SectionBackground variant="impact" />
       <div className="absolute inset-0 bg-grid-pattern opacity-20 pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-fyn-pink/[0.02] blur-[150px] pointer-events-none" />

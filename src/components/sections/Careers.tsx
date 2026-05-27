@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
@@ -82,6 +83,12 @@ export const Careers = () => {
   >("idle");
   const [previewIndex, setPreviewIndex] =
     useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const [applicationForm, setApplicationForm] = useState({
     fullName: "",
@@ -179,7 +186,11 @@ export const Careers = () => {
 
   const handleApplicationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setApplicationStatus("submitted");
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setApplicationStatus("submitted");
+    }, 1500);
   };
 
   const getValueIcon = (name: string) => {
@@ -198,7 +209,7 @@ export const Careers = () => {
   return (
     <section
       id="careers"
-      className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 relative overflow-hidden font-barlow"
+      className="py-10 sm:py-12 md:py-14 px-4 sm:px-6 md:px-12 relative overflow-hidden font-barlow"
     >
       <SectionBackground variant="careers" />
 
@@ -472,168 +483,183 @@ export const Careers = () => {
         </div>
       </div>
 
-      {/* Modal */}
-      <AnimatePresence>
-        {isApplyModalOpen && (
-          <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-6 sm:px-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            aria-modal="true"
-            role="dialog"
-          >
-            <button
-              type="button"
-              aria-label="Close application form"
-              onClick={closeApplyModal}
-              className="absolute inset-0 bg-[#050505]/85 backdrop-blur-[3px] md:backdrop-blur-md cursor-default"
-            />
-
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 12 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
-              className="relative z-10 w-full max-w-3xl rounded-2xl border border-fyn-pink/20 bg-[#0b0b0b]/92 p-8"
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-black text-fyn-text uppercase">
-                  Apply to Fyn
-                </h3>
-
+      {/* Modal & Lightbox Portals */}
+      {mounted && typeof document !== "undefined" && createPortal(
+        <>
+          <AnimatePresence>
+            {isApplyModalOpen && (
+              <motion.div
+                className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-6 sm:px-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                aria-modal="true"
+                role="dialog"
+              >
                 <button
+                  type="button"
+                  aria-label="Close application form"
                   onClick={closeApplyModal}
-                  className="text-fyn-text-muted hover:text-fyn-text"
+                  className="absolute inset-0 bg-[#050505]/85 backdrop-blur-[3px] md:backdrop-blur-md cursor-default"
+                />
+
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 12 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                  className="relative z-10 w-full max-w-3xl rounded-2xl border border-fyn-pink/20 bg-[#0b0b0b]/92 p-8"
                 >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-2xl font-black text-fyn-text uppercase">
+                      Apply to Fyn
+                    </h3>
 
-              {applicationStatus === "submitted" ? (
-                <div className="text-center py-10">
-                  <div className="mx-auto mb-5 w-14 h-14 rounded-full bg-fyn-pink/10 border border-fyn-pink/30 text-fyn-pink flex items-center justify-center">
-                    <Send className="w-6 h-6" />
-                  </div>
-
-                  <h4 className="text-xl font-black text-fyn-text uppercase">
-                    Application Captured
-                  </h4>
-
-                  <p className="text-sm text-fyn-text-muted mt-3">
-                    Thanks. Your application UI is ready for backend integration.
-                  </p>
-                </div>
-              ) : (
-                <form
-                  className="space-y-5"
-                  onSubmit={handleApplicationSubmit}
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <input
-                      name="fullName"
-                      required
-                      value={applicationForm.fullName}
-                      onChange={handleApplicationChange}
-                      className={inputBase}
-                      placeholder="Full Name"
-                    />
-
-                    <input
-                      name="email"
-                      type="email"
-                      required
-                      value={applicationForm.email}
-                      onChange={handleApplicationChange}
-                      className={inputBase}
-                      placeholder="Email"
-                    />
-
-                    <input
-                      name="phone"
-                      type="tel"
-                      required
-                      value={applicationForm.phone}
-                      onChange={handleApplicationChange}
-                      className={inputBase}
-                      placeholder="Phone Number"
-                    />
-
-                    <input
-                      name="linkedin"
-                      type="url"
-                      value={applicationForm.linkedin}
-                      onChange={handleApplicationChange}
-                      className={inputBase}
-                      placeholder="LinkedIn URL"
-                    />
-                  </div>
-
-                  <div className="relative">
-                    <input
-                      type="file"
-                      accept=".pdf,.doc,.docx"
-                      required
-                      onChange={(e) =>
-                        setResumeName(e.target.files?.[0]?.name ?? "")
-                      }
-                      className="absolute inset-0 opacity-0 cursor-pointer"
-                    />
-
-                    <div
-                      className={`${inputBase} flex items-center justify-between gap-3 text-fyn-text-muted`}
-                    >
-                      <span className="truncate">
-                        {resumeName || "Upload resume"}
-                      </span>
-
-                      <UploadCloud className="w-4 h-4 text-fyn-pink shrink-0" />
-                    </div>
-                  </div>
-
-                  <textarea
-                    name="message"
-                    required
-                    value={applicationForm.message}
-                    onChange={handleApplicationChange}
-                    rows={4}
-                    className={`${inputBase} resize-none`}
-                    placeholder="Tell us why this role fits you."
-                  />
-
-                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                    <Button
-                      variant="primary"
-                      size="lg"
-                      className="w-full sm:flex-1"
-                    >
-                      Submit
-                      <Send className="w-4 h-4 ml-2" />
-                    </Button>
-
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="lg"
-                      className="w-full sm:w-auto"
+                    <button
                       onClick={closeApplyModal}
+                      className="text-fyn-text-muted hover:text-fyn-text"
                     >
-                      Close
-                    </Button>
+                      <X className="w-5 h-5" />
+                    </button>
                   </div>
-                </form>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      <ImageLightbox
-        images={careerStoryImages}
-        activeIndex={previewIndex}
-        onClose={() => setPreviewIndex(null)}
-        onNavigate={setPreviewIndex}
-      />
+                  {applicationStatus === "submitted" ? (
+                    <div className="text-center py-10">
+                      <div className="mx-auto mb-5 w-14 h-14 rounded-full bg-fyn-pink/10 border border-fyn-pink/30 text-fyn-pink flex items-center justify-center">
+                        <Send className="w-6 h-6" />
+                      </div>
+
+                      <h4 className="text-xl font-black text-fyn-text uppercase">
+                        Application Captured
+                      </h4>
+
+                      <p className="text-sm text-fyn-text-muted mt-3">
+                        Thanks. Your application UI is ready for backend integration.
+                      </p>
+                    </div>
+                  ) : (
+                    <form
+                      className="space-y-5"
+                      onSubmit={handleApplicationSubmit}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <input
+                          name="fullName"
+                          required
+                          value={applicationForm.fullName}
+                          onChange={handleApplicationChange}
+                          className={inputBase}
+                          placeholder="Full Name"
+                        />
+
+                        <input
+                          name="email"
+                          type="email"
+                          required
+                          value={applicationForm.email}
+                          onChange={handleApplicationChange}
+                          className={inputBase}
+                          placeholder="Email"
+                        />
+
+                        <input
+                          name="phone"
+                          type="tel"
+                          required
+                          value={applicationForm.phone}
+                          onChange={handleApplicationChange}
+                          className={inputBase}
+                          placeholder="Phone Number"
+                        />
+
+                        <input
+                          name="linkedin"
+                          type="url"
+                          value={applicationForm.linkedin}
+                          onChange={handleApplicationChange}
+                          className={inputBase}
+                          placeholder="LinkedIn URL"
+                        />
+                      </div>
+
+                      <div className="relative">
+                        <input
+                          type="file"
+                          accept=".pdf,.doc,.docx"
+                          required
+                          onChange={(e) =>
+                            setResumeName(e.target.files?.[0]?.name ?? "")
+                          }
+                          className="absolute inset-0 opacity-0 cursor-pointer"
+                        />
+
+                        <div
+                          className={`${inputBase} flex items-center justify-between gap-3 text-fyn-text-muted`}
+                        >
+                          <span className="truncate">
+                            {resumeName || "Upload resume"}
+                          </span>
+
+                          <UploadCloud className="w-4 h-4 text-fyn-pink shrink-0" />
+                        </div>
+                      </div>
+
+                      <textarea
+                        name="message"
+                        required
+                        value={applicationForm.message}
+                        onChange={handleApplicationChange}
+                        rows={4}
+                        className={`${inputBase} resize-none`}
+                        placeholder="Tell us why this role fits you."
+                      />
+
+                      <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                        <Button
+                          variant="primary"
+                          size="lg"
+                          className="w-full sm:flex-1"
+                          disabled={isSubmitting}
+                        >
+                          {isSubmitting ? (
+                            <>
+                              Submitting...
+                              <div className="w-4 h-4 ml-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            </>
+                          ) : (
+                            <>
+                              Submit
+                              <Send className="w-4 h-4 ml-2" />
+                            </>
+                          )}
+                        </Button>
+
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="lg"
+                          className="w-full sm:w-auto"
+                          onClick={closeApplyModal}
+                        >
+                          Close
+                        </Button>
+                      </div>
+                    </form>
+                  )}
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <ImageLightbox
+            images={careerStoryImages}
+            activeIndex={previewIndex}
+            onClose={() => setPreviewIndex(null)}
+            onNavigate={setPreviewIndex}
+          />
+        </>,
+        document.body
+      )}
     </section>
   );
-}
+};

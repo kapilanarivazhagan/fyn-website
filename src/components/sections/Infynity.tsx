@@ -37,7 +37,7 @@ export const Infynity = () => {
   ];
 
   return (
-    <section id="infynity" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+    <section id="infynity" className="py-10 sm:py-12 md:py-14 px-4 sm:px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
       <SectionBackground variant="infynity" />
       <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-fyn-pink/[0.02] blur-[100px] pointer-events-none" />
       

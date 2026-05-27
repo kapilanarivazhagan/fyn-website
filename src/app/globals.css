@@ -735,7 +735,7 @@ section {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  contain: paint layout;
+  contain: layout;
 }
 
 .cinematic-layer + .cinematic-layer {
@@ -785,7 +785,7 @@ section {
 @media (min-width: 768px) {
   .cinematic-layer > * > section,
   .cinematic-layer > section {
-    min-height: 100vh;
+    min-height: auto;
   }
 }
 

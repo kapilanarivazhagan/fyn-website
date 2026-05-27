@@ -65,7 +65,7 @@ export const About = () => {
     useState<number | null>(null);
 
   return (
-    <section id="about-us" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
+    <section id="about-us" className="py-10 sm:py-12 md:py-14 px-4 sm:px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
       <SectionBackground variant="about" />
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading

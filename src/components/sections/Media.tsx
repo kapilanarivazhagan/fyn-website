@@ -192,7 +192,7 @@ export const Media = () => {
   return (
     <section
       id="media"
-      className="relative overflow-hidden bg-[#080808] py-12 font-barlow sm:py-16 md:py-20"
+      className="relative overflow-hidden bg-[#080808] py-8 font-barlow sm:py-10 md:py-12"
     >
       <SectionBackground variant="media" />
       <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />

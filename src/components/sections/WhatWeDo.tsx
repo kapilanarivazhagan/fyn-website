@@ -54,7 +54,7 @@ export const WhatWeDo = () => {
   ];
 
   return (
-    <section id="what-we-do" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow">
+    <section id="what-we-do" className="py-10 sm:py-12 md:py-14 px-4 sm:px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow">
       <SectionBackground variant="operations" />
       <div className="max-w-7xl mx-auto relative z-10">
         <SectionHeading

@@ -56,7 +56,7 @@ export const VisionMission = () => {
   return (
     <section
       id="vision-mission"
-      className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 relative overflow-hidden font-barlow"
+      className="py-10 sm:py-12 md:py-14 px-4 sm:px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden font-barlow"
     >
       <SectionBackground variant="vision" />
 

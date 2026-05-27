@@ -208,7 +208,7 @@ export const Footer = () => {
 
         {/* Footer Base Legal details */}
         <div className="pt-10 border-t border-fyn-border/40 flex flex-col md:flex-row items-center justify-between text-[11px] font-semibold text-fyn-text-muted space-y-4 md:space-y-0">
-          <p>© {currentYear} Fyn Mobility (VNPR Technologies Pvt Ltd). All Rights Reserved.</p>
+          <p>© {currentYear} Fyn Mobility (Pi Beams Pvt Ltd). All Rights Reserved.</p>
           <div className="flex space-x-6">
             <a href="mailto:info@fynmobility.com?subject=Privacy%20Parameters" className="hover:text-fyn-text transition-colors">Privacy Parameters</a>
             <a href="mailto:info@fynmobility.com?subject=Ecosystem%20Terms" className="hover:text-fyn-text transition-colors">Ecosystem Terms</a>
