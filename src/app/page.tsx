@@ -5,6 +5,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
+import dynamic from "next/dynamic";
 
 import IntroLoader from "../components/intro/IntroLoader";
 
@@ -16,24 +17,94 @@ import { ScrollToBottomButton } from "../components/ui/ScrollToBottomButton";
 
 import { Hero } from "../components/sections/Hero";
 
-import { About } from "../components/sections/About";
-import { VisionMission } from "../components/sections/VisionMission";
-import { Leadership } from "../components/sections/Leadership";
-import { Ecosystem } from "../components/sections/Ecosystem";
-import { GetInvolved } from "../components/sections/GetInvolved";
+const About = dynamic(
+  () => import("../components/sections/About").then(
+    (mod) => mod.About
+  ),
+  { ssr: true }
+);
+const VisionMission = dynamic(
+  () => import("../components/sections/VisionMission").then(
+    (mod) => mod.VisionMission
+  ),
+  { ssr: true }
+);
+const Leadership = dynamic(
+  () => import("../components/sections/Leadership").then(
+    (mod) => mod.Leadership
+  ),
+  { ssr: true }
+);
+const Ecosystem = dynamic(
+  () => import("../components/sections/Ecosystem").then(
+    (mod) => mod.Ecosystem
+  ),
+  { ssr: true }
+);
+const GetInvolved = dynamic(
+  () => import("../components/sections/GetInvolved").then(
+    (mod) => mod.GetInvolved
+  ),
+  { ssr: true }
+);
 
-import { WhatWeDo } from "../components/sections/WhatWeDo";
-import { Platforms } from "../components/sections/Platforms";
-import { FleetImpact } from "../components/sections/FleetImpact";
+const WhatWeDo = dynamic(
+  () => import("../components/sections/WhatWeDo").then(
+    (mod) => mod.WhatWeDo
+  ),
+  { ssr: true }
+);
+const Platforms = dynamic(
+  () => import("../components/sections/Platforms").then(
+    (mod) => mod.Platforms
+  ),
+  { ssr: true }
+);
+const FleetImpact = dynamic(
+  () => import("../components/sections/FleetImpact").then(
+    (mod) => mod.FleetImpact
+  ),
+  { ssr: true }
+);
 
-import { Refynd } from "../components/sections/Refynd";
-import { Infynity } from "../components/sections/Infynity";
+const Refynd = dynamic(
+  () => import("../components/sections/Refynd").then(
+    (mod) => mod.Refynd
+  ),
+  { ssr: true }
+);
+const Infynity = dynamic(
+  () => import("../components/sections/Infynity").then(
+    (mod) => mod.Infynity
+  ),
+  { ssr: true }
+);
 
-import { ClientsPartners } from "../components/sections/ClientsPartners";
-import { Investors } from "../components/sections/Investors";
+const ClientsPartners = dynamic(
+  () => import("../components/sections/ClientsPartners").then(
+    (mod) => mod.ClientsPartners
+  ),
+  { ssr: true }
+);
+const Investors = dynamic(
+  () => import("../components/sections/Investors").then(
+    (mod) => mod.Investors
+  ),
+  { ssr: true }
+);
 
-import { Media } from "../components/sections/Media";
-import { Careers } from "../components/sections/Careers";
+const Media = dynamic(
+  () => import("../components/sections/Media").then(
+    (mod) => mod.Media
+  ),
+  { ssr: true }
+);
+const Careers = dynamic(
+  () => import("../components/sections/Careers").then(
+    (mod) => mod.Careers
+  ),
+  { ssr: true }
+);
 
 type ViewType =
   | "home"
@@ -278,139 +349,142 @@ export default function Home() {
       return;
     }
 
-    let rafId = 0;
+    let lastUpdateTime = 0;
+    const throttleMs = 100;
 
     const updateActiveSection = () => {
-      cancelAnimationFrame(rafId);
+      const now = performance.now();
+      if (now - lastUpdateTime < throttleMs) {
+        return;
+      }
+      lastUpdateTime = now;
 
-      rafId = requestAnimationFrame(() => {
-        if (window.scrollY < 140) {
-          setNavActiveView((current) =>
-            current === "home"
-              ? current
-              : "home"
-          );
-          return;
-        }
-
-        const viewportHeight =
-          window.innerHeight;
-        const navOffset = 96;
-        const focusLine = Math.max(
-          navOffset + 24,
-          viewportHeight * 0.42
-        );
-
-        let activeCandidate:
-          | {
-              view: MajorView;
-              score: number;
-            }
-          | undefined;
-
-        let visibleCandidate:
-          | {
-              view: MajorView;
-              score: number;
-            }
-          | undefined;
-
-        mountedSections.forEach(
-          ({ view, element }) => {
-            const rect =
-              element.getBoundingClientRect();
-
-            const visibleTop = Math.max(
-              rect.top,
-              navOffset
-            );
-            const visibleBottom = Math.min(
-              rect.bottom,
-              viewportHeight
-            );
-            const visiblePixels =
-              Math.max(
-                0,
-                visibleBottom - visibleTop
-              );
-
-            if (visiblePixels <= 0) return;
-
-            const sectionWindow =
-              Math.max(
-                1,
-                Math.min(
-                  rect.height,
-                  viewportHeight - navOffset
-                )
-              );
-            const visibleRatio =
-              visiblePixels / sectionWindow;
-            const ownsFocusLine =
-              rect.top <= focusLine &&
-              rect.bottom >= focusLine;
-            const topProximity =
-              1 -
-              Math.min(
-                Math.abs(
-                  rect.top - navOffset
-                ) / viewportHeight,
-                1
-              );
-
-            const visibleScore =
-              visibleRatio * 0.8 +
-              topProximity * 0.2;
-
-            if (
-              !visibleCandidate ||
-              visibleScore >
-                visibleCandidate.score
-            ) {
-              visibleCandidate = {
-                view,
-                score: visibleScore,
-              };
-            }
-
-            if (!ownsFocusLine) return;
-
-            const focusDistance =
-              Math.abs(
-                rect.top - focusLine
-              );
-            const focusScore =
-              1 -
-              Math.min(
-                focusDistance /
-                  viewportHeight,
-                1
-              );
-
-            if (
-              !activeCandidate ||
-              focusScore >
-                activeCandidate.score
-            ) {
-              activeCandidate = {
-                view,
-                score: focusScore,
-              };
-            }
-          }
-        );
-
-        const nextView =
-          activeCandidate?.view ??
-          visibleCandidate?.view ??
-          "home";
-
+      if (window.scrollY < 140) {
         setNavActiveView((current) =>
-          current === nextView
+          current === "home"
             ? current
-            : nextView
+            : "home"
         );
-      });
+        return;
+      }
+
+      const viewportHeight =
+        window.innerHeight;
+      const navOffset = 96;
+      const focusLine = Math.max(
+        navOffset + 24,
+        viewportHeight * 0.42
+      );
+
+      let activeCandidate:
+        | {
+            view: MajorView;
+            score: number;
+          }
+        | undefined;
+
+      let visibleCandidate:
+        | {
+            view: MajorView;
+            score: number;
+          }
+        | undefined;
+
+      mountedSections.forEach(
+        ({ view, element }) => {
+          const rect =
+            element.getBoundingClientRect();
+
+          const visibleTop = Math.max(
+            rect.top,
+            navOffset
+          );
+          const visibleBottom = Math.min(
+            rect.bottom,
+            viewportHeight
+          );
+          const visiblePixels =
+            Math.max(
+              0,
+              visibleBottom - visibleTop
+            );
+
+          if (visiblePixels <= 0) return;
+
+          const sectionWindow =
+            Math.max(
+              1,
+              Math.min(
+                rect.height,
+                viewportHeight - navOffset
+              )
+            );
+          const visibleRatio =
+            visiblePixels / sectionWindow;
+          const ownsFocusLine =
+            rect.top <= focusLine &&
+            rect.bottom >= focusLine;
+          const topProximity =
+            1 -
+            Math.min(
+              Math.abs(
+                rect.top - navOffset
+              ) / viewportHeight,
+              1
+            );
+
+          const visibleScore =
+            visibleRatio * 0.8 +
+            topProximity * 0.2;
+
+          if (
+            !visibleCandidate ||
+            visibleScore >
+              visibleCandidate.score
+          ) {
+            visibleCandidate = {
+              view,
+              score: visibleScore,
+            };
+          }
+
+          if (!ownsFocusLine) return;
+
+          const focusDistance =
+            Math.abs(
+              rect.top - focusLine
+            );
+          const focusScore =
+            1 -
+            Math.min(
+              focusDistance /
+                viewportHeight,
+              1
+            );
+
+          if (
+            !activeCandidate ||
+            focusScore >
+              activeCandidate.score
+          ) {
+            activeCandidate = {
+              view,
+              score: focusScore,
+            };
+          }
+        }
+      );
+
+      const nextView =
+        activeCandidate?.view ??
+        visibleCandidate?.view ??
+        "home";
+
+      setNavActiveView((current) =>
+        current === nextView
+          ? current
+          : nextView
+      );
     };
 
     const observer =
@@ -448,7 +522,6 @@ export default function Home() {
     );
 
     return () => {
-      cancelAnimationFrame(rafId);
       observer.disconnect();
       window.removeEventListener(
         "scroll",

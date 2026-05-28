@@ -38,6 +38,37 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/Images/intro/desktop_bg2.webp"
+          media="(min-width: 768px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/Images/intro/mobile_bg2.webp"
+          media="(max-width: 767px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/Images/intro/intro_20260522_062525.webp"
+          media="(min-width: 768px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/Images/intro/intro_20260522_060018.webp"
+          media="(max-width: 767px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/Images/intro/intro_vehicle.webp"
+        />
+      </head>
       <body
         className={`${barlow.variable} font-sans text-[#F4F4EF] antialiased select-none no-scrollbar`}
       >

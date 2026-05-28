@@ -10,6 +10,37 @@ export default function IntroLoader({
   onFinish?: () => void;
 }) {
   const [hide, setHide] = useState(false);
+  const [isMobileBg, setIsMobileBg] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 767px)")
+        .matches
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(
+      "(max-width: 767px)"
+    );
+
+    const handleMediaChange = (
+      event: MediaQueryListEvent
+    ) => {
+      setIsMobileBg(event.matches);
+    };
+
+    setIsMobileBg(mediaQuery.matches);
+    mediaQuery.addEventListener(
+      "change",
+      handleMediaChange
+    );
+
+    return () => {
+      mediaQuery.removeEventListener(
+        "change",
+        handleMediaChange
+      );
+    };
+  }, []);
 
   useEffect(() => {
     const totalMs = 3500;
@@ -48,22 +79,14 @@ export default function IntroLoader({
             },
           }}
         >
-          {/* DESKTOP BG */}
-          <div className="absolute inset-0 hidden md:block">
+          <div className="absolute inset-0">
             <Image
-              src="/Images/intro/intro_20260522_062525.webp"
-              alt="desktop bg"
-              fill
-              priority
-              className="object-cover"
-            />
-          </div>
-
-          {/* MOBILE BG */}
-          <div className="absolute inset-0 block md:hidden">
-            <Image
-              src="/Images/intro/intro_20260522_060018.webp"
-              alt="mobile bg"
+              src={
+                isMobileBg
+                  ? "/Images/intro/intro_20260522_060018.webp"
+                  : "/Images/intro/intro_20260522_062525.webp"
+              }
+              alt="intro background"
               fill
               priority
               className="object-cover"
@@ -219,7 +242,7 @@ export default function IntroLoader({
             "
           >
             <Image
-              src="/Images/intro/intro_vehicle.png"
+              src="/Images/intro/intro_vehicle.webp"
               alt="vehicle"
               fill
               priority

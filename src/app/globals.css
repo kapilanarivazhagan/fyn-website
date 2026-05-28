@@ -146,8 +146,8 @@
 
 @supports ((backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px))) {
   .fyn-cinematic-copy-support::before {
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
   }
 }
 
@@ -282,8 +282,8 @@
 
 @supports ((backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px))) {
   .fyn-visual-story-heading::before {
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
   }
 }
 
@@ -672,7 +672,9 @@
   }
 
   .fyn-story-label {
-    background: rgba(6, 6, 6, 0.78);
+    background: rgba(6, 6, 6, 0.82);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
 
@@ -699,14 +701,14 @@
   .backdrop-blur-md,
   .backdrop-blur-lg,
   .backdrop-blur-xl {
-    backdrop-filter: blur(4px) !important;
-    -webkit-backdrop-filter: blur(4px) !important;
+    backdrop-filter: blur(0px) !important;
+    -webkit-backdrop-filter: blur(0px) !important;
 
     background-color: rgba(
       12,
       12,
       12,
-      0.95
+      0.98
     ) !important;
   }
 }

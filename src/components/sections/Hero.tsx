@@ -336,6 +336,8 @@ export const Hero = ({
       return;
     }
 
+    let timeoutId: NodeJS.Timeout;
+
     const observer =
       new IntersectionObserver(
         ([entry]) => {
@@ -362,7 +364,9 @@ export const Hero = ({
             heroWasVisibleRef.current =
               true;
             if (introComplete) {
-              triggerStatsReplay();
+              timeoutId = setTimeout(() => {
+                triggerStatsReplay();
+              }, 400);
             }
             return;
           }
@@ -370,6 +374,7 @@ export const Hero = ({
           if (!visibleEnough) {
             heroWasVisibleRef.current =
               false;
+            clearTimeout(timeoutId);
           }
         },
         {
@@ -392,6 +397,7 @@ export const Hero = ({
     observer.observe(heroElement);
 
     return () => {
+      clearTimeout(timeoutId);
       observer.disconnect();
     };
   }, [introComplete, triggerStatsReplay]);
@@ -406,6 +412,9 @@ export const Hero = ({
 
     introReplayDoneRef.current = true;
 
+    let timeoutId: NodeJS.Timeout;
+    let rafId = 0;
+
     const startIfVisible = () => {
       const visibleNow =
         isHeroVisibleNow();
@@ -414,18 +423,21 @@ export const Hero = ({
 
       if (visibleNow) {
         heroWasVisibleRef.current = true;
-        triggerStatsReplay();
+        timeoutId = setTimeout(() => {
+          triggerStatsReplay();
+        }, 400);
       }
     };
 
     startIfVisible();
 
-    const rafId =
+    rafId =
       window.requestAnimationFrame(
         startIfVisible
       );
 
     return () => {
+      clearTimeout(timeoutId);
       window.cancelAnimationFrame(rafId);
     };
   }, [
@@ -504,7 +516,6 @@ export const Hero = ({
               "left center",
             backgroundRepeat:
               "no-repeat",
-            filter: "blur(2px)",
           }}
         />
 
@@ -533,7 +544,6 @@ export const Hero = ({
               "center top",
             backgroundRepeat:
               "no-repeat",
-            filter: "blur(2px)",
           }}
         />
       </div>
@@ -546,8 +556,6 @@ export const Hero = ({
         <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/30 via-[#080808]/10 to-[#080808]/42" />
 
         <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/8 via-[#080808]/8 to-[#080808]/55" />
-
-        <div className="absolute inset-0 backdrop-blur-[2px] md:backdrop-blur-[3px]" />
       </div>
 
       {/* AMBIENT GLOWS */}
@@ -583,10 +591,10 @@ export const Hero = ({
 
             bg-fyn-pink/10
 
-            blur-[80px]
+            blur-[58px]
             md:blur-[100px]
 
-            animate-pulse
+            md:animate-pulse
 
             safari-gpu
           "
@@ -618,10 +626,10 @@ export const Hero = ({
 
             bg-fyn-pink/[0.05]
 
-            blur-[90px]
+            blur-[64px]
             md:blur-[130px]
 
-            animate-pulse
+            md:animate-pulse
 
             safari-gpu
           "
