@@ -20,7 +20,6 @@ import {
   X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ImageLightbox } from "../ui/ImageLightbox";
 
 const careerStoryImages = [
   {
@@ -81,8 +80,6 @@ export const Careers = () => {
   const [applicationStatus, setApplicationStatus] = useState<
     "idle" | "submitted"
   >("idle");
-  const [previewIndex, setPreviewIndex] =
-    useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -288,19 +285,7 @@ export const Careers = () => {
                   delay: index * 0.06,
                   ease: "easeOut",
                 }}
-                role="button"
-                tabIndex={0}
-                onClick={() => setPreviewIndex(index)}
-                onKeyDown={(event) => {
-                  if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                  ) {
-                    event.preventDefault();
-                    setPreviewIndex(index);
-                  }
-                }}
-                className={`fyn-media-frame group relative cursor-zoom-in overflow-hidden rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/80 shadow-[0_18px_60px_rgba(0,0,0,0.38)] outline-none transition-colors duration-300 hover:border-fyn-pink/35 focus-visible:ring-2 focus-visible:ring-fyn-pink/70 ${image.className}`}
+                className={`fyn-media-frame group relative overflow-hidden rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/80 shadow-[0_18px_60px_rgba(0,0,0,0.38)] transition-colors duration-300 hover:border-fyn-pink/35 ${image.className}`}
               >
                 <Image
                   src={image.src}
@@ -650,13 +635,6 @@ export const Careers = () => {
               </motion.div>
             )}
           </AnimatePresence>
-
-          <ImageLightbox
-            images={careerStoryImages}
-            activeIndex={previewIndex}
-            onClose={() => setPreviewIndex(null)}
-            onNavigate={setPreviewIndex}
-          />
         </>,
         document.body
       )}

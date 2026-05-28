@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
 import { Zap, GitBranch, Share2, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionBackground } from "../ui/SectionBackground";
-import { ImageLightbox } from "../ui/ImageLightbox";
 
 const aboutStoryImages = [
   {
@@ -61,8 +60,6 @@ const aboutStoryImages = [
 ];
 
 export const About = () => {
-  const [previewIndex, setPreviewIndex] =
-    useState<number | null>(null);
 
   return (
     <section id="about-us" className="py-10 sm:py-12 md:py-14 px-4 sm:px-6 md:px-12 bg-[#080808] relative overflow-hidden font-barlow">
@@ -232,19 +229,7 @@ export const About = () => {
                   delay: index * 0.06,
                   ease: "easeOut",
                 }}
-                role="button"
-                tabIndex={0}
-                onClick={() => setPreviewIndex(index)}
-                onKeyDown={(event) => {
-                  if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                  ) {
-                    event.preventDefault();
-                    setPreviewIndex(index);
-                  }
-                }}
-                className={`fyn-media-frame group relative cursor-zoom-in overflow-hidden rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/80 shadow-[0_18px_60px_rgba(0,0,0,0.38)] outline-none transition-colors duration-300 hover:border-fyn-pink/35 focus-visible:ring-2 focus-visible:ring-fyn-pink/70 ${image.className}`}
+                className={`fyn-media-frame group relative overflow-hidden rounded-lg border border-fyn-border/35 bg-[#0b0b0b]/80 shadow-[0_18px_60px_rgba(0,0,0,0.38)] transition-colors duration-300 hover:border-fyn-pink/35 ${image.className}`}
               >
                 <Image
                   src={image.src}
@@ -320,12 +305,7 @@ export const About = () => {
         </div>
       </div>
 
-      <ImageLightbox
-        images={aboutStoryImages}
-        activeIndex={previewIndex}
-        onClose={() => setPreviewIndex(null)}
-        onNavigate={setPreviewIndex}
-      />
+
     </section>
   );
 };
