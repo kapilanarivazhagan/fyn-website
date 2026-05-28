@@ -16,41 +16,19 @@ import { ScrollToTopButton } from "../components/ui/ScrollToTopButton";
 import { ScrollToBottomButton } from "../components/ui/ScrollToBottomButton";
 
 import { Hero } from "../components/sections/Hero";
+import { About } from "../components/sections/About";
+import { VisionMission } from "../components/sections/VisionMission";
+import { Leadership } from "../components/sections/Leadership";
 
-const About = dynamic(
-  () => import("../components/sections/About").then(
-    (mod) => mod.About
-  ),
-  { ssr: true }
-);
-const VisionMission = dynamic(
-  () => import("../components/sections/VisionMission").then(
-    (mod) => mod.VisionMission
-  ),
-  { ssr: true }
-);
-const Leadership = dynamic(
-  () => import("../components/sections/Leadership").then(
-    (mod) => mod.Leadership
+const WhatWeDo = dynamic(
+  () => import("../components/sections/WhatWeDo").then(
+    (mod) => mod.WhatWeDo
   ),
   { ssr: true }
 );
 const Ecosystem = dynamic(
   () => import("../components/sections/Ecosystem").then(
     (mod) => mod.Ecosystem
-  ),
-  { ssr: true }
-);
-const GetInvolved = dynamic(
-  () => import("../components/sections/GetInvolved").then(
-    (mod) => mod.GetInvolved
-  ),
-  { ssr: true }
-);
-
-const WhatWeDo = dynamic(
-  () => import("../components/sections/WhatWeDo").then(
-    (mod) => mod.WhatWeDo
   ),
   { ssr: true }
 );
@@ -66,7 +44,25 @@ const FleetImpact = dynamic(
   ),
   { ssr: true }
 );
+const ClientsPartners = dynamic(
+  () => import("../components/sections/ClientsPartners").then(
+    (mod) => mod.ClientsPartners
+  ),
+  { ssr: true }
+);
 
+const Investors = dynamic(
+  () => import("../components/sections/Investors").then(
+    (mod) => mod.Investors
+  ),
+  { ssr: true }
+);
+const Media = dynamic(
+  () => import("../components/sections/Media").then(
+    (mod) => mod.Media
+  ),
+  { ssr: true }
+);
 const Refynd = dynamic(
   () => import("../components/sections/Refynd").then(
     (mod) => mod.Refynd
@@ -79,29 +75,15 @@ const Infynity = dynamic(
   ),
   { ssr: true }
 );
-
-const ClientsPartners = dynamic(
-  () => import("../components/sections/ClientsPartners").then(
-    (mod) => mod.ClientsPartners
-  ),
-  { ssr: true }
-);
-const Investors = dynamic(
-  () => import("../components/sections/Investors").then(
-    (mod) => mod.Investors
-  ),
-  { ssr: true }
-);
-
-const Media = dynamic(
-  () => import("../components/sections/Media").then(
-    (mod) => mod.Media
-  ),
-  { ssr: true }
-);
 const Careers = dynamic(
   () => import("../components/sections/Careers").then(
     (mod) => mod.Careers
+  ),
+  { ssr: true }
+);
+const GetInvolved = dynamic(
+  () => import("../components/sections/GetInvolved").then(
+    (mod) => mod.GetInvolved
   ),
   { ssr: true }
 );
