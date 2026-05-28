@@ -7,7 +7,7 @@ import { SectionHeading } from "../ui/SectionHeading";
 import { GlowCard } from "../ui/GlowCard";
 import { Button } from "../ui/Button";
 import { SectionBackground } from "../ui/SectionBackground";
-import { openJobsList, startupValues } from "@/data/careers";
+import { startupValues } from "@/data/careers";
 import {
   Flame,
   GitMerge,
@@ -16,10 +16,19 @@ import {
   Briefcase,
   MapPin,
   Send,
-  UploadCloud,
   X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+
+type Job = {
+  id: string;
+  title: string;
+  location: string;
+  type: string;
+  experience: string;
+  department: string;
+  status: string;
+};
 
 const careerStoryImages = [
   {
@@ -76,15 +85,85 @@ export const Careers = () => {
   const [activeDept, setActiveDept] = useState<string>("All");
   const [activeCity, setActiveCity] = useState<string>("All Cities");
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
-  const [resumeName, setResumeName] = useState("");
   const [applicationStatus, setApplicationStatus] = useState<
     "idle" | "submitted"
   >("idle");
+  const [applicationError, setApplicationError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await fetch("/api/careers", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          const errorPayload = await response.json().catch(() => null);
+          console.error("Careers API error:", response.status, errorPayload);
+          return;
+        }
+
+        const rawResult = await response.json();
+
+        if (!Array.isArray(rawResult) && !Array.isArray((rawResult as any)?.values) && !Array.isArray((rawResult as any)?.data)) {
+          console.warn("Unexpected careers payload shape:", rawResult);
+          return;
+        }
+
+        const rows: unknown[] = Array.isArray(rawResult)
+          ? rawResult
+          : Array.isArray((rawResult as any)?.values)
+          ? (rawResult as any).values
+          : Array.isArray((rawResult as any)?.data)
+          ? (rawResult as any).data
+          : [];
+
+        const normalizedRows = rows.filter(
+          (row): row is unknown[] => Array.isArray(row)
+        );
+
+        console.log("Careers raw rows:", normalizedRows);
+
+        const formattedJobs = normalizedRows
+          .slice(1)
+          .filter((row) => row.length >= 7)
+          .map((row) => {
+            const [id, title, location, type, experience, department, status] = row;
+
+            const safeValue = (value: unknown) =>
+              typeof value === "string"
+                ? value.trim()
+                : value != null
+                ? String(value).trim()
+                : "";
+
+            return {
+              id: safeValue(id),
+              title: safeValue(title),
+              location: safeValue(location),
+              type: safeValue(type),
+              experience: safeValue(experience),
+              department: safeValue(department),
+              status: safeValue(status),
+            } as Job;
+          });
+
+        console.log("Careers formattedJobs:", formattedJobs);
+
+        setJobs(formattedJobs);
+      } catch (error) {
+        console.error("Failed to load careers from Google Sheets:", error);
+      }
+    };
+
+    fetchJobs();
   }, []);
 
   const [applicationForm, setApplicationForm] = useState({
@@ -92,6 +171,7 @@ export const Careers = () => {
     email: "",
     phone: "",
     linkedin: "",
+    resume: "",
     role: "",
     message: "",
   });
@@ -107,18 +187,21 @@ export const Careers = () => {
 
   const cities = [
     "All Cities",
-    ...Array.from(new Set(openJobsList.map((job) => job.location))).sort(),
+    ...Array.from(new Set(jobs.map((job) => job.location))).sort(),
   ];
 
-  const filteredJobs =
-    openJobsList.filter((job) => {
-      const departmentMatch =
-        activeDept === "All" || job.department === activeDept;
-      const cityMatch =
-        activeCity === "All Cities" || job.location === activeCity;
+  const filteredJobs = jobs.filter((job) => {
+    const departmentMatch =
+      activeDept === "All" || job.department === activeDept;
+    const cityMatch =
+      activeCity === "All Cities" || job.location === activeCity;
 
-      return departmentMatch && cityMatch;
-    });
+    return departmentMatch && cityMatch;
+  });
+
+  console.log("Careers jobs:", jobs);
+  console.log("Careers filteredJobs:", filteredJobs);
+  console.log("Careers filter state:", { activeDept, activeCity });
 
   const inputBase =
     "w-full bg-[#101010]/95 border border-fyn-border/70 text-fyn-text rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-fyn-pink/70 transition-colors duration-200 placeholder-fyn-text-muted/60 font-barlow";
@@ -149,13 +232,14 @@ export const Careers = () => {
 
   const openApplyModal = (role: string) => {
     setApplicationStatus("idle");
-    setResumeName("");
+    setApplicationError(null);
 
     setApplicationForm({
       fullName: "",
       email: "",
       phone: "",
       linkedin: "",
+      resume: "",
       role,
       message: "",
     });
@@ -181,13 +265,38 @@ export const Careers = () => {
     }));
   };
 
-  const handleApplicationSubmit = (e: React.FormEvent) => {
+  const handleApplicationSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setApplicationError(null);
+
+    try {
+      const response = await fetch("/api/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(applicationForm),
+      });
+
+      const payload = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        const errorMessage =
+          payload?.error || payload?.message || `Application submission failed with status ${response.status}`;
+        throw new Error(errorMessage);
+      }
+
       setApplicationStatus("submitted");
-    }, 1500);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Failed to submit application.";
+      setApplicationError(message);
+      console.error("Application submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getValueIcon = (name: string) => {
@@ -565,28 +674,15 @@ export const Careers = () => {
                           className={inputBase}
                           placeholder="LinkedIn URL"
                         />
-                      </div>
 
-                      <div className="relative">
                         <input
-                          type="file"
-                          accept=".pdf,.doc,.docx"
-                          required
-                          onChange={(e) =>
-                            setResumeName(e.target.files?.[0]?.name ?? "")
-                          }
-                          className="absolute inset-0 opacity-0 cursor-pointer"
+                          name="resume"
+                          type="url"
+                          value={applicationForm.resume}
+                          onChange={handleApplicationChange}
+                          className={inputBase}
+                          placeholder="Resume URL (Google Drive / PDF / Portfolio)"
                         />
-
-                        <div
-                          className={`${inputBase} flex items-center justify-between gap-3 text-fyn-text-muted`}
-                        >
-                          <span className="truncate">
-                            {resumeName || "Upload resume"}
-                          </span>
-
-                          <UploadCloud className="w-4 h-4 text-fyn-pink shrink-0" />
-                        </div>
                       </div>
 
                       <textarea
@@ -598,6 +694,12 @@ export const Careers = () => {
                         className={`${inputBase} resize-none`}
                         placeholder="Tell us why this role fits you."
                       />
+
+                      {applicationError ? (
+                        <p className="text-sm text-rose-400">
+                          {applicationError}
+                        </p>
+                      ) : null}
 
                       <div className="flex flex-col sm:flex-row gap-3 pt-2">
                         <Button
