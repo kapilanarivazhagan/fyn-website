@@ -736,6 +736,24 @@ section {
   contain: paint;
 }
 
+@supports (content-visibility: auto) {
+  .cinematic-layer:nth-child(n + 4) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 860px;
+    contain: layout paint style;
+  }
+
+  .cinematic-layer:nth-child(8),
+  .cinematic-layer:nth-child(11),
+  .cinematic-layer:nth-child(14) {
+    contain-intrinsic-size: auto 1100px;
+  }
+
+  .cinematic-layer:nth-child(15) {
+    contain-intrinsic-size: auto 760px;
+  }
+}
+
 .cinematic-layer + .cinematic-layer {
   margin-top: -8vh;
 }
@@ -775,6 +793,27 @@ section {
     );
 }
 
+.cinematic-layer:nth-child(n + 4)::before {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    0 -16px 44px rgba(0, 0, 0, 0.34);
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(8, 8, 8, 0.64),
+      rgba(8, 8, 8, 0.18) 5vh,
+      transparent 12vh
+    );
+}
+
+.cinematic-layer:nth-child(n + 4) .section-bg-glow {
+  display: none;
+}
+
+.cinematic-layer:nth-child(n + 4) .section-bg-overlay {
+  opacity: 0.82;
+}
+
 .cinematic-layer > * {
   position: relative;
   z-index: 2;
@@ -811,6 +850,12 @@ section {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.03),
       0 -18px 44px rgba(0, 0, 0, 0.36);
+  }
+
+  .cinematic-layer:nth-child(n + 4)::before {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.02),
+      0 -10px 28px rgba(0, 0, 0, 0.28);
   }
 }
 

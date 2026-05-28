@@ -160,7 +160,7 @@ export const SectionBackground = ({
   return (
     <>
       {/* RESPONSIVE BACKGROUND */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <div className="section-bg-image absolute inset-0 z-0 overflow-hidden pointer-events-none">
 
         {/* DESKTOP */}
         <div
@@ -214,7 +214,7 @@ export const SectionBackground = ({
       </div>
 
       {/* HERO-STYLE CINEMATIC OVERLAYS */}
-      <div className="absolute inset-0 z-[1] pointer-events-none">
+      <div className="section-bg-overlay absolute inset-0 z-[1] pointer-events-none">
 
         {/* Soft cinematic darkness */}
         <div className="absolute inset-0 bg-[#080808]/08" />
@@ -231,7 +231,7 @@ export const SectionBackground = ({
 
       {/* HERO-STYLE AMBIENT GLOW */}
       <div
-        className="absolute inset-0 z-[2] pointer-events-none"
+        className="section-bg-glow absolute inset-0 z-[2] pointer-events-none"
       >
         {/* TOP LEFT GLOW */}
         <div

@@ -10,41 +10,10 @@ export default function IntroLoader({
   onFinish?: () => void;
 }) {
   const [hide, setHide] = useState(false);
-  const [isMobileBg, setIsMobileBg] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      window.matchMedia("(max-width: 767px)")
-        .matches
-  );
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      "(max-width: 767px)"
-    );
-
-    const handleMediaChange = (
-      event: MediaQueryListEvent
-    ) => {
-      setIsMobileBg(event.matches);
-    };
-
-    setIsMobileBg(mediaQuery.matches);
-    mediaQuery.addEventListener(
-      "change",
-      handleMediaChange
-    );
-
-    return () => {
-      mediaQuery.removeEventListener(
-        "change",
-        handleMediaChange
-      );
-    };
-  }, []);
-
-  useEffect(() => {
-    const totalMs = 3500;
-    const unmountExitMs = 800; // must match exit.duration
+    const totalMs = 3000;
+    const unmountExitMs = 650; // must match exit.duration
 
     const timer = window.setTimeout(() => {
       // Trigger exit animation/unmount via AnimatePresence
@@ -74,23 +43,32 @@ export default function IntroLoader({
             opacity: 0,
             y: 12,
             transition: {
-              duration: 0.8,
+              duration: 0.65,
               ease: [0.22, 1, 0.36, 1],
             },
           }}
         >
           <div className="absolute inset-0">
-            <Image
-              src={
-                isMobileBg
-                  ? "/Images/intro/intro_20260522_060018.webp"
-                  : "/Images/intro/intro_20260522_062525.webp"
-              }
-              alt="intro background"
-              fill
-              priority
-              className="object-cover"
-            />
+            <picture>
+              <source
+                media="(max-width: 767px)"
+                srcSet="/Images/intro/intro_20260522_060018.webp"
+              />
+              <source
+                media="(min-width: 768px)"
+                srcSet="/Images/intro/intro_20260522_062525.webp"
+              />
+              <img
+                src="/Images/intro/intro_20260522_062525.webp"
+                alt="intro background"
+                width={1672}
+                height={941}
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </picture>
           </div>
 
           {/* OVERLAY */}
@@ -107,7 +85,7 @@ export default function IntroLoader({
               opacity: 1,
             }}
             transition={{
-              duration: 1.8,
+              duration: 1.55,
               ease: [0.22, 1, 0.36, 1],
             }}
             className="
@@ -149,6 +127,7 @@ export default function IntroLoader({
                 width={320}
                 height={120}
                 priority
+                sizes="(max-width: 640px) 280px, (max-width: 768px) 360px, 520px"
                 className="h-auto w-full max-w-[520px] drop-shadow-[0_0_24px_rgba(232,25,122,0.18)]"
               />
             </h1>
@@ -217,7 +196,7 @@ export default function IntroLoader({
               y: [0, -6, 0],
             }}
             transition={{
-              duration: 8,
+              duration: 6.6,
               ease: [0.22, 1, 0.36, 1],
             }}
             style={{ willChange: "transform" }}
@@ -245,7 +224,8 @@ export default function IntroLoader({
               src="/Images/intro/intro_vehicle.webp"
               alt="vehicle"
               fill
-              priority
+              loading="eager"
+              sizes="(max-width: 640px) 420px, (max-width: 768px) 560px, 850px"
               className="
                 object-contain
                 scale-[1]
@@ -264,7 +244,7 @@ export default function IntroLoader({
               opacity: [0, 1, 0],
             }}
             transition={{
-              duration: 4,
+              duration: 3.3,
               ease: "linear",
             }}
             style={{ willChange: "transform, opacity" }}

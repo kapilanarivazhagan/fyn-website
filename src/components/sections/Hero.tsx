@@ -494,72 +494,46 @@ export const Hero = ({
     >
       {/* RESPONSIVE BACKGROUND */}
 
-      <div className="absolute inset-0 z-0 safari-gpu">
-        {/* Desktop Background */}
-
-        <div
-          className="
-            hidden
-            md:block
-
-            absolute
-            inset-0
-
-            safari-gpu
-          "
-          style={{
-            backgroundImage: `
-              linear-gradient(
-                rgba(8, 8, 8, 0.10),
-                rgba(8, 8, 8, 0.30)
-              ),
-              url('/Images/intro/desktop_bg2.webp')
-            `,
-            backgroundSize: "cover",
-            backgroundPosition:
-              "left center",
-            backgroundRepeat:
-              "no-repeat",
-          }}
-        />
-
-        {/* Mobile Background */}
-
-        <div
-          className="
-            block
-            md:hidden
-
-            absolute
-            inset-0
-
-            safari-gpu
-          "
-          style={{
-            backgroundImage: `
-              linear-gradient(
-                rgba(8, 8, 8, 0.15),
-                rgba(8, 8, 8, 0.38)
-              ),
-              url('/Images/intro/mobile_bg2.webp')
-            `,
-            backgroundSize: "cover",
-            backgroundPosition:
-              "center top",
-            backgroundRepeat:
-              "no-repeat",
-          }}
-        />
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            srcSet="/Images/intro/mobile_bg2.webp"
+          />
+          <source
+            media="(min-width: 768px)"
+            srcSet="/Images/intro/desktop_bg2.webp"
+          />
+          <img
+            src="/Images/intro/desktop_bg2.webp"
+            alt=""
+            aria-hidden="true"
+            width={1672}
+            height={941}
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            className="
+              absolute
+              inset-0
+              h-full
+              w-full
+              object-cover
+              object-[center_top]
+              md:object-[left_center]
+            "
+          />
+        </picture>
       </div>
 
       {/* ATMOSPHERIC OVERLAYS */}
 
-      <div className="absolute inset-0 z-[1] safari-gpu">
-        <div className="absolute inset-0 bg-[#080808]/28" />
+      <div className="absolute inset-0 z-[1]">
+        <div className="absolute inset-0 bg-[#080808]/22 md:bg-[#080808]/26" />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/30 via-[#080808]/10 to-[#080808]/42" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/24 via-[#080808]/08 to-[#080808]/40" />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/8 via-[#080808]/8 to-[#080808]/55" />
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-[#080808]/6 via-[#080808]/6 to-[#080808]/48 md:block" />
       </div>
 
       {/* AMBIENT GLOWS */}
@@ -589,17 +563,14 @@ export const Hero = ({
 
             rounded-full
 
-            bg-fyn-pink/10
+            bg-fyn-pink/[0.075]
 
-            blur-[58px]
+            blur-[52px]
             md:blur-[100px]
 
-            safari-gpu
+            hidden
+            sm:block
           "
-          style={{
-            transform:
-              "translateZ(0)",
-          }}
         />
 
         <div
@@ -620,17 +591,14 @@ export const Hero = ({
 
             rounded-full
 
-            bg-fyn-pink/[0.05]
+            bg-fyn-pink/[0.04]
 
             blur-[64px]
             md:blur-[130px]
 
-            safari-gpu
+            hidden
+            md:block
           "
-          style={{
-            transform:
-              "translateZ(0)",
-          }}
         />
 
         <div
@@ -643,9 +611,9 @@ export const Hero = ({
             w-[560px]
             -translate-y-1/2
             rounded-full
-            bg-[radial-gradient(circle,rgba(232,25,122,0.20)_0%,rgba(8,8,8,0.68)_42%,transparent_72%)]
+            bg-[radial-gradient(circle,rgba(232,25,122,0.16)_0%,rgba(8,8,8,0.60)_42%,transparent_72%)]
             blur-[46px]
-            md:block
+            lg:block
           "
         />
       </div>
@@ -711,9 +679,10 @@ export const Hero = ({
               -z-10
               rounded-[2rem]
               bg-[radial-gradient(circle_at_48%_42%,rgba(232,25,122,0.18),rgba(8,8,8,0.72)_44%,rgba(8,8,8,0.22)_70%,transparent_82%)]
-              blur-xl
+              blur-lg
               md:-inset-x-14
               md:-inset-y-12
+              md:blur-xl
             "
           />
 

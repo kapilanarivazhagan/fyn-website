@@ -43,30 +43,29 @@ export default function RootLayout({
           rel="preload"
           as="image"
           href="/Images/intro/desktop_bg2.webp"
+          type="image/webp"
           media="(min-width: 768px)"
         />
         <link
           rel="preload"
           as="image"
           href="/Images/intro/mobile_bg2.webp"
+          type="image/webp"
           media="(max-width: 767px)"
         />
         <link
           rel="preload"
           as="image"
           href="/Images/intro/intro_20260522_062525.webp"
+          type="image/webp"
           media="(min-width: 768px)"
         />
         <link
           rel="preload"
           as="image"
           href="/Images/intro/intro_20260522_060018.webp"
+          type="image/webp"
           media="(max-width: 767px)"
-        />
-        <link
-          rel="preload"
-          as="image"
-          href="/Images/intro/intro_vehicle.webp"
         />
       </head>
       <body
