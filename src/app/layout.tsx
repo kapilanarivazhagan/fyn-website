@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Barlow } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import "../styles/animations.css";
 import { Chatbot } from "../components/sections/Chatbot";
@@ -44,6 +45,7 @@ export default function RootLayout({
 
         {/* Floating Chatbot Engine */}
         <Chatbot />
+        <SpeedInsights />
       </body>
     </html>
   );
