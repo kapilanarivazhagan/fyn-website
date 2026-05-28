@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     if (!response.ok) {
       return NextResponse.json(
         {
-          error: "Application forwarding failed.",
+          error: "Get Involved forwarding failed.",
           status: response.status,
           details: text,
         },
@@ -60,10 +60,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Apply API error:", error);
+    console.error("Get Involved API error:", error);
     return NextResponse.json(
       {
-        error: "Unexpected error forwarding application.",
+        error: "Unexpected error forwarding get involved submission.",
         message: error instanceof Error ? error.message : String(error),
       },
       { status: 500 }

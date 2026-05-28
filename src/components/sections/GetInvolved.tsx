@@ -16,6 +16,15 @@ export const GetInvolved = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const tabInterestLabel: Record<FormTab, string> = {
+    invest: "Invest in Fyn",
+    enterprise: "Enterprise Clients",
+    refynd: "Refynd Partner",
+    infynity: "INFYNITY Partner",
+    drive: "Drive with Fyn",
+  };
 
   // Unified form state
   const [formData, setFormData] = useState({
@@ -165,16 +174,47 @@ export const GetInvolved = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setLoading(true);
-    // Simulate API ping
-    setTimeout(() => {
-      setLoading(false);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch("/api/get-involved", {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          type: "get_involved",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          interest: tabInterestLabel[activeTab],
+          message: formData.message,
+        }),
+      });
+
+      const payload = await response.json().catch(() => null);
+
+      if (!response.ok || payload?.success === false) {
+        const errorMessage =
+          payload?.error || payload?.message || `Submission failed with status ${response.status}`;
+        throw new Error(errorMessage);
+      }
+
       setSuccess(true);
-    }, 1500);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Submission failed. Please try again.";
+      setSubmitError(message);
+      console.error("Get Involved submission error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -478,6 +518,10 @@ export const GetInvolved = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                 />
+
+                {submitError ? (
+                  <p className="text-sm text-rose-400">{submitError}</p>
+                ) : null}
 
                 <Button
                   variant="primary"

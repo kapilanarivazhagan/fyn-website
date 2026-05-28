@@ -274,10 +274,19 @@ export const Careers = () => {
       const response = await fetch("/api/apply", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "text/plain;charset=utf-8",
           Accept: "application/json",
         },
-        body: JSON.stringify(applicationForm),
+        body: JSON.stringify({
+          type: "career",
+          fullName: applicationForm.fullName,
+          email: applicationForm.email,
+          phone: applicationForm.phone,
+          linkedin: applicationForm.linkedin,
+          resume: applicationForm.resume,
+          role: applicationForm.role,
+          message: applicationForm.message,
+        }),
       });
 
       const payload = await response.json().catch(() => null);
@@ -628,7 +637,7 @@ export const Careers = () => {
                       </h4>
 
                       <p className="text-sm text-fyn-text-muted mt-3">
-                        Thanks. Your application UI is ready for backend integration.
+                        Application submitted successfully. We’ll get back to you soon.
                       </p>
                     </div>
                   ) : (
