@@ -63,14 +63,14 @@
 ========================================= */
 
 .safari-gpu {
-  will-change: transform, opacity;
-
   transform: translate3d(0, 0, 0);
 
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
 
-  perspective: 1000px;
+.fyn-motion-active {
+  will-change: transform, opacity;
 }
 
 /* =========================================
@@ -193,8 +193,6 @@
   filter: blur(2.5px) brightness(0.88);
 
   transform: scale(1.04) translateZ(0);
-
-  will-change: transform;
 
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -617,7 +615,6 @@
   transform: translate3d(0, 0, 0) scale(1.001);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  will-change: transform;
   image-rendering: auto;
 }
 
@@ -734,10 +731,9 @@ section {
 .cinematic-layer {
   position: relative;
   z-index: var(--layer-index, 1);
-  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  contain: paint layout;
+  contain: paint;
 }
 
 .cinematic-layer + .cinematic-layer {
@@ -891,7 +887,7 @@ section {
 }
 
 .fyn-hero-stat-card-counting::before {
-  animation: fyn-stat-count-pulse 2.2s ease-in-out infinite;
+  animation: fyn-stat-count-pulse 1.55s ease-out 1;
 }
 
 @keyframes fyn-stat-count-pulse {

@@ -221,7 +221,7 @@ export const GetInvolved = () => {
                 exit={{ opacity: 0 }}
                 className="flex flex-col items-center justify-center py-12 text-center"
               >
-                <div className="p-4 rounded-full bg-fyn-pink/10 border border-fyn-pink/30 text-fyn-pink mb-6 animate-bounce">
+                <div className="p-4 rounded-full bg-fyn-pink/10 border border-fyn-pink/30 text-fyn-pink mb-6 shadow-[0_0_24px_rgba(232,25,122,0.18)]">
                   <CheckCircle2 className="w-12 h-12" />
                 </div>
                 <h3 className="text-2xl font-black text-fyn-text uppercase tracking-tight mb-2">

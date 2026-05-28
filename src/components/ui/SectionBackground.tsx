@@ -160,11 +160,11 @@ export const SectionBackground = ({
   return (
     <>
       {/* RESPONSIVE BACKGROUND */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none safari-gpu">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
 
         {/* DESKTOP */}
         <div
-          className="hidden md:block absolute inset-0 safari-gpu"
+          className="hidden md:block absolute inset-0"
           style={{
             backgroundImage: `
               radial-gradient(circle at 72% 35%, rgba(232, 25, 122, 0.08), transparent 34%),
@@ -182,7 +182,6 @@ export const SectionBackground = ({
             backgroundRepeat: "no-repeat",
             filter: "blur(2.5px)",
             transform: "scale(1.04) translateZ(0)",
-            willChange: "transform",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
           }}
@@ -190,7 +189,7 @@ export const SectionBackground = ({
 
         {/* MOBILE */}
         <div
-          className="block md:hidden absolute inset-0 safari-gpu"
+          className="block md:hidden absolute inset-0"
           style={{
             backgroundImage: `
               radial-gradient(circle at 50% 82%, rgba(232, 25, 122, 0.06), transparent 36%),
@@ -208,7 +207,6 @@ export const SectionBackground = ({
             backgroundRepeat: "no-repeat",
             filter: "blur(1.8px)",
             transform: "scale(1.04) translateZ(0)",
-            willChange: "transform",
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
           }}
@@ -216,7 +214,7 @@ export const SectionBackground = ({
       </div>
 
       {/* HERO-STYLE CINEMATIC OVERLAYS */}
-      <div className="absolute inset-0 z-[1] pointer-events-none safari-gpu">
+      <div className="absolute inset-0 z-[1] pointer-events-none">
 
         {/* Soft cinematic darkness */}
         <div className="absolute inset-0 bg-[#080808]/08" />
@@ -228,33 +226,21 @@ export const SectionBackground = ({
         <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/15 via-transparent to-[#080808]/15" />
 
         {/* EXACT HERO BLUR STYLE */}
-        <div className="absolute inset-0 bg-[#080808]/10 md:backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-[#080808]/10 lg:backdrop-blur-[1px]" />
       </div>
 
       {/* HERO-STYLE AMBIENT GLOW */}
       <div
-        className="absolute inset-0 z-[2] pointer-events-none safari-gpu"
-        style={{
-          transform: "translateZ(0)",
-          willChange: "transform",
-        }}
+        className="absolute inset-0 z-[2] pointer-events-none"
       >
         {/* TOP LEFT GLOW */}
         <div
           className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-fyn-pink/[0.03] blur-[80px]"
-          style={{
-            transform: "translateZ(0)",
-            willChange: "transform",
-          }}
         />
 
         {/* BOTTOM RIGHT GLOW */}
         <div
           className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-80 h-80 rounded-full bg-fyn-pink/[0.025] blur-[90px]"
-          style={{
-            transform: "translateZ(0)",
-            willChange: "transform",
-          }}
         />
       </div>
     </>

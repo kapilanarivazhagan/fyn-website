@@ -3,6 +3,7 @@
 import React, {
   useRef,
   useEffect,
+  useState,
 } from "react";
 
 import { motion } from "framer-motion";
@@ -28,6 +29,9 @@ const SCROLL_SPEED = 0.45;
 ========================================= */
 
 export const Investors = () => {
+  const [autoScrollActive, setAutoScrollActive] =
+    useState(false);
+
   const containerRef =
     useRef<HTMLDivElement>(null);
 
@@ -66,7 +70,8 @@ export const Investors = () => {
 
   useEffect(() => {
     shouldReduceMotion.current =
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      window.matchMedia("(max-width: 767px)").matches;
   }, []);
 
   useEffect(() => {
@@ -86,6 +91,9 @@ export const Investors = () => {
         ([entry]) => {
           isInView.current =
             entry.isIntersecting;
+          setAutoScrollActive(
+            entry.isIntersecting
+          );
         },
         {
           root: null,
@@ -107,7 +115,13 @@ export const Investors = () => {
   useEffect(() => {
     const el = containerRef.current;
 
-    if (!el) return;
+    if (
+      !el ||
+      !autoScrollActive ||
+      shouldReduceMotion.current
+    ) {
+      return;
+    }
 
     scrollReady.current = false;
 
@@ -116,7 +130,7 @@ export const Investors = () => {
     requestAnimationFrame(() => {
       scrollReady.current = true;
     });
-  }, [singleSetWidth]);
+  }, [autoScrollActive, singleSetWidth]);
 
   /* =========================================
      RAF AUTO SCROLL
@@ -502,9 +516,6 @@ export const Investors = () => {
 
               transform:
                 "translateZ(0)",
-
-              willChange:
-                "scroll-position",
 
               touchAction: "pan-y",
 

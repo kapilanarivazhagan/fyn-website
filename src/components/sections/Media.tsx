@@ -90,7 +90,7 @@ function MediaImage({
         alt={item.thumbnailAlt}
         loading="lazy"
         decoding="async"
-        className="fyn-media-image absolute inset-0 h-full w-full object-cover opacity-75 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-90"
+        className="fyn-media-image absolute inset-0 h-full w-full object-cover opacity-75 transition duration-500 group-hover:opacity-90 md:group-hover:scale-[1.025]"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,8,0.02),rgba(8,8,8,0.82))]" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
@@ -169,7 +169,7 @@ function CarouselCard({ item }: { item: MediaItem }) {
           alt={item.thumbnailAlt}
           loading="lazy"
           decoding="async"
-          className="fyn-media-image absolute inset-0 h-full w-full object-cover opacity-75 transition duration-500 group-hover:scale-[1.04] group-hover:opacity-90"
+          className="fyn-media-image absolute inset-0 h-full w-full object-cover opacity-75 transition duration-500 group-hover:opacity-90 md:group-hover:scale-[1.025]"
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,8,0.08),rgba(8,8,8,0.9))]" />
         <div className="absolute left-4 top-4">

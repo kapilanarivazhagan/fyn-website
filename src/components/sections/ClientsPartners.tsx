@@ -13,6 +13,7 @@ type PartnerCategory = "oem" | "financing" | "charging";
 
 export const ClientsPartners = () => {
   const [activeCategory, setActiveCategory] = useState<PartnerCategory>("oem");
+  const [autoScrollActive, setAutoScrollActive] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
@@ -52,7 +53,8 @@ export const ClientsPartners = () => {
 
   useEffect(() => {
     shouldReduceMotion.current =
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      window.matchMedia("(max-width: 767px)").matches;
   }, []);
 
   useEffect(() => {
@@ -65,6 +67,7 @@ export const ClientsPartners = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         isInView.current = entry.isIntersecting;
+        setAutoScrollActive(entry.isIntersecting);
       },
       {
         root: null,
@@ -93,7 +96,7 @@ export const ClientsPartners = () => {
   // ─── RAF Auto-Scroll: Moves from Left to Right ──────────────────────────────
   useEffect(() => {
     const el = containerRef.current;
-    if (!el) return;
+    if (!el || !autoScrollActive || shouldReduceMotion.current) return;
 
     let running = true;
 
@@ -102,7 +105,6 @@ export const ClientsPartners = () => {
       if (
         scrollReady.current &&
         isInView.current &&
-        !shouldReduceMotion.current &&
         !isHovered.current &&
         !isDragging.current &&
         el
@@ -124,7 +126,7 @@ export const ClientsPartners = () => {
       running = false;
       cancelAnimationFrame(rafRef.current);
     };
-  }, [singleSetWidth]);
+  }, [autoScrollActive, singleSetWidth]);
 
   // ─── Mobile Touch Swipe Event Overrides ────────────────────────────────────
   useEffect(() => {
@@ -295,7 +297,6 @@ export const ClientsPartners = () => {
               userSelect: "none",
               WebkitOverflowScrolling: "touch",
               transform: "translateZ(0)",
-              willChange: "scroll-position",
               touchAction: "pan-y",
               scrollBehavior: "auto",
             }}

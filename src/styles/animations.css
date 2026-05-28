@@ -60,7 +60,7 @@
 .animate-media-carousel {
   display: flex;
   width: max-content;
-  animation: media-carousel 52s linear infinite;
+  animation: media-carousel 72s linear infinite;
   will-change: transform;
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
@@ -117,6 +117,18 @@
   }
 }
 
+@media (max-width: 767px) {
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .animate-media-carousel,
+  .animate-pulse-slow,
+  .animate-scanline {
+    animation: none !important;
+    transform: translate3d(0, 0, 0);
+    will-change: auto;
+  }
+}
+
 /* =============================================
    CINEMATIC SECTION ATMOSPHERE
    Environmental blending, not visible dividers.
@@ -138,8 +150,6 @@
   position: relative;
   isolation: isolate;
   overflow: visible;
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }

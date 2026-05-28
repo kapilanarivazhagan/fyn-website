@@ -162,10 +162,14 @@ const AnimatedStatCard = ({
 
   return (
     <motion.div
-      whileHover={{
-        scale: 1.035,
-        y: -3,
-      }}
+      whileHover={
+        shouldReduceMotion
+          ? undefined
+          : {
+              scale: 1.025,
+              y: -2,
+            }
+      }
       initial={{
         opacity: 0,
         y: 16,
@@ -198,7 +202,7 @@ const AnimatedStatCard = ({
         duration-300
         hover:border-fyn-pink/45
         hover:bg-fyn-pink/[0.07]
-        hover:shadow-[0_0_30px_rgba(232,25,122,0.22)]
+        hover:shadow-[0_0_22px_rgba(232,25,122,0.16)]
       `}
     >
       <div
@@ -568,11 +572,7 @@ export const Hero = ({
 
           pointer-events-none
 
-          safari-gpu
         "
-        style={{
-          willChange: "transform",
-        }}
       >
         <div
           className="
@@ -594,15 +594,11 @@ export const Hero = ({
             blur-[58px]
             md:blur-[100px]
 
-            md:animate-pulse
-
             safari-gpu
           "
           style={{
             transform:
               "translateZ(0)",
-            willChange:
-              "transform",
           }}
         />
 
@@ -629,15 +625,11 @@ export const Hero = ({
             blur-[64px]
             md:blur-[130px]
 
-            md:animate-pulse
-
             safari-gpu
           "
           style={{
             transform:
               "translateZ(0)",
-            willChange:
-              "transform",
           }}
         />
 

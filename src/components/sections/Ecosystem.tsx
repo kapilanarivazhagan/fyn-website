@@ -120,7 +120,7 @@ export const Ecosystem = () => {
               <div className="relative">
                 {/* Simulated connection lines & central hub indicator */}
                 <div className="flex items-center space-x-3 mb-6 pb-4 border-b border-fyn-border/40">
-                  <div className="w-3 h-3 rounded-full bg-fyn-pink animate-ping" />
+                  <div className="w-3 h-3 rounded-full bg-fyn-pink shadow-[0_0_16px_rgba(232,25,122,0.45)]" />
                   <span className="text-[10px] font-mono uppercase tracking-widest text-fyn-pink font-semibold">
                     Node: {activeNodeData.name} — Real-time telemetry connection active
                   </span>

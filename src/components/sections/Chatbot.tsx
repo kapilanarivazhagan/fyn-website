@@ -175,7 +175,7 @@ export const Chatbot = () => {
           type="button"
           aria-label={isOpen ? "Close FYNN assistant" : "Open FYNN assistant"}
           onClick={() => setIsOpen(!isOpen)}
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.95 }}
           className={`
             relative flex h-14 w-14 transform-gpu items-center justify-center rounded-full
@@ -193,7 +193,6 @@ export const Chatbot = () => {
             <>
               <MessageSquare className="h-6 w-6 text-white" />
               <span className="absolute right-0 top-0 flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
                 <span className="relative inline-flex h-3 w-3 rounded-full bg-white" />
               </span>
             </>
@@ -317,14 +316,12 @@ export const Chatbot = () => {
 
               {isTyping && (
                 <div className="flex items-center space-x-1.5 rounded-2xl rounded-tl-none border border-fyn-border/40 bg-fyn-surface/90 p-3.5 text-fyn-text">
-                  <span className="h-2 w-2 animate-bounce rounded-full bg-fyn-pink" />
+                  <span className="h-2 w-2 rounded-full bg-fyn-pink opacity-60" />
                   <span
-                    className="h-2 w-2 animate-bounce rounded-full bg-fyn-pink"
-                    style={{ animationDelay: "150ms" }}
+                    className="h-2 w-2 rounded-full bg-fyn-pink opacity-80"
                   />
                   <span
-                    className="h-2 w-2 animate-bounce rounded-full bg-fyn-pink"
-                    style={{ animationDelay: "300ms" }}
+                    className="h-2 w-2 rounded-full bg-fyn-pink"
                   />
                 </div>
               )}

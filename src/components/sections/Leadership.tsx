@@ -841,7 +841,7 @@ export const Leadership = () => {
             w-1.5 h-1.5
             rounded-full
             bg-fyn-pink
-            animate-pulse
+            shadow-[0_0_12px_rgba(232,25,122,0.45)]
           "
         />
       </div>
