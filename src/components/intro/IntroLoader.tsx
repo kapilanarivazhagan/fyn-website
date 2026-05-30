@@ -191,7 +191,8 @@ export default function IntroLoader({
             />
           </motion.div>
 
-          {/* VEHICLE */}
+          {/* VEHICLE — removed y:[0,-6,0] bounce keyframe to reduce
+              main-thread work during the heaviest initial render phase */}
           <motion.div
             initial={{
               x: "-140vw",
@@ -199,7 +200,6 @@ export default function IntroLoader({
             }}
             animate={{
               x: "140vw",
-              y: [0, -6, 0],
             }}
             transition={{
               duration: 6.6,

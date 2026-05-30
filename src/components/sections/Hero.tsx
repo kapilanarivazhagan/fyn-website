@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useLayoutEffect,
   useState,
+  useRef,
 } from "react";
 
 import { Button } from "../ui/Button";
@@ -98,7 +99,10 @@ const AnimatedStatCard = ({
       ReturnType<typeof animate> | undefined
     >(undefined);
 
-  useLayoutEffect(() => {
+  // useEffect (not useLayoutEffect) — stat counting is cosmetic and doesn't
+  // read/write layout, so deferring to after-paint avoids blocking the
+  // main thread during the intro→hero transition.
+  useEffect(() => {
     if (!isActive || replayKey === 0) {
       return;
     }
@@ -427,9 +431,11 @@ export const Hero = ({
 
       if (visibleNow) {
         heroWasVisibleRef.current = true;
+        // 320ms: gives hero fade-in a head start before counters begin,
+        // while still feeling responsive (was 400ms).
         timeoutId = setTimeout(() => {
           triggerStatsReplay();
-        }, 400);
+        }, 320);
       }
     };
 
@@ -644,18 +650,20 @@ export const Hero = ({
           aria-hidden="true"
         />
 
+        {/* Children gated on introComplete so the cascade plays visibly
+            after the intro overlay leaves, not invisibly on mount. */}
         <motion.div
           initial={{
             opacity: 0,
             y: 28,
           }}
           animate={{
-            opacity: 1,
-            y: 0,
+            opacity: introComplete ? 1 : 0,
+            y: introComplete ? 0 : 28,
           }}
           transition={{
             duration: 0.9,
-            delay: 0.1,
+            delay: introComplete ? 0.06 : 0,
             ease: [0.22, 1, 0.36, 1],
           }}
           className="
@@ -692,12 +700,12 @@ export const Hero = ({
             y: 18,
           }}
           animate={{
-            opacity: 1,
-            y: 0,
+            opacity: introComplete ? 1 : 0,
+            y: introComplete ? 0 : 18,
           }}
           transition={{
             duration: 0.75,
-            delay: 0.18,
+            delay: introComplete ? 0.12 : 0,
             ease: [0.22, 1, 0.36, 1],
           }}
           className="
@@ -748,12 +756,12 @@ export const Hero = ({
             y: 18,
           }}
           animate={{
-            opacity: 1,
-            y: 0,
+            opacity: introComplete ? 1 : 0,
+            y: introComplete ? 0 : 18,
           }}
           transition={{
             duration: 0.75,
-            delay: 0.3,
+            delay: introComplete ? 0.24 : 0,
             ease: [0.22, 1, 0.36, 1],
           }}
           className="
@@ -801,12 +809,12 @@ export const Hero = ({
             y: 18,
           }}
           animate={{
-            opacity: 1,
-            y: 0,
+            opacity: introComplete ? 1 : 0,
+            y: introComplete ? 0 : 18,
           }}
           transition={{
             duration: 0.75,
-            delay: 0.42,
+            delay: introComplete ? 0.36 : 0,
             ease: [0.22, 1, 0.36, 1],
           }}
           className="
@@ -907,12 +915,12 @@ export const Hero = ({
             y: 18,
           }}
           animate={{
-            opacity: 1,
-            y: 0,
+            opacity: introComplete ? 1 : 0,
+            y: introComplete ? 0 : 18,
           }}
           transition={{
             duration: 0.8,
-            delay: 0.34,
+            delay: introComplete ? 0.28 : 0,
             ease: [0.22, 1, 0.36, 1],
           }}
           className="
