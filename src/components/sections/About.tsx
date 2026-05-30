@@ -76,7 +76,7 @@ export const About = () => {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "120px 0px" }}
             transition={{ duration: 0.6 }}
             className="fyn-ecosystem-evolution-bg rounded-2xl border border-white/[0.04] hover:border-fyn-pink/12 bg-transparent relative overflow-hidden transition-colors duration-500 bg-cover bg-center"
             style={{
@@ -119,7 +119,7 @@ export const About = () => {
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "120px 0px" }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <GlowCard className="flex flex-col" glowColor="rgba(232, 25, 122, 0.08)">
@@ -138,7 +138,7 @@ export const About = () => {
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "120px 0px" }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <GlowCard className="flex flex-col" glowColor="rgba(232, 25, 122, 0.08)">
@@ -157,7 +157,7 @@ export const About = () => {
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "120px 0px" }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <GlowCard className="flex flex-col" glowColor="rgba(232, 25, 122, 0.08)">
@@ -176,7 +176,7 @@ export const About = () => {
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "120px 0px" }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <GlowCard className="flex flex-col" glowColor="rgba(232, 25, 122, 0.08)">
@@ -195,11 +195,11 @@ export const About = () => {
         </div>
 
         {/* Editorial Storytelling */}
-        <div className="mt-20 border-t border-fyn-border/30 pt-16">
+        <div className="mt-20 xl:mt-14 2xl:mt-20 border-t border-fyn-border/30 pt-16 xl:pt-10 2xl:pt-16">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, margin: "120px 0px" }}
             transition={{ duration: 0.55, ease: "easeOut" }}
             className="fyn-visual-story-heading mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
           >
@@ -223,7 +223,7 @@ export const About = () => {
                 key={image.src}
                 initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
+                viewport={{ once: true, margin: "120px 0px" }}
                 transition={{
                   duration: 0.55,
                   delay: index * 0.06,
@@ -261,11 +261,11 @@ export const About = () => {
         </div>
 
         {/* Key Metrics Grid */}
-        <div className="mt-20 pt-16 border-t border-fyn-border/30">
+        <div className="mt-20 xl:mt-14 2xl:mt-20 pt-16 xl:pt-10 2xl:pt-16 border-t border-fyn-border/30">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "120px 0px" }}
             transition={{ duration: 0.6 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
           >

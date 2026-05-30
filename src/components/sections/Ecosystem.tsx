@@ -116,7 +116,7 @@ export const Ecosystem = () => {
 
           {/* Connected Hub Visualizer */}
           <div className="lg:col-span-7">
-            <GlowCard className="bg-[#0b0b0b]/70 backdrop-blur-sm border-fyn-border/50 p-8 min-h-[420px] flex flex-col justify-between" glowColor="rgba(232, 25, 122, 0.12)">
+            <GlowCard className="bg-[#0b0b0b]/90 border-fyn-border/50 p-8 min-h-[420px] flex flex-col justify-between" glowColor="rgba(232, 25, 122, 0.12)">
               <div className="relative">
                 {/* Simulated connection lines & central hub indicator */}
                 <div className="flex items-center space-x-3 mb-6 pb-4 border-b border-fyn-border/40">

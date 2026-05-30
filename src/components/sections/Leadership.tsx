@@ -631,8 +631,7 @@ export const Leadership = () => {
 
             rounded-full
 
-            bg-fyn-pink/10
-            backdrop-blur-lg
+            bg-[#0c0c0c]/85
             border border-fyn-pink/20
 
             hover:bg-fyn-pink/20
@@ -691,8 +690,7 @@ export const Leadership = () => {
 
             rounded-full
 
-            bg-fyn-pink/10
-            backdrop-blur-lg
+            bg-[#0c0c0c]/85
             border border-fyn-pink/20
 
             hover:bg-fyn-pink/20

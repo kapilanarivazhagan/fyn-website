@@ -251,6 +251,7 @@ export const Navbar = ({
                 alt="Fyn Mobility Logo"
                 fill
                 priority
+                sizes="(min-width: 768px) 128px, 112px"
                 className="object-contain"
               />
             </div>

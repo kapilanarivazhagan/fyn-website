@@ -72,7 +72,7 @@ export const WhatWeDo = () => {
                 key={act.step}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "120px 0px" }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
               >
                 <GlowCard className="h-full flex flex-col justify-between p-6" glowColor="rgba(232, 25, 122, 0.08)">

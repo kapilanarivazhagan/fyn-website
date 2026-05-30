@@ -52,7 +52,7 @@ export const GlowCard: React.FC<GlowCardProps> = ({
   };
 
   const baseClassName = cn(
-    "relative overflow-hidden rounded-2xl border border-fyn-border bg-fyn-surface/75 p-6 backdrop-blur-md transition-colors duration-300 font-barlow",
+    "relative overflow-hidden rounded-2xl border border-fyn-border bg-fyn-surface/95 p-6 transition-colors duration-300 font-barlow",
     className
   );
 

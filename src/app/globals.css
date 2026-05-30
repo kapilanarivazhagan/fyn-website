@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Small desktop tuning: 1280px – 1440px (13" laptops / compact desktops) */
+@import "../styles/small-desktop.css";
+
 @layer base {
   :root {
     --primary-pink: #E8197A;
@@ -736,22 +739,14 @@ section {
   contain: paint;
 }
 
-@supports (content-visibility: auto) {
-  .cinematic-layer:nth-child(n + 4) {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 860px;
-    contain: layout paint style;
-  }
-
-  .cinematic-layer:nth-child(8),
-  .cinematic-layer:nth-child(11),
-  .cinematic-layer:nth-child(14) {
-    contain-intrinsic-size: auto 1100px;
-  }
-
-  .cinematic-layer:nth-child(15) {
-    contain-intrinsic-size: auto 760px;
-  }
+/* content-visibility: auto was removed because every cinematic-layer is a
+   direct navbar navigation target. The browser's placeholder heights (860-1100px)
+   were up to 13,906px off from actual rendered heights (media alone: 11,724px
+   actual vs 1,100px placeholder), causing navbar clicks to land in completely
+   wrong sections on first use. contain: paint is kept for compositing benefit
+   without the layout-position side effects. */
+.cinematic-layer:nth-child(n + 4) {
+  contain: paint;
 }
 
 .cinematic-layer + .cinematic-layer {
@@ -781,9 +776,11 @@ section {
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  /* Reduced outer shadow blur from 70px→36px — the large blur was creating
+     a wide repaint region on every composited layer during scroll */
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.035),
-    0 -26px 70px rgba(0, 0, 0, 0.48);
+    0 -12px 36px rgba(0, 0, 0, 0.42);
   background:
     linear-gradient(
       to bottom,
@@ -796,7 +793,7 @@ section {
 .cinematic-layer:nth-child(n + 4)::before {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.025),
-    0 -16px 44px rgba(0, 0, 0, 0.34);
+    0 -8px 24px rgba(0, 0, 0, 0.30);
   background:
     linear-gradient(
       to bottom,
@@ -849,13 +846,13 @@ section {
   .cinematic-layer::before {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.03),
-      0 -18px 44px rgba(0, 0, 0, 0.36);
+      0 -8px 22px rgba(0, 0, 0, 0.30);
   }
 
   .cinematic-layer:nth-child(n + 4)::before {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.02),
-      0 -10px 28px rgba(0, 0, 0, 0.28);
+      0 -5px 14px rgba(0, 0, 0, 0.22);
   }
 }
 

@@ -27,7 +27,7 @@ export const Platforms = () => {
                 key={plat.id}
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "120px 0px" }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
               >
                 <GlowCard className="flex flex-col justify-between h-full p-8 bg-[#0b0b0b] border-fyn-border/50 hover:border-fyn-pink/35" glowColor="rgba(232, 25, 122, 0.15)">
@@ -73,8 +73,22 @@ export const Platforms = () => {
                       className="w-full flex items-center justify-center cursor-pointer"
                       onClick={() => {
                         if (plat.ctaLink.startsWith("#")) {
-                          const el = document.getElementById(plat.ctaLink.substring(1));
-                          el?.scrollIntoView({ behavior: "smooth" });
+                          const targetId = plat.ctaLink.substring(1);
+                          const el = document.getElementById(targetId);
+                          if (el) {
+                            const navbarOffset =
+                              document.getElementById(
+                                "fyn-navbar-cinematic"
+                              )?.offsetHeight ?? 53;
+                            const top =
+                              el.getBoundingClientRect().top +
+                              window.scrollY -
+                              navbarOffset;
+                            window.scrollTo({
+                              top: Math.max(top, 0),
+                              behavior: "smooth",
+                            });
+                          }
                         } else {
                           window.open(plat.ctaLink, "_blank");
                         }

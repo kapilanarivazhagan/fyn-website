@@ -83,7 +83,7 @@ export const ConnectWithUs = () => {
                     key={detail.title}
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: "120px 0px" }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                     className={idx === 0 ? "md:col-span-2" : "col-span-1"}
                   >
@@ -132,7 +132,7 @@ export const ConnectWithUs = () => {
                   key={social.name}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: "120px 0px" }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                 >
                   <a

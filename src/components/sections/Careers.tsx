@@ -129,8 +129,6 @@ export const Careers = () => {
           (row): row is unknown[] => Array.isArray(row)
         );
 
-        console.log("Careers raw rows:", normalizedRows);
-
         const formattedJobs = normalizedRows
           .slice(1)
           .filter((row) => row.length >= 7)
@@ -154,8 +152,6 @@ export const Careers = () => {
               status: safeValue(status),
             } as Job;
           });
-
-        console.log("Careers formattedJobs:", formattedJobs);
 
         setJobs(formattedJobs);
       } catch (error) {
@@ -198,10 +194,6 @@ export const Careers = () => {
 
     return departmentMatch && cityMatch;
   });
-
-  console.log("Careers jobs:", jobs);
-  console.log("Careers filteredJobs:", filteredJobs);
-  console.log("Careers filter state:", { activeDept, activeCity });
 
   const inputBase =
     "w-full bg-[#101010]/95 border border-fyn-border/70 text-fyn-text rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-fyn-pink/70 transition-colors duration-200 placeholder-fyn-text-muted/60 font-barlow";
@@ -340,7 +332,7 @@ export const Careers = () => {
         />
 
         {/* Culture / Values */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 mt-12 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20 xl:mb-14 2xl:mb-20 mt-12 xl:mt-8 2xl:mt-12 text-left">
           {startupValues.map((val) => {
             const Icon = getValueIcon(val.iconName);
 
@@ -369,11 +361,11 @@ export const Careers = () => {
         </div>
 
         {/* Workplace Storytelling */}
-        <div className="mb-20 border-y border-fyn-border/35 py-14">
+        <div className="mb-20 xl:mb-14 2xl:mb-20 border-y border-fyn-border/35 py-14 xl:py-10 2xl:py-14">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, margin: "120px 0px" }}
             transition={{ duration: 0.55, ease: "easeOut" }}
             className="fyn-visual-story-heading mb-8 grid grid-cols-1 gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-end"
           >
@@ -397,7 +389,7 @@ export const Careers = () => {
                 key={image.src}
                 initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
+                viewport={{ once: true, margin: "120px 0px" }}
                 transition={{
                   duration: 0.55,
                   delay: index * 0.06,
@@ -435,7 +427,7 @@ export const Careers = () => {
         </div>
 
         {/* Open Positions */}
-        <div className="border-t border-fyn-border/40 pt-16 text-center">
+        <div className="border-t border-fyn-border/40 pt-16 xl:pt-10 2xl:pt-16 text-center">
           <h3 className="text-2xl md:text-3xl font-black text-fyn-text uppercase tracking-tight mb-8">
             Open Positions
           </h3>
@@ -515,14 +507,12 @@ export const Careers = () => {
                       p-6
                       rounded-xl
                       border border-fyn-border/50
-                      bg-[#0c0c0c]/80
+                      bg-[#0c0c0c]/95
                       flex flex-col justify-between
                       hover:border-fyn-pink/30
                       hover:shadow-[0_5px_20px_rgba(232,25,122,0.03)]
                       transition-all duration-300
                       transform-gpu
-                      will-change-transform
-                      backdrop-blur-sm
                     "
                     style={{
                       transform: "translateZ(0)",

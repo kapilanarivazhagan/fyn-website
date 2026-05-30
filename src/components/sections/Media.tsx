@@ -212,7 +212,7 @@ export const Media = () => {
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
+          viewport={{ once: true, margin: "120px 0px" }}
           transition={{ duration: 0.55 }}
           className="mt-12 grid gap-6 lg:grid-cols-[1.16fr_0.84fr]"
         >
@@ -264,7 +264,7 @@ export const Media = () => {
                 key={item.id}
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "120px 0px" }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
               >
                 <a
@@ -296,7 +296,7 @@ export const Media = () => {
       </div>
 
       {sliderMediaResources.length > 0 && (
-        <div className="media-carousel relative z-10 mt-14 overflow-hidden border-y border-fyn-border/40 bg-[#0a0a0a]/88 py-6">
+        <div className="media-carousel relative z-10 mt-14 xl:mt-10 2xl:mt-14 overflow-hidden border-y border-fyn-border/40 bg-[#0a0a0a]/88 py-6">
           <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-16 bg-gradient-to-r from-[#080808] to-transparent sm:w-28" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-16 bg-gradient-to-l from-[#080808] to-transparent sm:w-28" />
           <div className="flex w-max animate-media-carousel">
@@ -311,7 +311,7 @@ export const Media = () => {
         </div>
       )}
 
-      <div className="relative z-10 mx-auto mt-14 max-w-7xl space-y-14 px-4 sm:px-6 md:px-12">
+      <div className="relative z-10 mx-auto mt-14 xl:mt-10 2xl:mt-14 max-w-7xl space-y-14 xl:space-y-10 2xl:space-y-14 px-4 sm:px-6 md:px-12">
         {mediaSections.map((section) => {
           const items = sortedMediaResources.filter((item) => item.group === section.id);
 
@@ -347,7 +347,7 @@ export const Media = () => {
                     key={item.id}
                     initial={{ opacity: 0, y: 14 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: true, margin: "120px 0px" }}
                     transition={{ duration: 0.45, delay: index * 0.035 }}
                   >
                     <MediaCard item={item} dense={items.length > 4} />

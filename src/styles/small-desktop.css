@@ -1,0 +1,186 @@
+/*
+ * Small Desktop Tuning Layer
+ * Target: 13" laptops and compact desktop screens (1280px – 1440px).
+ *
+ * Reduces vertical density by ~10–15% in the xl breakpoint range only.
+ * Uses section ID selectors (high specificity) — no Tailwind class targeting,
+ * no transforms/zoom, no global scaling.
+ *
+ * Does NOT affect:
+ *   - mobile  (<768px)
+ *   - tablet  (768px – 1279px)
+ *   - large desktop (>1440px) — those values are untouched at 2xl+ via Tailwind
+ *
+ * Section padding reference:
+ *   md:py-14 = 56px each side → 2.5rem (40px) at xl  [most sections]
+ *   md:py-12 = 48px each side → 2rem   (32px) at xl  [media]
+ *   hero is handled separately with min-height
+ */
+
+@media (min-width: 1280px) and (max-width: 1440px) {
+
+  /* ============================================================
+     HERO
+     pt-32 (128px) → 5rem (80px)  |  pb-16 (64px) → 3rem (48px)
+     min-height: calc(100vh + 10px) — fills the viewport and adds a
+     10px safety buffer so the About heading stays below the fold.
+  ============================================================ */
+
+  #hero {
+    min-height: calc(100vh + 10px) !important;
+    min-height: calc(100svh + 10px) !important;
+    padding-top: 5rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  /* ============================================================
+     ABOUT
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #about-us {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     VISION & MISSION
+     py-14 (56px) → 2.5rem (40px)
+     Inner "Future of Fyn" subsection:
+       sm:mt-20 (80px) → 3rem (48px)
+       sm:pt-16 (64px) → 2.5rem (40px)
+  ============================================================ */
+
+  #vision-mission {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  #future-of-fyn {
+    margin-top: 3rem !important;
+    padding-top: 2.5rem !important;
+  }
+
+  /* ============================================================
+     WHAT WE DO
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #what-we-do {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     ECOSYSTEM
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #ecosystem {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     PLATFORMS
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #platforms {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     LEADERSHIP
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #leadership {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     FLEET IMPACT
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #fleet-impact {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     CLIENTS & PARTNERS
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #clients-partners {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     INVESTORS (id: financial-banking)
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #financial-banking {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     MEDIA
+     py-12 (48px) → 2rem (32px)
+     Inner content list: space-y-14 (56px gaps) handled via Tailwind xl: in component
+  ============================================================ */
+
+  #media {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* ============================================================
+     REFYND
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #refynd {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     INFYNITY
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #infynity {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     CAREERS
+     py-14 (56px) → 2.5rem (40px)
+     Inner sections handled via Tailwind xl: classes in component
+  ============================================================ */
+
+  #careers {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* ============================================================
+     GET INVOLVED
+     py-14 (56px) → 2.5rem (40px)
+  ============================================================ */
+
+  #get-involved {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+}

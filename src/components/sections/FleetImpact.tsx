@@ -148,7 +148,7 @@ export const FleetImpact = () => {
               key={metric.id}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "120px 0px" }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
             >
               <MetricCard

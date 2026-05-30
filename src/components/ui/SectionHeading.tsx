@@ -19,7 +19,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   return (
     <div
       className={cn(
-        "flex flex-col mb-12 md:mb-16 font-barlow",
+        "flex flex-col mb-12 md:mb-16 xl:mb-10 2xl:mb-16 font-barlow",
         align === "center" ? "items-center text-center" : "items-start text-left",
         className
       )}

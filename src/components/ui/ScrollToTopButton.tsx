@@ -67,10 +67,9 @@ export const ScrollToTopButton = () => {
         items-center justify-center
         rounded-full
         border border-white/35
-        bg-[#0b0b0b]/82
+        bg-[#111111]/92
         text-white
         shadow-[0_0_18px_rgba(255,255,255,0.18)]
-        backdrop-blur-md
         transition-all duration-300
         hover:scale-110
         hover:shadow-[0_0_24px_rgba(255,255,255,0.32)]

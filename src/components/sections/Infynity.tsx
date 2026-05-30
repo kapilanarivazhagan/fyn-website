@@ -52,7 +52,7 @@ export const Infynity = () => {
                   key={pil.title}
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: "120px 0px" }}
                   transition={{ duration: 0.5, delay: idx * 0.08 }}
                   className={idx === 4 ? "md:col-span-2" : ""}
                 >

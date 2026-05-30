@@ -194,10 +194,9 @@ const AnimatedStatCard = ({
         rounded-lg
         border
         border-white/10
-        bg-[#080808]/42
+        bg-[#080808]/72
         px-4
         py-4
-        backdrop-blur-md
         transition-colors
         duration-300
         hover:border-fyn-pink/45
@@ -211,6 +210,7 @@ const AnimatedStatCard = ({
           z-10
           inline-block
           min-w-[4.75rem]
+          whitespace-nowrap
           text-2xl
           md:text-3xl
           font-black
@@ -236,14 +236,14 @@ const AnimatedStatCard = ({
           relative
           z-10
           mt-1
-          text-xs
-          font-semibold
+          text-[11px]
+          font-bold
           uppercase
-          tracking-widest
-          text-fyn-text-muted
+          tracking-wide
+          text-white/80
           transition-colors
           duration-300
-          group-hover:text-white/72
+          group-hover:text-white
         "
       >
         {stat.label}
@@ -455,14 +455,12 @@ export const Hero = ({
       ref={heroRef}
       initial={{
         opacity: 0,
-        filter: "blur(12px)",
       }}
       animate={{
         opacity: 1,
-        filter: "blur(0px)",
       }}
       transition={{
-        duration: 1,
+        duration: 0.85,
         delay:
           introComplete ? 0 : 0.15,
         ease: "easeOut",
@@ -707,7 +705,8 @@ export const Hero = ({
             xs:text-5xl
             sm:text-6xl
             md:text-7xl
-            xl:text-[5.35rem]
+            xl:text-[4.5rem]
+            2xl:text-[5.35rem]
 
             font-black
 
@@ -760,10 +759,14 @@ export const Hero = ({
           className="
             mt-6
             md:mt-7
+            xl:mt-5
+            2xl:mt-7
 
             text-base
             sm:text-lg
             md:text-xl
+            xl:text-lg
+            2xl:text-xl
 
             text-white/90
 
@@ -809,6 +812,8 @@ export const Hero = ({
           className="
             mt-8
             md:mt-9
+            xl:mt-6
+            2xl:mt-9
 
             flex
             flex-col
@@ -913,6 +918,8 @@ export const Hero = ({
           className="
             mt-14
             md:mt-16
+            xl:mt-10
+            2xl:mt-16
 
             border-t
             border-fyn-border/40

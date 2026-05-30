@@ -1,14 +1,9 @@
 "use client";
 
-import React, {
-  useCallback,
-  useState,
-  useEffect,
-} from "react";
+import React from "react";
 import dynamic from "next/dynamic";
 
 import IntroLoader from "../components/intro/IntroLoader";
-
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { SectionAtmosphere } from "../components/ui/SectionAtmosphere";
@@ -20,501 +15,59 @@ import { About } from "../components/sections/About";
 import { VisionMission } from "../components/sections/VisionMission";
 import { Leadership } from "../components/sections/Leadership";
 
+import { useIntroLoader } from "../hooks/useIntroLoader";
+import { useHashNavigation } from "../hooks/useHashNavigation";
+import { useScrollSpy } from "../hooks/useScrollSpy";
+
 const WhatWeDo = dynamic(
-  () => import("../components/sections/WhatWeDo").then(
-    (mod) => mod.WhatWeDo
-  ),
+  () => import("../components/sections/WhatWeDo").then((mod) => mod.WhatWeDo),
   { ssr: true }
 );
 const Ecosystem = dynamic(
-  () => import("../components/sections/Ecosystem").then(
-    (mod) => mod.Ecosystem
-  ),
+  () => import("../components/sections/Ecosystem").then((mod) => mod.Ecosystem),
   { ssr: true }
 );
 const Platforms = dynamic(
-  () => import("../components/sections/Platforms").then(
-    (mod) => mod.Platforms
-  ),
+  () => import("../components/sections/Platforms").then((mod) => mod.Platforms),
   { ssr: true }
 );
 const FleetImpact = dynamic(
-  () => import("../components/sections/FleetImpact").then(
-    (mod) => mod.FleetImpact
-  ),
+  () => import("../components/sections/FleetImpact").then((mod) => mod.FleetImpact),
   { ssr: true }
 );
 const ClientsPartners = dynamic(
-  () => import("../components/sections/ClientsPartners").then(
-    (mod) => mod.ClientsPartners
-  ),
+  () => import("../components/sections/ClientsPartners").then((mod) => mod.ClientsPartners),
   { ssr: true }
 );
-
 const Investors = dynamic(
-  () => import("../components/sections/Investors").then(
-    (mod) => mod.Investors
-  ),
+  () => import("../components/sections/Investors").then((mod) => mod.Investors),
   { ssr: true }
 );
 const Media = dynamic(
-  () => import("../components/sections/Media").then(
-    (mod) => mod.Media
-  ),
+  () => import("../components/sections/Media").then((mod) => mod.Media),
   { ssr: true }
 );
 const Refynd = dynamic(
-  () => import("../components/sections/Refynd").then(
-    (mod) => mod.Refynd
-  ),
+  () => import("../components/sections/Refynd").then((mod) => mod.Refynd),
   { ssr: true }
 );
 const Infynity = dynamic(
-  () => import("../components/sections/Infynity").then(
-    (mod) => mod.Infynity
-  ),
+  () => import("../components/sections/Infynity").then((mod) => mod.Infynity),
   { ssr: true }
 );
 const Careers = dynamic(
-  () => import("../components/sections/Careers").then(
-    (mod) => mod.Careers
-  ),
+  () => import("../components/sections/Careers").then((mod) => mod.Careers),
   { ssr: true }
 );
 const GetInvolved = dynamic(
-  () => import("../components/sections/GetInvolved").then(
-    (mod) => mod.GetInvolved
-  ),
+  () => import("../components/sections/GetInvolved").then((mod) => mod.GetInvolved),
   { ssr: true }
 );
 
-type ViewType =
-  | "home"
-  | "about"
-  | "vision"
-  | "what-we-do"
-  | "refynd"
-  | "infynity"
-  | "clients"
-  | "media"
-  | "careers"
-  | "get-involved";
-
-type MajorView =
-  | "home"
-  | "about"
-  | "vision"
-  | "what-we-do"
-  | "refynd"
-  | "infynity"
-  | "clients"
-  | "media"
-  | "careers";
-
-const majorSectionTargets: Record<
-  MajorView,
-  string
-> = {
-  home: "home-master",
-  about: "about-us",
-  vision: "vision-mission",
-  "what-we-do": "what-we-do",
-  refynd: "refynd",
-  infynity: "infynity",
-  clients: "clients-partners",
-  media: "media",
-  careers: "careers",
-};
-
-const legacyContentTargets: Record<
-  ViewType,
-  string
-> = {
-  home: "home-master",
-  about: "about-us",
-  vision: "vision-mission",
-  "what-we-do": "what-we-do",
-  refynd: "refynd",
-  infynity: "infynity",
-  clients: "clients-partners",
-  media: "media",
-  careers: "careers",
-  "get-involved": "get-involved",
-};
-
-const hashTargets: Record<string, string> = {
-  home: "home-master",
-  "about-us": "about-us",
-  about: "about-us",
-  "vision-mission": "vision-mission",
-  vision: "vision-mission",
-  "what-we-do": "what-we-do",
-  ecosystem: "ecosystem",
-  platforms: "platforms",
-  "fleet-impact": "fleet-impact",
-  refynd: "refynd",
-  infynity: "infynity",
-  "clients-partners": "clients-partners",
-  clients: "clients-partners",
-  "financial-banking": "financial-banking",
-  media: "media",
-  careers: "careers",
-  "culture-careers": "careers",
-  "get-involved": "get-involved",
-  "get-involved-invest": "get-involved",
-  "get-involved-enterprise": "get-involved",
-  "get-involved-refynd": "get-involved",
-  "get-involved-infynity": "get-involved",
-  "get-involved-drive": "get-involved",
-  "future-of-fyn": "future-of-fyn",
-};
-
-const majorScrollSections: {
-  id: string;
-  view: MajorView;
-}[] = [
-  { id: "hero", view: "home" },
-  { id: "about-us", view: "about" },
-  { id: "vision-mission", view: "vision" },
-  { id: "leadership", view: "about" },
-  { id: "what-we-do", view: "what-we-do" },
-  { id: "ecosystem", view: "what-we-do" },
-  { id: "platforms", view: "what-we-do" },
-  { id: "fleet-impact", view: "what-we-do" },
-  { id: "clients-partners", view: "clients" },
-  { id: "financial-banking", view: "clients" },
-  { id: "media", view: "media" },
-  { id: "refynd", view: "refynd" },
-  { id: "infynity", view: "infynity" },
-  { id: "careers", view: "careers" },
-];
-
 export default function Home() {
-  const [showIntro, setShowIntro] =
-    useState(true);
-
-  const [navActiveView, setNavActiveView] =
-    useState<MajorView>("home");
-
-  const handleIntroFinish =
-    useCallback(() => {
-      setShowIntro(false);
-    }, []);
-
-  const scrollToTarget = useCallback(
-    (targetId: string) => {
-      if (
-        typeof window === "undefined" ||
-        typeof document === "undefined"
-      ) {
-        return;
-      }
-
-      if (targetId === "home-master") {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-        return;
-      }
-
-      const section =
-        document.getElementById(targetId);
-
-      if (!section) return;
-
-      const navbarOffset = 53;
-      const targetTop =
-        section.getBoundingClientRect().top +
-        window.scrollY -
-        navbarOffset;
-
-      window.scrollTo({
-        top: Math.max(targetTop, 0),
-        behavior: "smooth",
-      });
-    },
-    []
-  );
-
-  const handleMajorNavigate = useCallback(
-    (view: MajorView) => {
-      scrollToTarget(
-        majorSectionTargets[view]
-      );
-    },
-    [scrollToTarget]
-  );
-
-  const handleSetActiveView = useCallback<
-    React.Dispatch<
-      React.SetStateAction<ViewType>
-    >
-  >(
-    (value) => {
-      const next =
-        typeof value === "function"
-          ? value("home")
-          : value;
-
-      scrollToTarget(
-        legacyContentTargets[next]
-      );
-    },
-    [scrollToTarget]
-  );
-
-  /* =========================================
-     HASH-BASED VIEW NAVIGATION
-  ========================================= */
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash
-        .replace(/^#/, "")
-        .toLowerCase();
-
-      if (!hash) {
-        scrollToTarget("home-master");
-        return;
-      }
-
-      if (hashTargets[hash]) {
-        scrollToTarget(
-          hashTargets[hash]
-        );
-      }
-    };
-
-    handleHashChange();
-    window.addEventListener(
-      "hashchange",
-      handleHashChange
-    );
-
-    return () => {
-      window.removeEventListener(
-        "hashchange",
-        handleHashChange
-      );
-    };
-  }, [scrollToTarget]);
-
-  /* =========================================
-     NAVBAR SCROLLSPY
-  ========================================= */
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const mountedSections =
-      majorScrollSections
-        .map((section) => ({
-          ...section,
-          element:
-            document.getElementById(
-              section.id
-            ),
-        }))
-        .filter(
-          (
-            section
-          ): section is {
-            id: string;
-            view: MajorView;
-            element: HTMLElement;
-          } => Boolean(section.element)
-        );
-
-    if (!mountedSections.length) {
-      setNavActiveView("home");
-      return;
-    }
-
-    let lastUpdateTime = 0;
-    const throttleMs = 100;
-
-    const updateActiveSection = () => {
-      const now = performance.now();
-      if (now - lastUpdateTime < throttleMs) {
-        return;
-      }
-      lastUpdateTime = now;
-
-      if (window.scrollY < 140) {
-        setNavActiveView((current) =>
-          current === "home"
-            ? current
-            : "home"
-        );
-        return;
-      }
-
-      const viewportHeight =
-        window.innerHeight;
-      const navOffset = 96;
-      const focusLine = Math.max(
-        navOffset + 24,
-        viewportHeight * 0.42
-      );
-
-      let activeCandidate:
-        | {
-            view: MajorView;
-            score: number;
-          }
-        | undefined;
-
-      let visibleCandidate:
-        | {
-            view: MajorView;
-            score: number;
-          }
-        | undefined;
-
-      mountedSections.forEach(
-        ({ view, element }) => {
-          const rect =
-            element.getBoundingClientRect();
-
-          const visibleTop = Math.max(
-            rect.top,
-            navOffset
-          );
-          const visibleBottom = Math.min(
-            rect.bottom,
-            viewportHeight
-          );
-          const visiblePixels =
-            Math.max(
-              0,
-              visibleBottom - visibleTop
-            );
-
-          if (visiblePixels <= 0) return;
-
-          const sectionWindow =
-            Math.max(
-              1,
-              Math.min(
-                rect.height,
-                viewportHeight - navOffset
-              )
-            );
-          const visibleRatio =
-            visiblePixels / sectionWindow;
-          const ownsFocusLine =
-            rect.top <= focusLine &&
-            rect.bottom >= focusLine;
-          const topProximity =
-            1 -
-            Math.min(
-              Math.abs(
-                rect.top - navOffset
-              ) / viewportHeight,
-              1
-            );
-
-          const visibleScore =
-            visibleRatio * 0.8 +
-            topProximity * 0.2;
-
-          if (
-            !visibleCandidate ||
-            visibleScore >
-              visibleCandidate.score
-          ) {
-            visibleCandidate = {
-              view,
-              score: visibleScore,
-            };
-          }
-
-          if (!ownsFocusLine) return;
-
-          const focusDistance =
-            Math.abs(
-              rect.top - focusLine
-            );
-          const focusScore =
-            1 -
-            Math.min(
-              focusDistance /
-                viewportHeight,
-              1
-            );
-
-          if (
-            !activeCandidate ||
-            focusScore >
-              activeCandidate.score
-          ) {
-            activeCandidate = {
-              view,
-              score: focusScore,
-            };
-          }
-        }
-      );
-
-      const nextView =
-        activeCandidate?.view ??
-        visibleCandidate?.view ??
-        "home";
-
-      setNavActiveView((current) =>
-        current === nextView
-          ? current
-          : nextView
-      );
-    };
-
-    const observer =
-      new IntersectionObserver(
-        updateActiveSection,
-        {
-          root: null,
-          rootMargin:
-            "-96px 0px -32% 0px",
-          threshold: [
-            0,
-            0.1,
-            0.25,
-            0.5,
-            0.75,
-            1,
-          ],
-        }
-      );
-
-    mountedSections.forEach(
-      ({ element }) =>
-        observer.observe(element)
-    );
-
-    updateActiveSection();
-    window.addEventListener(
-      "scroll",
-      updateActiveSection,
-      { passive: true }
-    );
-    window.addEventListener(
-      "resize",
-      updateActiveSection
-    );
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener(
-        "scroll",
-        updateActiveSection
-      );
-      window.removeEventListener(
-        "resize",
-        updateActiveSection
-      );
-    };
-  }, [showIntro]);
+  const { showIntro, handleIntroFinish } = useIntroLoader();
+  const { scrollToTarget, handleMajorNavigate, handleSetActiveView } = useHashNavigation();
+  const navActiveView = useScrollSpy(showIntro);
 
   return (
     <>
@@ -530,28 +83,16 @@ export default function Home() {
 
         <Navbar
           activeView={navActiveView}
-          onNavigate={
-            handleMajorNavigate
-          }
-          onConnect={() =>
-            scrollToTarget("get-involved")
-          }
+          onNavigate={handleMajorNavigate}
+          onConnect={() => scrollToTarget("get-involved")}
         />
 
         {/* MAIN CONTENT */}
 
         <main className="relative z-10">
-          <div
-            id="home-master"
-            className="cinematic-layer-stack"
-          >
+          <div id="home-master" className="cinematic-layer-stack">
             <div className="cinematic-layer" style={{ "--layer-index": 1 } as React.CSSProperties}>
-              <Hero
-                introComplete={!showIntro}
-                setActiveView={
-                  handleSetActiveView
-                }
-              />
+              <Hero introComplete={!showIntro} setActiveView={handleSetActiveView} />
             </div>
 
             <div className="cinematic-layer" style={{ "--layer-index": 2 } as React.CSSProperties}>
@@ -648,11 +189,7 @@ export default function Home() {
 
       {/* INTRO LOADER */}
 
-      {showIntro && (
-        <IntroLoader
-          onFinish={handleIntroFinish}
-        />
-      )}
+      {showIntro && <IntroLoader onFinish={handleIntroFinish} />}
     </>
   );
 }

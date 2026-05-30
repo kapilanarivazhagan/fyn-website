@@ -70,7 +70,7 @@ export const VisionMission = () => {
           <motion.div
             initial={{ opacity: 0}}
             whileInView={{ opacity: 1}}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "120px 0px" }}
             transition={{ duration: 0.6 }}
             style={{ transform: "translateZ(0)" }}
           >
@@ -116,7 +116,7 @@ export const VisionMission = () => {
           <motion.div
             initial={{ opacity: 0}}
             whileInView={{ opacity: 1}}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "120px 0px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{ transform: "translateZ(0)" }}
           >
@@ -176,7 +176,7 @@ export const VisionMission = () => {
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "120px 0px" }}
               transition={{ duration: 0.6 }}
               className="
                 fyn-live-graph-panel
@@ -267,7 +267,7 @@ export const VisionMission = () => {
                     key={pillar.title}
                     initial={{ opacity: 0, y: 14 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: "120px 0px" }}
                     transition={{
                       duration: 0.45,
                       delay: index * 0.06,

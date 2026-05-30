@@ -127,9 +127,8 @@ export const TeamCard: React.FC<TeamCardProps> = ({
               transition-all
               duration-300
 
-              bg-black/20
-              backdrop-blur-sm
-              border border-white/5
+              bg-black/55
+              border border-white/8
 
               hover:bg-fyn-pink/35
               hover:border-fyn-pink/40

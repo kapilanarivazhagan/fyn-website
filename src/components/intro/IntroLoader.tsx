@@ -128,7 +128,7 @@ export default function IntroLoader({
                 height={120}
                 priority
                 sizes="(max-width: 640px) 280px, (max-width: 768px) 360px, 520px"
-                className="h-auto w-full max-w-[520px] drop-shadow-[0_0_24px_rgba(232,25,122,0.18)]"
+                className="h-auto w-full max-w-[520px] xl:max-w-[430px] 2xl:max-w-[520px] drop-shadow-[0_0_24px_rgba(232,25,122,0.18)]"
               />
             </h1>
 
@@ -137,9 +137,12 @@ export default function IntroLoader({
               className="
                 mt-2
                 md:mt-3
+                xl:mt-2
                 text-[22px]
                 sm:text-[28px]
                 md:text-[44px]
+                xl:text-[36px]
+                2xl:text-[44px]
                 font-[700]
                 font-rajdhani
                 uppercase
@@ -158,9 +161,12 @@ export default function IntroLoader({
               className="
                 mt-4
                 md:mt-5
+                xl:mt-4
                 text-[13px]
                 sm:text-[15px]
                 md:text-[22px]
+                xl:text-[18px]
+                2xl:text-[22px]
                 font-[500]
                 font-rajdhani
                 tracking-[0.08em]
@@ -216,6 +222,12 @@ export default function IntroLoader({
 
               md:w-[850px]
               md:h-[850px]
+
+              xl:w-[700px]
+              xl:h-[700px]
+
+              2xl:w-[850px]
+              2xl:h-[850px]
 
               pointer-events-none
             "
